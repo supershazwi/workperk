@@ -6,8 +6,20 @@
   <div class="container">
     <h5>Edit Company</h5>
     <br/>
-    <form method="POST" action="/companies/{{$company->id}}/save-company">
+    <form method="POST" action="/companies/{{$company->id}}/save-company" enctype="multipart/form-data">
       @csrf
+      <div class="form-group row">
+        <label for="staticEmail" class="col-sm-2 col-form-label">Image</label>
+        <div class="col-sm-10">
+          <input type="file" id="image" name="image">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="staticEmail" class="col-sm-2 col-form-label">Value</label>
+        <div class="col-sm-10">
+          <label for="staticEmail" class="col-sm-2 col-form-label" style="padding-left: 0rem;">${{number_format($company->value)}}</label>
+        </div>
+      </div>
   		<div class="form-group row">
   			<label for="staticEmail" class="col-sm-2 col-form-label">Company</label>
   			<div class="col-sm-10">
@@ -58,6 +70,37 @@
       <br/>
       <input type="hidden" name="taggedSubPerkIds" value="{{$taggedSubPerkString}}"/>
       <button type="submit" class="btn btn-primary">Save Perks & Sub-perks</button>
+    </form>
+    <br/>
+    <form method="POST" action="/companies/{{$company->id}}/save-company-sub-perk-details">
+      @csrf
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Sub-perk</th>
+            <th scope="col">Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach($companySubPerkDetails as $key=>$companySubPerkDetail) 
+            <tr>
+              <th scope="row">{{$key+1}}</th>
+              <td>{{$companySubPerkDetail->subPerk->title}}</td>
+              <td>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">$</span>
+                  </div>
+                  <input type="text" class="form-control" aria-describedby="basic-addon1" name="companySubPerkDetail_{{$companySubPerkDetail->id}}" value="{{$companySubPerkDetail->value}}"/>
+                </div>
+              </td>
+            </tr>
+          @endforeach
+        </tbody>
+      </table>
+      <br/>
+      <button type="submit" class="btn btn-primary">Save Values</button>
     </form>
   </div>
 </div>

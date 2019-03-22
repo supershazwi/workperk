@@ -5,6 +5,9 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Contracts\Auth\CanResetPassword;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendResetPasswordLink;
 
 class User extends Authenticatable
 {
@@ -48,5 +51,12 @@ class User extends Authenticatable
 
     public function comments() {
         return $this->hasMany(Comment::class);
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        $url = url(config('app.url').route('password.reset', $token, false));
+
+        Mail::to($this->email)->send(new SendResetPasswordLink($this, $url));
     }
 }

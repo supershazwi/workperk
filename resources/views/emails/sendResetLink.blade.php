@@ -9,7 +9,7 @@
 <p>Here is the link to reset your password: <a href="{{$url}}">{{$url}}</a></p>
 <br/>
 <p>Regards,</p>
-<p>Team Talentail.</p>
+<p>Shazwi Suwandi.</p>
 </body>
 
 </html>

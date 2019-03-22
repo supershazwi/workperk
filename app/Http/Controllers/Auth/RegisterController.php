@@ -92,7 +92,7 @@ class RegisterController extends Controller
 
         return $user;
     }
-
+    
     public function verifyUser($token)
     {
         $verifyUser = VerifyUser::where('token', $token)->first();

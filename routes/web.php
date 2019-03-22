@@ -2,6 +2,13 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Auth\Passwords\PasswordBroker;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Mail\Mailable;
+use Illuminate\Support\Facades\Storage;
+
+use App\Mail\SendResetPasswordLink;
 
 use App\Comment;
 use App\Company;
@@ -11,6 +18,8 @@ use App\Location;
 use App\Perk;
 use App\SubPerk;
 use App\User;
+use App\VerifyUser;
+use App\Mail\VerifyMail;
 
 // COMPANY SUB PERK DETAIL //
 Route::post('/company-sub-perk-detail/{companySubPerkDetailId}/like', function(Request $request) {
@@ -100,12 +109,15 @@ Route::get('/companies/{companyId}/edit', function() {
 
 		$taggedSubPerkString = implode(',', $taggedSubPerkString);
 
+		$companySubPerkDetails = CompanySubPerkDetail::where('company_id', $company->id)->get();
+
 		return view('companies.edit', [
 			'company' => $company,
 			'locations' => $locations,
 			'subPerks' => $subPerks,
 			'taggedSubPerkIds' => $taggedSubPerkIds,
-			'taggedSubPerkString' => $taggedSubPerkString
+			'taggedSubPerkString' => $taggedSubPerkString,
+			'companySubPerkDetails' => $companySubPerkDetails
 		]);
 	} else {
 		redirect('/');
@@ -203,6 +215,9 @@ Route::post('/companies/add-company', function(Request $request) {
 		$company->description = $request->input('description');
 		$company->location_id = $request->input('location');
 		$company->slug = str_slug($request->input('name'), '-');
+		if(request('image')) {
+		    $company->image = Storage::disk('gcs')->put('/avatars', request('image'), 'public');
+		}
 
 		$company->save();
 		
@@ -229,6 +244,34 @@ Route::get('/companies/{companySlug}/perks/{perkSlug}/sub-perks/{subPerkSlug}', 
 		'likeClicked' => $likeClicked,
 		'companySubPerkDetail' => $companySubPerkDetail
 	]);
+});
+
+Route::post('/companies/{companyId}/save-company-sub-perk-details', function(Request $request) {
+	if(Auth::user()->email == 'supershazwi@gmail.com') {
+		$routeParameters = Route::getCurrentRoute()->parameters();
+
+		$companySubPerkDetails = CompanySubPerkDetail::where('company_id', $routeParameters['companyId'])->get();
+
+		$companyValue = 0;
+
+		foreach($companySubPerkDetails as $companySubPerkDetail) {
+			$companySubPerkDetail->value = $request->input('companySubPerkDetail_'.$companySubPerkDetail->id);
+
+			$companySubPerkDetail->save();
+
+			$companyValue += $companySubPerkDetail->value;
+		}
+
+		$company = Company::find($routeParameters['companyId']);
+
+		$company->value = $companyValue;
+
+		$company->save();
+
+		return redirect('/companies/'.$routeParameters['companyId'].'/edit');
+	} else {
+		return redirect('/');
+	}
 });
 
 Route::post('/companies/{companyId}/save-overall-perks', function(Request $request) {
@@ -541,6 +584,47 @@ Route::get('/perks/{perkId}/edit', function() {
 })->middleware('auth');
 
 // MISC //
+Route::get('/likes', function() {
+	$locations = Location::select('country')->groupBy('country')->get();
+	$likes = Like::where('user_id', Auth::id())->orderBy('created_at', 'desc')->get();
+
+	return view('likes', [
+		'locations' => $locations,
+		'likes' => $likes
+	]);
+})->middleware('auth');
+
+Route::get('/comments', function() {
+	$locations = Location::select('country')->groupBy('country')->get();
+	$comments = Comment::where('user_id', Auth::id())->orderBy('created_at', 'desc')->get();
+
+	return view('comments', [
+		'locations' => $locations,
+		'comments' => $comments
+	]);
+})->middleware('auth');
+
+Route::post('/user/verify-by-id/{userId}', function(Request $request) {
+    $routeParameters = Route::getCurrentRoute()->parameters();
+
+    $returnArray = array();
+
+    $user = User::find($routeParameters['userId']);
+
+    VerifyUser::where('user_id', $routeParameters['userId'])->delete();
+
+   	$verifyUser = VerifyUser::create([
+   	    'user_id' => $user->id,
+   	    'token' => str_random(40)
+   	]);
+
+   	Mail::to($user->email)->send(new VerifyMail($user));
+
+    return $returnArray;
+});
+
+Route::get('/user/verify/{token}', 'Auth\RegisterController@verifyUser');
+
 Route::get('/privacy-policy', function() {
 	$locations = Location::select('country')->groupBy('country')->get();
 
@@ -574,6 +658,51 @@ Route::get('/dashboard', function() {
 	}
 })->middleware('auth');
 
+Route::post('/profile/edit-password', function (Request $request) {
+	$user = Auth::user();
+
+	$validator = Validator::make($request->all(), [
+	    'password-current' => 'required',
+	    'password-new' => 'required',
+	    'password-new-confirm' => 'required'
+	]);
+
+	if($validator->fails()) {
+	    return redirect('/profile/edit-password')
+	                ->withErrors($validator)
+	                ->withInput();
+	} else {
+	    $userdata = array(
+	        'email'     => $user->email,
+	        'password'  => $request->input('password-current')
+	    );
+
+	    if(Auth::attempt($userdata)) {
+	        $newPassword = $request->input('password-new');
+	        $newPasswordConfirm = $request->input('password-new-confirm');
+
+	        if($newPassword == $newPasswordConfirm) {
+	            $user->password = Hash::make($newPassword);
+	            $user->save();
+
+	            return redirect('/profile/edit-password')->with('success', 'Password updated.');
+	        } else {
+	            return redirect('/profile/edit-password')->with('error', 'The new password and the new password confirmation do not match.');
+	        }
+	    } else {
+	        return redirect('/profile/edit-password')->with('error', 'The current password entered does not match.');
+	    }
+	}
+})->middleware('auth');
+
+Route::get('/profile/edit-password', function () {
+	$locations = Location::select('country')->groupBy('country')->get();
+
+    return view('editPassword', [
+    	'locations' => $locations
+    ]);
+})->middleware('auth');
+
 Route::get('/profile', function () {
 	$locations = Location::select('country')->groupBy('country')->get();
 
@@ -595,7 +724,5 @@ Route::get('/', function () {
     	'locations' => $locations
     ]);
 });
-
-Route::get('/user/verify/{token}', 'Auth\RegisterController@verifyUser');
 
 Auth::routes(['verify' => true]);

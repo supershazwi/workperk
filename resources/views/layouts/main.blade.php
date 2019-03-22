@@ -49,11 +49,11 @@
               @if(Auth::user()->email == "supershazwi@gmail.com")
                 <a href="/dashboard" style="margin-right: 1rem;">Dashboard</a>
               @endif
-              <a href="#" style="margin-right: 1rem;" onclick="showSelectCountry()">Singapore</a>
+              <!-- <a href="#" style="margin-right: 1rem;" onclick="showSelectCountry()">Singapore</a> -->
               @if(Auth::user()->verified)
               <a href="/profile">{{Auth::user()->name}}</a>
               @else
-              <a href="/profile">{{Auth::user()->name}} <sup><span class="badge badge-warning">Unverified</span></sup></a>
+              <a href="/profile">{{Auth::user()->name}} <sup><span class="badge badge-light">Unverified</span></sup></a>
               @endif
             @else
               <button class="btn btn-link" onclick="showSelectCountry()">Singapore</button>
@@ -89,7 +89,7 @@
         </div>
       </div>
     </div>
-    <div id="selectCountry" style="display: none; text-align: center;">
+    <!-- <div id="selectCountry" style="display: none; text-align: center;">
       <div class="py-5 bg-white">
         <div class="container">
           <div class="row">
@@ -111,7 +111,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
     <script src="/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
 
     <script type="text/javascript">

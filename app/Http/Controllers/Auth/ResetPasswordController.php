@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+
+use App\User;
 
 class ResetPasswordController extends Controller
 {
@@ -25,7 +28,7 @@ class ResetPasswordController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -35,5 +38,31 @@ class ResetPasswordController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+    }
+
+    public function reset(Request $request) 
+    {
+        $email = $request->input('email');
+        $password = $request->input('password');
+
+        $user = User::where('email', $email)->first();
+
+        if(!$user && $email) {
+            return back()->with('warning', 'User with entered email address not found.')->withInput();
+        }
+
+        if(!$user && $email == null) {
+            return back()->with('warning', 'Please provide a valid email address.')->withInput();
+        }
+
+        if($password == null) {
+            return back()->with('warning', 'Please provide a new password.')->withInput(); 
+        }
+
+        $user->password = bcrypt($request->input('password'));
+
+        $user->save();
+
+        return redirect('login')->with('passwordResetSuccess', true);
     }
 }

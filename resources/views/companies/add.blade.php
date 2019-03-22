@@ -6,8 +6,14 @@
   <div class="container">
     <h5>Add Company</h5>
     <br/>
-    <form method="POST" action="/companies/add-company">
+    <form method="POST" action="/companies/add-company" enctype="multipart/form-data">
       @csrf
+      <div class="form-group row">
+        <label for="staticEmail" class="col-sm-2 col-form-label">Image</label>
+        <div class="col-sm-10">
+          <input type="file" id="image" name="image">
+        </div>
+      </div>
       <div class="form-group row">
         <label for="staticEmail" class="col-sm-2 col-form-label">Company</label>
         <div class="col-sm-10">

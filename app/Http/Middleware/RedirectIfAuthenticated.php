@@ -18,7 +18,9 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            return redirect('/home');
+            Auth::user()->verified = 1;
+            Auth::user()->save();
+            return redirect('/profile')->with('verified', 'Success. Your account has been verified.');
         }
 
         return $next($request);
