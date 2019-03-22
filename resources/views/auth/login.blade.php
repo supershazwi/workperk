@@ -35,29 +35,30 @@
     <link href="/css/signin.css" rel="stylesheet">
   </head>
   <body>
-    @if (session('message'))
-    <div class="alert alert-primary" role="alert" style="text-align: center;">
-      <h4 class="alert-heading" style="margin-bottom: 0;">{{session('message')}}</h4>
-    </div>
-    @endif
-    @if (session('passwordResetSuccess'))
-    <div class="alert alert-primary" role="alert" style="text-align: center;">
-      <h4 class="alert-heading" style="margin-bottom: 0;">Your password has been successfully updated.</h4>
-    </div>
-    @endif
-    @if (session('status'))
-      <div class="alert alert-primary" style="text-align: center;">
-        {{ session('status') }}
-      </div>
-    @endif
-    @if (session('warning'))
-      <div class="alert alert-warning" style="text-align: center;">
-        {{ session('warning') }}
-      </div>
-    @endif
     <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}" class="form-signin" style="text-align: center;">
       @csrf
-      <h5 class="my-0 mr-md-auto font-weight-normal" style="margin-bottom: 2.5rem !important;">Work<strong>Perk</strong><img class="mb-2" src="/img/falling-star.svg" alt="" width="24" height="24" style="transform: rotate(180deg); margin-left: 0.5rem;"></h5>
+
+      @if (session('message'))
+      <div class="alert alert-primary" role="alert" style="text-align: center; margin-bottom: 2.5rem;">
+        <h4 class="alert-heading" style="margin-bottom: 0;">{{session('message')}}</h4>
+      </div>
+      @endif
+      @if (session('passwordResetSuccess'))
+      <div class="alert alert-primary" role="alert" style="text-align: center; margin-bottom: 2.5rem;">
+        <h4 class="alert-heading" style="margin-bottom: 0;">Your password has been successfully updated.</h4>
+      </div>
+      @endif
+      @if (session('status'))
+        <div class="alert alert-primary" style="text-align: center; margin-bottom: 2.5rem;">
+          {{ session('status') }}
+        </div>
+      @endif
+      @if (session('warning'))
+        <div class="alert alert-warning" style="text-align: center; margin-bottom: 2.5rem;">
+          {{ session('warning') }}
+        </div>
+      @endif
+      <a href="/" style="color: #212529;"><h5 class="my-0 mr-md-auto font-weight-normal" style="margin-bottom: 2.5rem !important;">Work<strong>Perk</strong><img class="mb-2" src="/img/falling-star.svg" alt="" width="24" height="24" style="transform: rotate(180deg); margin-left: 0.5rem;"></h5></a>
       <div class="form-group" style="text-align: left !important;">
         <label for="exampleInputEmail1">Email address</label>
         <input type="email" name="email" class="form-control" placeholder="Enter email" value="{{ old('email') }}" required>

@@ -50,7 +50,11 @@
                 <a href="/dashboard" style="margin-right: 1rem;">Dashboard</a>
               @endif
               <a href="#" style="margin-right: 1rem;" onclick="showSelectCountry()">Singapore</a>
+              @if(Auth::user()->verified)
               <a href="/profile">{{Auth::user()->name}}</a>
+              @else
+              <a href="/profile">{{Auth::user()->name}} <sup><span class="badge badge-warning">Unverified</span></sup></a>
+              @endif
             @else
               <button class="btn btn-link" onclick="showSelectCountry()">Singapore</button>
               <a class="btn btn-primary" href="/login">Login</a>

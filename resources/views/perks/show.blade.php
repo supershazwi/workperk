@@ -6,7 +6,7 @@
   <h1>{{$perk->title}}</h1>
   <p class="lead">{{$perk->description}}</p>
   <div style="margin-top: 2.5rem;">
-    @foreach($perk->sub_perks as $subPerk)
+    @foreach($perk->subPerks as $subPerk)
       <a href="/sub-perks/{{$subPerk->slug}}" class="btn btn-sm btn-outline-primary" style="margin-bottom: 0.25rem;">{{$subPerk->title}}</a>
     @endforeach
   </div>
@@ -21,12 +21,10 @@
         <div class="card mb-4 shadow-sm">
           <div class="card-body">
             <a href="/companies/{{$company->slug}}"><p class="lead">{{$company->name}}</p></a>
-            <ul class="list-unstyled text-small" style="margin-bottom: 0rem !important;">
-              <li style="margin-bottom: 0.5rem;">Training & Development <br> <span style="font-size: 0.875rem;">$700 - $1500/year</span></li>
-              <li style="margin-bottom: 0.5rem;">Flexible Hours <br> <span style="font-size: 0.875rem;">2 - 8 hours/day</span></li>
-              <li style="margin-bottom: 0.5rem;">Vacation Time <br> <span style="font-size: 0.875rem;">Unlimited</span></li>
-              <li><span style="float: right; font-size: 0.875rem;">25 more</span></li>
-            </ul>
+            @foreach($company->perks as $perk)
+              <span class="badge badge-light">{{$perk->title}}</span>
+            @endforeach
+            <p style="margin-bottom: 0rem; margin-top: 1rem;"><span class="badge badge-success">Value: ~$5,658</span></p>
           </div>
         </div>
       </div>

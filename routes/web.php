@@ -434,7 +434,6 @@ Route::get('/perks/{perkSlug}', function() {
 
 	$perk = Perk::where('slug', $routeParameters['perkSlug'])->first();
 	$locations = Location::select('country')->groupBy('country')->get();
-
 	return view('perks.show', [
 		'perk' => $perk,
 		'locations' => $locations
@@ -596,5 +595,7 @@ Route::get('/', function () {
     	'locations' => $locations
     ]);
 });
+
+Route::get('/user/verify/{token}', 'Auth\RegisterController@verifyUser');
 
 Auth::routes(['verify' => true]);

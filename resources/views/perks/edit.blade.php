@@ -39,7 +39,7 @@
         </tr>
       </thead>
       <tbody>
-        @foreach($perk->sub_perks as $key=>$subPerk)
+        @foreach($perk->subPerks as $key=>$subPerk)
         <tr>
           <th scope="row">{{$key+1}}</th>
           <td>{{$subPerk->title}}</td>
