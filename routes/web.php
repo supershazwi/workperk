@@ -98,7 +98,7 @@ Route::get('/companies/{companyId}/edit', function() {
 		$routeParameters = Route::getCurrentRoute()->parameters();
 
 		$company = Company::find($routeParameters['companyId']);
-		$locations = Location::select('country')->groupBy('country')->get();
+		$locations = Location::all();
 		$subPerks = SubPerk::orderBy('perk_id', 'asc')->get();
 
 		// check many to many table for sub-perks tagged to company
