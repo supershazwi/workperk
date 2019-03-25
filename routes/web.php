@@ -327,6 +327,18 @@ Route::post('/companies/{companyId}/save-company', function(Request $request) {
 })->middleware('auth');
 
 Route::post('/companies/add-company', function(Request $request) {
+	$validator = Validator::make($request->all(), [
+	    'image' => 'required',
+	    'name' => 'required',
+	    'location' => 'required'
+	]);
+
+	if($validator->fails()) {
+	    return redirect('/profile/edit-password')
+	                ->withErrors($validator)
+	                ->withInput();
+	}
+
     $routeParameters = Route::getCurrentRoute()->parameters();
 
     $company = new Company;
