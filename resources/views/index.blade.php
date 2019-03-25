@@ -3,7 +3,7 @@
 @section ('content')
 
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-  <h1>Know Your Job's True Worth</h1>
+  <h1>Know Your Job's Additional Worth</h1>
   <p class="lead">Perks & benefits are ranked 2<sup>nd</sup> most important factor by job seekers<sup><a href="https://www.glassdoor.com/employers/blog/salary-benefits-survey/">*</a></sup></p>
   <div style="margin-top: 2.5rem;">
     @foreach($perks as $perk)
