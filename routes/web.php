@@ -884,11 +884,20 @@ Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 Route::get('/', function () {
 	$perks = Perk::all();
+
+	$availablePerks = array();
+
+	foreach($perks as $perk) {
+		if(count($perk->companies) > 0) {
+			array_push($availablePerks, $perk);
+		}
+	}
+
 	$companies = Company::orderBy('value', 'desc')->get();
 	$locations = Location::select('country')->groupBy('country')->get();
 
     return view('index', [
-    	'perks' => $perks,
+    	'perks' => $availablePerks,
     	'companies' => $companies,
     	'locations' => $locations
     ]);
