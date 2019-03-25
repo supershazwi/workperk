@@ -196,7 +196,9 @@ Route::post('/companies/{companySlug}/add-sub-perk', function(Request $request) 
 
     	foreach($perkIdArray as $perkId) {
     		if(!in_array($perkId, $attachedPerksToCompany)) {
-    			$company->perks()->attach($perkId);
+    			if (!$company->perks->contains($perkId)) {
+    				$company->perks()->attach($perkId);
+    			}
     		}
     	}
     }
@@ -220,7 +222,9 @@ Route::post('/companies/{companySlug}/add-sub-perk', function(Request $request) 
     	}
 
     	if(!in_array($request->input('perkId'), $attachedPerksToCompany)) {
-    		$company->perks()->attach($request->input('perkId'));
+    		if (!$company->perks->contains($request->input('perkId'))) {
+    			$company->perks()->attach($request->input('perkId'));
+    		}
     	}
 
     	$company->subPerks()->attach($subPerk->id);
@@ -487,7 +491,9 @@ Route::post('/companies/{companyId}/save-overall-perks', function(Request $reque
 		// if futureperkid does not exist in the many to many table, add it
 		foreach($futurePerkIdArray as $futurePerkId) {
 			if(!in_array($futurePerkId, $originalPerkIdArray)) {
-				$company->perks()->attach($futurePerkId);
+				if (!$company->perks->contains($futurePerkId)) {
+					$company->perks()->attach($futurePerkId);
+				}
 			}
 		}
 
