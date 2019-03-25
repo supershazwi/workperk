@@ -8,6 +8,15 @@
     <br/>
     <form method="POST" action="/companies/{{$company->slug}}/add-sub-perk">
       @csrf
+      @if (session('errorsArray'))
+          <div class="alert alert-danger" id="errors">
+              <ul style="margin-bottom: 0rem;">
+                  @foreach (session('errorsArray') as $error)
+                      <li>{{ $error }}</li>
+                  @endforeach
+              </ul>
+          </div>
+      @endif
       <div class="form-group row">
         <label for="staticEmail" class="col-sm-2 col-form-label">Select Sub-perk</label>
         <div class="col-sm-10">
@@ -20,11 +29,15 @@
         </div>
       </div>
 
+      @if(!empty($errorsArray))
+      <div id="addNewSubPerk">
+      @else
       <div id="addNewSubPerk" style="display: none;">
+      @endif
         <div class="form-group row">
-          <label for="staticEmail" class="col-sm-2 col-form-label">New Sub-perk</label>
+          <label for="staticEmail" class="col-sm-2 col-form-label">Sub-perk Title</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="title" name="title" placeholder="e.g. Arcade Machine">
+            <input type="text" class="form-control" id="title" name="title" placeholder="e.g. Arcade Machine" value="{{ old('title') }}">
           </div>
         </div>
         <div class="form-group row">
@@ -32,8 +45,17 @@
           <div class="col-sm-10">
             <select class="js-example-basic-single" name="perkId" style="width: 100%;">
               <option value="nil">Select Perk Category</option>
+              @if(old('perkId'))
+              <option>Select Perk Category</option>
+              @else
+              <option selected>Select Perk Category</option>
+              @endif
               @foreach($perks as $perk)
+              @if($perk->id == old('perkId'))
+              <option value="{{$perk->id}}" selected>{{$perk->title}}</option>
+              @else
               <option value="{{$perk->id}}">{{$perk->title}}</option>
+              @endif
               @endforeach
             </select>
           </div>
@@ -41,7 +63,7 @@
         <div class="form-group row">
           <label for="inputPassword" class="col-sm-2 col-form-label">Sub-perk Description</label>
           <div class="col-sm-10">
-            <textarea class="form-control" name="description" id="description" maxlength="280" rows="5" placeholder="e.g. Say no more to mental blocks. No tokens needed to play video games at work."></textarea>
+            <textarea class="form-control" name="description" id="description" maxlength="280" rows="5" placeholder="e.g. Say no more to mental blocks. No tokens needed to play video games at work.">{{old('description')}}</textarea>
           </div>
         </div>
       </div>
@@ -63,6 +85,10 @@
   $(document).ready(function() {
       $('.js-example-basic-multiple').select2();
       $('.js-example-basic-single').select2();
+
+      if(document.getElementById('errors') != null) {
+        document.getElementById("addNewSubPerk").style.display = "block";
+      }
   });
 
   function showNewSubPerk() {

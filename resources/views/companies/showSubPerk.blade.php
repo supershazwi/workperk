@@ -31,8 +31,12 @@
       <div class="col-md-4">
         <div class="card mb-4 shadow-sm">
           <div class="card-body">
+            @if(Auth::id() == $comment->user_id)
+            <a href="/companies/{{$company->slug}}/perks/{{$companySubPerkDetail->subPerk->perk->slug}}/sub-perks/{{$companySubPerkDetail->subPerk->slug}}/comments/{{$comment->id}}"><p>{{$comment->content}}</p></a>
+            @else
             <p>{{$comment->content}}</p>
-            <footer class="blockquote-footer">{{$comment->user->name}}</footer>
+            @endif
+            <footer class="blockquote-footer">{{$comment->user->name}}, {{$comment->created_at->diffForHumans()}}</footer>
           </div>
         </div>
       </div>

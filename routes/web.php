@@ -21,6 +21,71 @@ use App\User;
 use App\VerifyUser;
 use App\Mail\VerifyMail;
 
+// COMMENTS //
+Route::get('/companies/{companySlug}/perks/{perkSlug}/sub-perks/{subPerkSlug}/comments/{commentId}/delete-comment', function() {
+    $routeParameters = Route::getCurrentRoute()->parameters();
+
+    $comment = Comment::find($routeParameters['commentId']);
+
+    if($comment->user_id == Auth::id()) {
+    	Comment::destroy($routeParameters['commentId']);
+    	
+    	return redirect('/companies/'.$routeParameters['companySlug'].'/perks/'.$routeParameters['perkSlug'].'/sub-perks/'.$routeParameters['subPerkSlug']);
+    } else {
+    	return redirect('/');
+    }
+})->middleware('auth');
+
+Route::post('/companies/{companySlug}/perks/{perkSlug}/sub-perks/{subPerkSlug}/comments/{commentId}', function(Request $request) {
+    $routeParameters = Route::getCurrentRoute()->parameters();
+
+	$validator = Validator::make($request->all(), [
+	    'content' => 'required'
+	]);
+
+	if($validator->fails()) {
+	    return redirect('/companies/'.$routeParameters['companySlug'].'/perks/'.$routeParameters['perkSlug'].'/sub-perks/'.$routeParameters['subPerkSlug'].'/comments/'.$routeParameters['commentId'])
+	                ->withErrors($validator)
+	                ->withInput();
+	}
+
+
+    $company = Company::where('slug', $routeParameters['companySlug'])->first();
+    $subPerk = SubPerk::where('slug', $routeParameters['subPerkSlug'])->first();
+    $companySubPerkDetail = CompanySubPerkDetail::where('company_id', $company->id)->where('sub_perk_id', $subPerk->id)->first();
+
+    $comment = Comment::find($routeParameters['commentId']);
+
+    $comment->content = $request->input('content');
+    $comment->save();
+
+    return redirect('/companies/'.$company->slug.'/perks/'.$companySubPerkDetail->subPerk->perk->slug.'/sub-perks/'.$companySubPerkDetail->subPerk->slug);
+
+
+})->middleware('auth');
+
+Route::get('/companies/{companySlug}/perks/{perkSlug}/sub-perks/{subPerkSlug}/comments/{commentId}', function() {
+    $routeParameters = Route::getCurrentRoute()->parameters();
+	$comment = Comment::find($routeParameters['commentId']);
+
+    if($comment->user_id == Auth::id()) {
+    	$subPerk = SubPerk::where('slug', $routeParameters['subPerkSlug'])->first();
+    	$company = Company::where('slug', $routeParameters['companySlug'])->first();
+    	$companySubPerkDetail = CompanySubPerkDetail::where('company_id', $company->id)->where('sub_perk_id', $subPerk->id)->first();
+
+    	$locations = Location::all();
+
+    	return view('comments.show', [
+    		'comment' => $comment,
+    		'locations' => $locations,
+    		'companySubPerkDetail' => $companySubPerkDetail
+    	]);
+    } else {
+    	return redirect('/companies/'.$routeParameters['companySlug'].'/perks/'.$routeParameters['perkSlug'].'/sub-perks/'.$routeParameters['subPerkSlug']);
+    }
+
+})->middleware('auth');
+
 // COMPANY SUB PERK DETAIL //
 Route::post('/company-sub-perk-detail/{companySubPerkDetailId}/like', function(Request $request) {
     $routeParameters = Route::getCurrentRoute()->parameters();
@@ -121,7 +186,18 @@ Route::get('/companies/{companyId}/edit', function() {
 })->middleware('auth');
 
 Route::post('/companies/{companySlug}/perks/{perkSlug}/sub-perks/{subPerkSlug}/leave-comment', function(Request $request) {
-    $routeParameters = Route::getCurrentRoute()->parameters();
+	$routeParameters = Route::getCurrentRoute()->parameters();
+
+	$validator = Validator::make($request->all(), [
+	    'content' => 'required'
+	]);
+
+	if($validator->fails()) {
+	    return redirect('/companies/'.$routeParameters['companySlug'].'/perks/'.$routeParameters['perkSlug'].'/sub-perks/'.$routeParameters['subPerkSlug'].'/leave-comment')
+	                ->withErrors($validator)
+	                ->withInput();
+	}
+
 
     $company = Company::where('slug', $routeParameters['companySlug'])->first();
     $subPerk = SubPerk::where('slug', $routeParameters['subPerkSlug'])->first();
@@ -155,6 +231,27 @@ Route::get('/companies/{companySlug}/perks/{perkSlug}/sub-perks/{subPerkSlug}/le
 
 Route::post('/companies/{companySlug}/add-sub-perk', function(Request $request) {
     $routeParameters = Route::getCurrentRoute()->parameters();
+
+    $errorsArray = array();
+
+    if($request->input('title') != null || $request->input('description') != null || $request->input('perkId') != "Select Perk Category") {
+    	if($request->input('title') == null) {
+    		array_push($errorsArray, "The sub-perk title field is required.");
+    	}
+
+    	if($request->input('description') == null) {
+    		array_push($errorsArray, "The sub-perk description field is required.");
+    	}
+
+    	if($request->input('perkId') == "Select Perk Category") {
+    		array_push($errorsArray, "The perk category field is required.");
+    	}
+    }
+    
+
+    if(count($errorsArray) > 0) {
+    	return redirect('/companies/'.$routeParameters['companySlug'].'/add-sub-perk')->with('errorsArray', $errorsArray)->withInput();
+    }
 
 	$company = Company::where('slug', $routeParameters['companySlug'])->first();
 
