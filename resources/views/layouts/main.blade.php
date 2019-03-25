@@ -76,6 +76,7 @@
                 <small class="d-block mb-3 text-muted">&copy; 2019</small>
               </div>
               <div class="col-6 col-md">
+                <h5>WorkPerk</h5>
                 <ul class="list-unstyled text-small" style="margin-bottom: 0rem !important;">
                   <li><a class="text-muted" href="/about">About</a></li>
                   <li><a class="text-muted" href="/privacy-policy">Privacy Policy</a></li>
