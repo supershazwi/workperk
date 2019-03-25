@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Know the true worth of your job. Perks & benefits are ranked 2nd most important factor by job seekers.">
+    <meta name="description" content="Know the additional worth of your job. Perks & benefits are ranked 2nd most important factor by job seekers.">
     <meta name="author" content="Shazwi Suwandi">
     <meta name="generator" content="Jekyll v3.8.5">
     <title>WorkPerk - All company perks and benefits</title>
