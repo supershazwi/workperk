@@ -7,7 +7,14 @@
   <h1>{{$company->name}}</h1>
   <p>{{$company->location->state}}, {{$company->location->country}}</p>
   <p class="lead">{{$company->description}}</p>
-  <p class="lead" style="margin-bottom: 0rem;">Value: <span style="color: #16a085;">~${{number_format($company->value)}}</span></p>
+  <p class="lead" style="margin-bottom: 0rem;">Perks Value: 
+    <span style="color: #16a085;">
+    @if($company->value == 0)
+    TBC
+    @else
+    ~${{number_format($company->value)}}
+    @endif
+  </span></p>
 </div>
 
 <div class="py-5 bg-light" style="margin-top: 6rem;">

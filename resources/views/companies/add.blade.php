@@ -11,7 +11,8 @@
       <div class="form-group row">
         <label for="staticEmail" class="col-sm-2 col-form-label">Image</label>
         <div class="col-sm-10">
-          <input type="file" id="image" name="image">
+          <input type="file" id="image" name="image" class="font-control-file">    
+          <small class="form-text text-muted">Just make sure it's a square if not it will be squished and squashed.</small>
         </div>
       </div>
       <div class="form-group row">

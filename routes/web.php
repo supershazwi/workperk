@@ -53,15 +53,11 @@ Route::post('/company-sub-perk-detail/{companySubPerkDetailId}/unlike', function
 
 // COMPANIES //
 Route::get('/companies/add-company', function() {
-	if(Auth::user()->email == 'supershazwi@gmail.com') {
-		$locations = Location::all();
+	$locations = Location::all();
 
-		return view('companies.add', [
-			'locations' => $locations
-		]);
-	} else {
-		redirect('/');
-	}
+	return view('companies.add', [
+		'locations' => $locations
+	]);
 })->middleware('auth');
 
 Route::get('/companies/{companySlug}/perks/{perkSlug}', function() {
@@ -86,7 +82,7 @@ Route::get('/companies/{companyId}/delete-company', function() {
 		
 		return redirect('/dashboard');
 	} else {
-		redirect('/');
+		return redirect('/');
 	}
 })->middleware('auth');
 
@@ -120,7 +116,7 @@ Route::get('/companies/{companyId}/edit', function() {
 			'companySubPerkDetails' => $companySubPerkDetails
 		]);
 	} else {
-		redirect('/');
+		return redirect('/');
 	}
 })->middleware('auth');
 
@@ -326,31 +322,32 @@ Route::post('/companies/{companyId}/save-company', function(Request $request) {
 		
 		return redirect('/companies/'.$company->id.'/edit');
 	} else {
-		redirect('/');
+		return redirect('/');
 	}
 })->middleware('auth');
 
 Route::post('/companies/add-company', function(Request $request) {
     $routeParameters = Route::getCurrentRoute()->parameters();
 
+    $company = new Company;
+
+    $company->name = $request->input('name');
+    $company->description = $request->input('description');
+    $company->location_id = $request->input('location');
+    $company->slug = str_slug($request->input('name'), '-');
+
+    if(request('image')) {
+        $company->image = Storage::disk('gcs')->put('/avatars', request('image'), 'public');
+    }
+
+    $company->value = 0;
+
+    $company->save();
+
 	if(Auth::user()->email == 'supershazwi@gmail.com') {
-		$company = new Company;
-
-		$company->name = $request->input('name');
-		$company->description = $request->input('description');
-		$company->location_id = $request->input('location');
-		$company->slug = str_slug($request->input('name'), '-');
-		if(request('image')) {
-		    $company->image = Storage::disk('gcs')->put('/avatars', request('image'), 'public');
-		}
-
-		$company->value = 0;
-
-		$company->save();
-		
 		return redirect('/companies/'.$company->id.'/edit');
 	} else {
-		redirect('/');
+		return redirect('/companies/'.$company->slug);
 	}
 })->middleware('auth');
 
@@ -523,7 +520,7 @@ Route::post('/perks/add-perk', function(Request $request) {
 		
 		return redirect('/perks/'.$perk->id.'/edit');
 	} else {
-		redirect('/');
+		return redirect('/');
 	}
 })->middleware('auth');
 
@@ -537,7 +534,7 @@ Route::get('/perks/add-perk', function() {
 			'locations' => $locations
 		]);
 	} else {
-		redirect('/');
+		return redirect('/');
 	}
 })->middleware('auth');
 
@@ -556,7 +553,7 @@ Route::post('/perks/{perkId}/add-sub-perk', function(Request $request) {
 		
 		return redirect('/sub-perks/'.$subPerk->id);
 	} else {
-		redirect('/');
+		return redirect('/');
 	}
 })->middleware('auth');
 
@@ -572,7 +569,7 @@ Route::get('/perks/{perkId}/add-sub-perk', function() {
 			'locations' => $locations
 		]);
 	} else {
-		redirect('/');
+		return redirect('/');
 	}
 })->middleware('auth');
 
@@ -596,7 +593,7 @@ Route::get('/sub-perks/{subPerkSlugOrId}', function() {
 				'locations' => $locations
 			]);
 		} else {
-			redirect('/');
+			return redirect('/');
 		}
 	}
 });
@@ -639,7 +636,7 @@ Route::get('/perks/{perkId}/delete-perk', function() {
 		
 		return redirect('/dashboard');
 	} else {
-		redirect('/');
+		return redirect('/');
 	}
 })->middleware('auth');
 
@@ -655,7 +652,7 @@ Route::get('/sub-perks/{subPerkId}/delete-sub-perk', function() {
 		
 		return redirect('/perks/'.$perkId.'/edit');
 	} else {
-		redirect('/');
+		return redirect('/');
 	}
 })->middleware('auth');
 
@@ -673,7 +670,7 @@ Route::post('/sub-perks/{subPerkId}/save-sub-perk', function(Request $request) {
 		
 		return redirect('/perks/'.$subPerk->perk->id.'/edit');
 	} else {
-		redirect('/');
+		return redirect('/');
 	}
 })->middleware('auth');
 
@@ -691,7 +688,7 @@ Route::post('/perks/{perkId}/save-perk', function(Request $request) {
 		
 		return redirect('/perks/'.$perk->id.'/edit');
 	} else {
-		redirect('/');
+		return redirect('/');
 	}
 })->middleware('auth');
 
@@ -707,7 +704,7 @@ Route::get('/sub-perks/{subPerkId}/edit', function() {
 			'locations' => $locations
 		]);
 	} else {
-		redirect('/');
+		return redirect('/');
 	}
 })->middleware('auth');
 
@@ -723,7 +720,7 @@ Route::get('/perks/{perkId}/edit', function() {
 			'locations' => $locations
 		]);
 	} else {
-		redirect('/');
+		return redirect('/');
 	}
 })->middleware('auth');
 
@@ -823,7 +820,7 @@ Route::get('/dashboard', function() {
     		'locations' => $locations
 		]);
 	} else {
-		redirect('/');
+		return redirect('/');
 	}
 })->middleware('auth');
 

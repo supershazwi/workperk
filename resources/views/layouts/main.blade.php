@@ -75,6 +75,7 @@
           <div>
 
             @if(Auth::id())
+              <a href="/companies/add-company" style="margin-right: 1rem;">Add Company</a>
               @if(Auth::user()->email == "supershazwi@gmail.com")
                 <a href="/dashboard" style="margin-right: 1rem;">Dashboard</a>
               @endif
