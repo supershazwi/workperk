@@ -327,16 +327,23 @@ Route::post('/companies/{companyId}/save-company', function(Request $request) {
 })->middleware('auth');
 
 Route::post('/companies/add-company', function(Request $request) {
-	$validator = Validator::make($request->all(), [
-	    'image' => 'required',
-	    'name' => 'required',
-	    'location' => 'required'
-	]);
 
-	if($validator->fails()) {
-	    return redirect('/profile/edit-password')
-	                ->withErrors($validator)
-	                ->withInput();
+	$errorsArray = array();
+
+	if($request->input('name') == null) {
+		array_push($errorsArray, "The name field is required.");
+	}
+
+	if(request('image') == null) {
+		array_push($errorsArray, "The image field is required.");
+	}
+
+	if($request->input('location') == "Select location") {
+		array_push($errorsArray, "The location field is required.");
+	}
+
+	if(count($errorsArray) > 0) {
+		return redirect('/companies/add-company')->with('errorsArray', $errorsArray)->withInput();
 	}
 
     $routeParameters = Route::getCurrentRoute()->parameters();
