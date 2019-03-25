@@ -21,9 +21,6 @@ use App\User;
 use App\VerifyUser;
 use App\Mail\VerifyMail;
 
-Route::get('login/facebook', 'Auth\LoginController@redirectToProvider');
-Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderCallback');
-
 // COMPANY SUB PERK DETAIL //
 Route::post('/company-sub-perk-detail/{companySubPerkDetailId}/like', function(Request $request) {
     $routeParameters = Route::getCurrentRoute()->parameters();
