@@ -305,6 +305,30 @@ Route::get('/companies/{companySlug}', function() {
 	]);
 });
 
+Route::post('/companies/{companyId}/save-company', function(Request $request) {
+    $routeParameters = Route::getCurrentRoute()->parameters();
+
+	if(Auth::user()->email == 'supershazwi@gmail.com') {
+		$company = Company::find($routeParameters['companyId']);
+
+		$company->name = $request->input('name');
+		$company->description = $request->input('description');
+		$company->location_id = $request->input('location');
+		$company->slug = str_slug($request->input('name'), '-');
+		if(request('image')) {
+		    $company->image = Storage::disk('gcs')->put('/avatars', request('image'), 'public');
+		}
+
+		$company->value = 0;
+
+		$company->save();
+		
+		return redirect('/companies/'.$company->id.'/edit');
+	} else {
+		redirect('/');
+	}
+})->middleware('auth');
+
 Route::post('/companies/add-company', function(Request $request) {
     $routeParameters = Route::getCurrentRoute()->parameters();
 
