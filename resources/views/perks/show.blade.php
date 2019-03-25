@@ -22,13 +22,13 @@
           <div class="card-body">
             <img src="https://storage.googleapis.com/talentail-123456789/{{$company->image}}" alt="" class="avatar-img rounded" style="width: 2.5rem; height: 2.5rem; margin-bottom: 0.25rem;">
             <a href="/companies/{{$company->slug}}"><p class="lead" style="margin-bottom: 0.5rem;">{{$company->name}}</p></a>
-            @foreach($company->subPerks as $key=>$subPerk)
+            @foreach($subPerks[$company->id] as $key=>$subPerk)
               @if($key < 3)
               <button class="btn btn-sm btn-warning" disabled style="margin-bottom: 0.25rem; font-size: 0.75rem;">{{$subPerk->title}}</button>
               @endif
             @endforeach
-            @if(count($company->subPerks) > 3)
-              <button class="btn btn-sm btn-warning" disabled style="margin-bottom: 0.25rem; font-size: 0.75rem;">+{{count($company->subPerks) - 3}} more</button>
+            @if(count($subPerks[$company->id]) > 3)
+              <button class="btn btn-sm btn-warning" disabled style="margin-bottom: 0.25rem; font-size: 0.75rem;">+{{count($subPerks[$company->id]) - 3}} more</button>
             @endif
             <p style="margin-bottom: 0rem; margin-top: 0.5rem; font-size: 0.875rem;">Value: <span style="color: #16a085;">~${{number_format($company->value)}}</span></p>
           </div>

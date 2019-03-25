@@ -578,10 +578,25 @@ Route::get('/perks/{perkSlug}', function() {
     $routeParameters = Route::getCurrentRoute()->parameters();
 
 	$perk = Perk::where('slug', $routeParameters['perkSlug'])->first();
+
+	$subPerks = array();
+
+	foreach($perk->companies as $company) {
+		foreach($company->subPerks as $subPerk) {
+			if($subPerk->perk_id == $perk->id) {
+				if(empty($subPerks[$company->id])) {
+					$subPerks[$company->id] = array();
+				}
+				array_push($subPerks[$company->id], $subPerk);
+			}
+		}
+	}
+
 	$locations = Location::select('country')->groupBy('country')->get();
 	return view('perks.show', [
 		'perk' => $perk,
-		'locations' => $locations
+		'locations' => $locations,
+		'subPerks' => $subPerks
 	]);
 });
 
