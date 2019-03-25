@@ -37,6 +37,23 @@
     </style>
     <!-- Custom styles for this template -->
     <link href="/css/pricing.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
+    <script>
+    window.addEventListener("load", function(){
+    window.cookieconsent.initialise({
+      "palette": {
+        "popup": {
+          "background": "#007bff"
+        },
+        "button": {
+          "background": "#fff",
+          "text": "#007bff"
+        }
+      },
+      "theme": "classic"
+    })});
+    </script>
   </head>
   <body>
     <header>
