@@ -3,12 +3,13 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="WorkPerks - All company perks and benefits. Perks & benefits are ranked 2nd most important factor by job seekers.">
+    <meta name="description" content="Know the true worth of your job. Perks & benefits are ranked 2nd most important factor by job seekers.">
     <meta name="author" content="Shazwi Suwandi">
     <meta name="generator" content="Jekyll v3.8.5">
     <title>WorkPerk - All company perks and benefits</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/sign-in/">
+    <link rel="icon" type="image/png" sizes="96x96" href="/img/favicon-96x96.png">
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -36,7 +37,7 @@
   <body>
     <form class="form-signin" method="POST" action="{{ route('register') }}" aria-label="{{ __('Register') }}" style="text-align: center;">
       @csrf
-      <a href="/" style="color: #212529;"><h5 class="my-0 mr-md-auto font-weight-normal" style="margin-bottom: 2.5rem !important;">Work<strong>Perk</strong><img class="mb-2" src="/img/falling-star.svg" alt="" width="24" height="24" style="transform: rotate(180deg); margin-left: 0.5rem;"></h5></a>
+      <a href="/" style="color: #212529;"><h5 class="my-0 mr-md-auto font-weight-normal" style="margin-bottom: 2.5rem !important;">Work<strong>Perk</strong><img class="mb-2" src="/img/logo.svg" alt="" width="24" height="24" style=" margin-left: 0.5rem;"></h5></a>
       <div class="form-group" style="text-align: left !important;">
         <label for="name">Name</label>
         <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" placeholder="Enter name" required>

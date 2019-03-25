@@ -9,6 +9,8 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 use App\User;
 
+use Socialite;
+
 class LoginController extends Controller
 {
     /*
@@ -30,6 +32,19 @@ class LoginController extends Controller
      * @var string
      */
     protected $redirectTo = '/';
+
+    public function redirectToProvider()
+    {
+        return Socialite::driver('facebook')->redirect();
+    }
+
+    public function handleProviderCallback()
+    {
+        $user = Socialite::driver('facebook')->user();
+
+        dd($user);
+        // $user->token;
+    }
 
     /**
      * Create a new controller instance.

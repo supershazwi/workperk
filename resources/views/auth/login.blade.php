@@ -4,12 +4,13 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="WorkPerks - All company perks and benefits. Perks & benefits are ranked 2nd most important factor by job seekers.">
+    <meta name="description" content="Know the true worth of your job. Perks & benefits are ranked 2nd most important factor by job seekers.">
     <meta name="author" content="Shazwi Suwandi">
     <meta name="generator" content="Jekyll v3.8.5">
     <title>WorkPerk - All company perks and benefits</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/sign-in/">
+    <link rel="icon" type="image/png" sizes="96x96" href="/img/favicon-96x96.png">
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -40,12 +41,12 @@
 
       @if (session('message'))
       <div class="alert alert-primary" role="alert" style="text-align: center; margin-bottom: 2.5rem;">
-        <h4 class="alert-heading" style="margin-bottom: 0;">{{session('message')}}</h4>
+        {{session('message')}}
       </div>
       @endif
       @if (session('passwordResetSuccess'))
       <div class="alert alert-primary" role="alert" style="text-align: center; margin-bottom: 2.5rem;">
-        <h4 class="alert-heading" style="margin-bottom: 0;">Your password has been successfully updated.</h4>
+        Your password has been successfully updated.
       </div>
       @endif
       @if (session('status'))
@@ -58,7 +59,7 @@
           {{ session('warning') }}
         </div>
       @endif
-      <a href="/" style="color: #212529;"><h5 class="my-0 mr-md-auto font-weight-normal" style="margin-bottom: 2.5rem !important;">Work<strong>Perk</strong><img class="mb-2" src="/img/falling-star.svg" alt="" width="24" height="24" style="transform: rotate(180deg); margin-left: 0.5rem;"></h5></a>
+      <a href="/" style="color: #212529;"><h5 class="my-0 mr-md-auto font-weight-normal" style="margin-bottom: 2.5rem !important;">Work<strong>Perk</strong><img class="mb-2" src="/img/logo.svg" alt="" width="24" height="24" style=" margin-left: 0.5rem;"></h5></a>
       <div class="form-group" style="text-align: left !important;">
         <label for="exampleInputEmail1">Email address</label>
         <input type="email" name="email" class="form-control" placeholder="Enter email" value="{{ old('email') }}" required>
@@ -79,10 +80,8 @@
           </span>
         @endif
       </div>
-      <div class="form-group form-check" style="text-align: left !important;">
-        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-        <label class="form-check-label" for="exampleCheck1">Remember me</label>
-        <a href="/password/reset" class="float-right">Forgot password</a>
+      <div class="form-group form-check" style="text-align: left !important; padding-left: 0rem;">
+        <a href="/password/reset">Forgot password</a>
       </div>
       <button type="submit" class="btn btn-primary btn-block">Login</button>
       <a href="/register" class="btn btn-link btn-block">Register an account</a>

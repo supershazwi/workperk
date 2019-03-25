@@ -21,6 +21,9 @@ use App\User;
 use App\VerifyUser;
 use App\Mail\VerifyMail;
 
+Route::get('login/facebook', 'Auth\LoginController@redirectToProvider');
+Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderCallback');
+
 // COMPANY SUB PERK DETAIL //
 Route::post('/company-sub-perk-detail/{companySubPerkDetailId}/like', function(Request $request) {
     $routeParameters = Route::getCurrentRoute()->parameters();
@@ -157,37 +160,113 @@ Route::get('/companies/{companySlug}/perks/{perkSlug}/sub-perks/{subPerkSlug}/le
     ]);
 })->middleware('auth');
 
-Route::post('/companies/{companySlug}/perks/{perkSlug}/add-sub-perk', function(Request $request) {
+Route::post('/companies/{companySlug}/add-sub-perk', function(Request $request) {
     $routeParameters = Route::getCurrentRoute()->parameters();
 
 	$company = Company::where('slug', $routeParameters['companySlug'])->first();
-	$perk = Perk::where('slug', $routeParameters['perkSlug'])->first();
 
-	$subPerk = new SubPerk;
+    if($request->input("subPerkIds")) {
+    	$subPerkIdsArray = $request->input("subPerkIds");
 
-	$subPerk->title = $request->input('title');
-	$subPerk->description = $request->input('description');
-	$subPerk->perk_id = $perk->id;
-	$subPerk->slug = str_slug($request->input('title'), '-');
+    	$perkIdArray = array();
 
-	$subPerk->save();
+    	foreach($subPerkIdsArray as $subPerkIds) {
+    		$string = explode('_', $subPerkIds);
 
-	$company->subPerks()->attach($subPerk->id);
+    		$company->subPerks()->attach($string[1]);
 
-	return redirect('/companies/'.$company->slug.'/perks/'.$perk->slug.'/'.$subPerk->slug);
+    		array_push($perkIdArray, $string[0]);
+
+    		$companySubPerkDetail = new CompanySubPerkDetail;
+
+    		$companySubPerkDetail->company_id = $company->id;
+    		$companySubPerkDetail->sub_perk_id = $string[1];
+    		$companySubPerkDetail->value = 0;
+
+    		$companySubPerkDetail->save();
+    	}
+
+    	$attachedPerksToCompany = array();
+
+    	if($company->perks()) {
+    		foreach($company->perks as $companyPerk) {
+    			array_push($attachedPerksToCompany, $companyPerk->id);
+    		}
+    	}
+
+    	foreach($perkIdArray as $perkId) {
+    		if(!in_array($perkId, $attachedPerksToCompany)) {
+    			$company->perks()->attach($perkId);
+    		}
+    	}
+    }
+
+    if($request->input('title') != null) {
+    	$subPerk = new SubPerk;
+
+    	$subPerk->title = $request->input('title');
+    	$subPerk->description = $request->input('description');
+    	$subPerk->perk_id = $request->input('perkId');
+    	$subPerk->slug = str_slug($request->input('title'), '-');
+
+    	$subPerk->save();
+
+    	$attachedPerksToCompany = array();
+
+    	if($company->perks()) {
+    		foreach($company->perks as $companyPerk) {
+    			array_push($attachedPerksToCompany, $companyPerk->id);
+    		}
+    	}
+
+    	if(!in_array($request->input('perkId'), $attachedPerksToCompany)) {
+    		$company->perks()->attach($request->input('perkId'));
+    	}
+
+    	$company->subPerks()->attach($subPerk->id);
+
+    	$companySubPerkDetail = new CompanySubPerkDetail;
+
+    	$companySubPerkDetail->company_id = $company->id;
+    	$companySubPerkDetail->sub_perk_id = $subPerk->id;
+    	$companySubPerkDetail->value = 0;
+
+    	$companySubPerkDetail->save();
+    }
+
+	return redirect('/companies/'.$company->slug);
 })->middleware('auth');
 
-Route::get('/companies/{companySlug}/perks/{perkSlug}/add-sub-perk', function() {
+Route::get('/companies/{companySlug}/add-sub-perk', function() {
     $routeParameters = Route::getCurrentRoute()->parameters();
 
 	$company = Company::where('slug', $routeParameters['companySlug'])->first();
 	$locations = Location::select('country')->groupBy('country')->get();
-	$perk = Perk::where('slug', $routeParameters['perkSlug'])->first();
+	$perks = Perk::orderBy('title', 'asc')->get();
+	
+	$companySubPerkDetails = CompanySubPerkDetail::where('company_id', $company->id)->get();
+
+	$subPerkIdsFromCompanySubPerkDetailsArray = array();
+
+	foreach($companySubPerkDetails as $companySubPerkDetail) {
+		array_push($subPerkIdsFromCompanySubPerkDetailsArray, $companySubPerkDetail->sub_perk_id);
+	}
+
+	$subPerks = SubPerk::orderBy('title', 'asc')->get();
+
+	$subPerksToShow = array();
+
+	foreach($subPerks as $subPerk) {
+		if(!in_array($subPerk->id, $subPerkIdsFromCompanySubPerkDetailsArray)) {
+			array_push($subPerksToShow, $subPerk);
+		}
+	}
 
 	return view('companies.addSubPerk', [
 		'company' => $company,
 		'locations' => $locations,
-		'perk' => $perk
+		'perks' => $perks,
+		'subPerksToShow' => $subPerksToShow
 	]);
 })->middleware('auth');
 
@@ -198,10 +277,31 @@ Route::get('/companies/{companySlug}', function() {
 	$locations = Location::select('country')->groupBy('country')->get();
 	$companySubPerkDetails = CompanySubPerkDetail::where('company_id', $company->id)->get();
 
+	$perkIdsFromSubPerkDetails = array();
+
+	foreach($companySubPerkDetails as $companySubPerkDetail) {
+		array_push($perkIdsFromSubPerkDetails, $companySubPerkDetail->subPerk->perk->id);
+	}
+
+	$perks = Perk::orderBy('title', 'asc')->get();
+
+	$filledPerks = array();
+	$unfilledPerks = array();
+
+	foreach ($perks as $key => $perk) {
+		if(in_array($perk->id, $perkIdsFromSubPerkDetails)) {
+			array_push($filledPerks, $perk);
+		} else {
+			array_push($unfilledPerks, $perk);
+		}
+	}
+
 	return view('companies.show', [
 		'company' => $company,
 		'locations' => $locations,
-		'companySubPerkDetails' => $companySubPerkDetails
+		'companySubPerkDetails' => $companySubPerkDetails,
+		'filledPerks' => $filledPerks,
+		'unfilledPerks' => $unfilledPerks
 	]);
 });
 
@@ -218,6 +318,8 @@ Route::post('/companies/add-company', function(Request $request) {
 		if(request('image')) {
 		    $company->image = Storage::disk('gcs')->put('/avatars', request('image'), 'public');
 		}
+
+		$company->value = 0;
 
 		$company->save();
 		
@@ -584,6 +686,31 @@ Route::get('/perks/{perkId}/edit', function() {
 })->middleware('auth');
 
 // MISC //
+Route::get('/about', function() {
+	$locations = Location::select('country')->groupBy('country')->get();
+
+	return view('about', [
+		'locations' => $locations
+	]);
+});
+
+Route::post('/password/send-email', function(Request $request) {
+    $emailArray['email'] = $request->input('email');
+
+    $user = User::where('email', $request->input('email'))->first();
+
+    if(!$user) {
+        return redirect('/password/reset')->with('error', 'User not found.');
+    }
+
+    $url = url(config('app.url').route('password.reset', str_random(40), false));
+
+    Mail::to($request->input('email'))->send(new SendResetPasswordLink($user, $url));
+
+    return redirect('password/reset')->with('sent', 'We have e-mailed your password reset link!');
+
+});
+
 Route::get('/likes', function() {
 	$locations = Location::select('country')->groupBy('country')->get();
 	$likes = Like::where('user_id', Auth::id())->orderBy('created_at', 'desc')->get();

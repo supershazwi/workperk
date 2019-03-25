@@ -11,15 +11,17 @@
 
 <div class="py-5 bg-light" style="margin-top: 6rem;">
   <div class="container">
-  	@foreach($company->perks as $perk)
-    <p class="lead"><strong>{{$perk->title}}</strong></p>
+    @foreach($filledPerks as $perk)
+    <p class="lead">
+    <strong>{{$perk->title}}</strong> <a href="/companies/{{$company->slug}}/add-sub-perk"><i class="fas fa-plus" style="margin-left: 0.5rem;"></i></a></p>
+
     <div class="row">
       @foreach($companySubPerkDetails as $companySubPerkDetail)
-	      @if($companySubPerkDetail->subPerk->perk->id == $perk->id)
-		      <div class="col-md-4">
-		        <div class="card mb-4 shadow-sm">
-		          <div class="card-body">
-		            <a href="/companies/{{$companySubPerkDetail->company->slug}}/perks/{{$companySubPerkDetail->subPerk->perk->slug}}/sub-perks/{{$companySubPerkDetail->subPerk->slug}}"><p class="lead" style="margin-bottom: 0.5rem;">{{$companySubPerkDetail->subPerk->title}}</p></a>
+        @if($companySubPerkDetail->subPerk->perk->id == $perk->id)
+          <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+              <div class="card-body">
+                <a href="/companies/{{$companySubPerkDetail->company->slug}}/perks/{{$companySubPerkDetail->subPerk->perk->slug}}/sub-perks/{{$companySubPerkDetail->subPerk->slug}}"><p class="lead" style="margin-bottom: 0.5rem;">{{$companySubPerkDetail->subPerk->title}}</p></a>
                 <span style="font-size: 0.875rem; color: #16a085;">
                   @if($companySubPerkDetail->value == 0)
                     TBC
@@ -27,23 +29,17 @@
                     ${{number_format($companySubPerkDetail->value)}}
                   @endif
                 </span> <span style="font-size: 0.875rem; margin-left: 0.5rem;">{{count($companySubPerkDetail->likes)}} Likes • {{count($companySubPerkDetail->comments)}} Comments</span>
-		          </div>
-		        </div>
-		      </div>
-	      @endif
-      @endforeach
-      <div class="col-md-4">
-        <div class="card mb-4 shadow-sm">
-          <div class="card-body" style="text-align: center;">
-            <a href="/companies/{{$company->slug}}/perks/{{$perk->slug}}/add-sub-perk"><i class="fas fa-plus" style="line-height: 3.9rem;"></i></a>
-            <!-- <span style="font-size: 0.875rem;">test</span> -->
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        @endif
+      @endforeach
     </div>
-    @if(!$loop->last)
-    	<br/>
-    @endif
+    @endforeach
+
+    @foreach($unfilledPerks as $perk)
+    <p class="lead">
+    <strong>{{$perk->title}}</strong> <a href="/companies/{{$company->slug}}/add-sub-perk"><i class="fas fa-plus" style="margin-left: 0.5rem;"></i></a></p>
     @endforeach
   </div>
 </div>
