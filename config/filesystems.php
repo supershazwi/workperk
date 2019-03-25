@@ -67,7 +67,7 @@ return [
         'gcs' => [
             'driver' => 'gcs',
             'project_id' => env('GOOGLE_CLOUD_PROJECT_ID', 'talentail-217309'),
-            'key_file' => env('GOOGLE_CLOUD_KEY_FILE', '/var/www/html/talentail/current/talentail-217309-ac6e4e86e4f1.json'),
+            'key_file' => env('GOOGLE_CLOUD_KEY_FILE', '/var/www/html/workperk/current/talentail-217309-ac6e4e86e4f1.json'),
             // 'key_file' => env('GOOGLE_CLOUD_KEY_FILE', '/Users/supershazwi/Documents/workperk/talentail-217309-ac6e4e86e4f1.json'),
             'bucket' => env('GOOGLE_CLOUD_STORAGE_BUCKET', 'talentail-123456789'),
             'path_prefix' => env('GOOGLE_CLOUD_STORAGE_PATH_PREFIX', null), // optional: /default/path/to/apply/in/bucket

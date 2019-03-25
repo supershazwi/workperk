@@ -30,7 +30,7 @@
             @if(count($subPerks[$company->id]) > 3)
               <button class="btn btn-sm btn-warning" disabled style="margin-bottom: 0.25rem; font-size: 0.75rem;">+{{count($subPerks[$company->id]) - 3}} more</button>
             @endif
-            <p style="margin-bottom: 0rem; margin-top: 0.5rem; font-size: 0.875rem;">Value: <span style="color: #16a085;">~${{number_format($company->value)}}</span></p>
+            <p style="margin-bottom: 0rem; margin-top: 0.5rem; font-size: 0.875rem;">Perks Value: <span style="color: #16a085;">~${{number_format($company->value)}}</span></p>
           </div>
         </div>
       </div>

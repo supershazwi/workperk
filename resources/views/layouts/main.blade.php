@@ -57,7 +57,7 @@
   </head>
   <body>
     <header>
-      <div class="navbar navbar-white bg-white">
+      <div class="navbar navbar-white bg-transparent">
         <div class="container d-flex justify-content-between">
           <a href="/" style="color: #212529;"><h5 class="navbar-brand d-flex align-items-center">
             Work<strong>Perk</strong><img class="mb-2" src="/img/logo.svg" alt="" width="24" height="24" style="margin-left: 0.5rem;">
