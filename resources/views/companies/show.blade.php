@@ -5,6 +5,7 @@
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
   <img src="https://storage.googleapis.com/talentail-123456789/{{$company->image}}" alt="" class="avatar-img rounded" style="width: 5rem; height: 5rem;">
   <h1>{{$company->name}}</h1>
+  <p>{{$company->location->state}}, {{$company->location->country}}</p>
   <p class="lead">{{$company->description}}</p>
   <p class="lead" style="margin-bottom: 0rem;">Value: <span style="color: #16a085;">~${{number_format($company->value)}}</span></p>
 </div>
