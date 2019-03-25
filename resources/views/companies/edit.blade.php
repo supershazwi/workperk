@@ -32,6 +32,21 @@
   				<textarea class="form-control" name="description" id="description" maxlength="280" rows="5" placeholder="Enter description">{{$company->description}}</textarea>
   			</div>
   		</div>
+      <div class="form-group row">
+        <label for="staticEmail" class="col-sm-2 col-form-label">Location</label>
+        <div class="col-sm-10">
+          <select class="custom-select" name="location">
+            <option>Select location</option>
+            @foreach($locations as $location)
+            @if($company->location_id == $location->id)
+            <option value="{{$location->id}}" selected>{{$location->state}}, {{$location->country}}</option>
+            @else
+            <option value="{{$location->id}}">{{$location->state}}, {{$location->country}}</option>
+            @endif
+            @endforeach
+          </select>
+        </div>
+      </div>
   		<div class="form-group row">
   			<label for="inputPassword" class="col-sm-2 col-form-label"></label>
   			<div class="col-sm-10">
