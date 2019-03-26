@@ -1015,7 +1015,7 @@ Route::get('/profile', function () {
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 Route::get('/', function () {
-	$perks = Perk::all();
+	$perks = Perk::orderBy('title', 'asc')->get();
 
 	$availablePerks = array();
 

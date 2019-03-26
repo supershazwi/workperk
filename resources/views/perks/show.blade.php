@@ -6,7 +6,7 @@
   <h1>{{$perk->title}} <sup><span class="badge badge-primary" style="font-size: 0.875rem;">Perk</span></sup></h1>
   <p class="lead">{{$perk->description}}</p>
   <div style="margin-top: 2.5rem;">
-    @foreach($perk->subPerks as $subPerk)
+    @foreach($perk->subPerks->sortBy('title') as $subPerk)
       <a href="/sub-perks/{{$subPerk->slug}}" class="btn btn-sm btn-warning" style="margin-bottom: 0.25rem;">{{$subPerk->title}}</a>
     @endforeach
   </div>
