@@ -39,20 +39,20 @@
       <div class="form-group row">
         <label for="staticEmail" class="col-sm-2 col-form-label">Location</label>
         <div class="col-sm-10">
-          <select class="custom-select" name="location">
-            @if(old('location'))
-            <option>Select location</option>
-            @else
-            <option selected>Select location</option>
-            @endif
-            @foreach($locations as $location)
-            @if($location->id == old('location'))
-            <option value="{{$location->id}}" selected>{{$location->state}}, {{$location->country}}</option>
-            @else
-            <option value="{{$location->id}}">{{$location->state}}, {{$location->country}}</option>
-            @endif
-            @endforeach
-          </select>
+            <select class="js-example-basic-single" name="location" style="width: 100%;">
+              @if(old('location'))
+              <option>Select location</option>
+              @else
+              <option selected>Select location</option>
+              @endif
+              @foreach($locations as $location)
+              @if($location->id == old('location'))
+              <option value="{{$location->id}}" selected>{{$location->state}}, {{$location->country}}</option>
+              @else
+              <option value="{{$location->id}}">{{$location->state}}, {{$location->country}}</option>
+              @endif
+              @endforeach
+            </select>
         </div>
       </div>
       <div class="form-group row">
@@ -64,6 +64,13 @@
     </form>
   </div>
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script> 
+<script type="text/javascript">
+  $(document).ready(function() {
+      $('.js-example-basic-single').select2();
+  });
+</script>
 
 @endsection
 
