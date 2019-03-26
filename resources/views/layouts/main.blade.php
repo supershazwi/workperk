@@ -19,6 +19,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <meta property="og:title" content="WorkPerk - All company perks and benefits"/>
+    <meta property="og:url" content="https://workperk.io/"/>
+    <meta property="og:image" content="https://workperk.io/img/logo.svg"/>
+    <meta property="og:description" content="Know the additional worth of your job. Perks & benefits are ranked 2nd most important factor by job seekers."/>
+
     <style>
       .bd-placeholder-img {
         font-size: 1.125rem;
