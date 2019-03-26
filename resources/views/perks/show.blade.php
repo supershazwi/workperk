@@ -7,7 +7,9 @@
   <p class="lead">{{$perk->description}}</p>
   <div style="margin-top: 2.5rem;">
     @foreach($perk->subPerks->sortBy('title') as $subPerk)
+      @if(count($subPerk->companies) > 0)
       <a href="/sub-perks/{{$subPerk->slug}}" class="btn btn-sm btn-warning" style="margin-bottom: 0.25rem;">{{$subPerk->title}}</a>
+      @endif
     @endforeach
   </div>
 </div>
