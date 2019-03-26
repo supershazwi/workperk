@@ -8,7 +8,7 @@
     <meta name="generator" content="Jekyll v3.8.5">
     <title>WorkPerk - All company perks and benefits</title>
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/sign-in/">
+    <link rel="canonical" href="https://workperk.io">
     <link rel="icon" type="image/png" sizes="96x96" href="/img/favicon-96x96.png">
 
     <!-- Bootstrap core CSS -->
