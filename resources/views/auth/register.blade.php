@@ -76,7 +76,7 @@
         
       </div>
       <button type="submit" class="btn btn-primary btn-block">Register an account</button>
-      <p style="margin-top: 1rem; margin-bottom: 0rem;">By clicking 'Register an account', you agree to our <a href="#">Terms of Service</a>.</p>
+      <p style="margin-top: 1rem; margin-bottom: 0rem;">By clicking 'Register an account', you agree to our <a href="/terms-conditions">Terms of Service</a>.</p>
       <a href="/login" class="btn btn-link btn-block">Login</a>
     </form>
   </body>
