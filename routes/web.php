@@ -56,6 +56,12 @@ Route::post('/companies/{companySlug}/perks/{perkSlug}/sub-perks/{subPerkSlug}/c
 
     $comment = Comment::find($routeParameters['commentId']);
 
+    if($request->input('anonymous')) {
+    	$comment->anonymous = true;
+    } else {
+    	$comment->anonymous = false;
+    }
+
     $comment->content = $request->input('content');
     $comment->save();
 
@@ -123,7 +129,7 @@ Route::get('/companies/add-company', function() {
 	return view('companies.add', [
 		'locations' => $locations
 	]);
-})->middleware('auth');
+});
 
 Route::get('/companies/{companySlug}/perks/{perkSlug}', function() {
     $routeParameters = Route::getCurrentRoute()->parameters();
@@ -207,7 +213,16 @@ Route::post('/companies/{companySlug}/perks/{perkSlug}/sub-perks/{subPerkSlug}/l
 
     $comment->content = $request->input('content');
     $comment->company_sub_perk_detail_id = $companySubPerkDetail->id;
-    $comment->user_id = Auth::id();
+    $comment->anonymous = false;
+    if(Auth::id()) {
+    	if($request->anonymous) {
+    		$comment->anonymous = true;
+    	} 
+			$comment->user_id = Auth::id();
+    } else {
+    	$comment->user_id = 0;
+    	$comment->anonymous = true;
+    }
 
     $comment->save();
 
@@ -227,7 +242,7 @@ Route::get('/companies/{companySlug}/perks/{perkSlug}/sub-perks/{subPerkSlug}/le
     	'locations' => $locations,
     	'companySubPerkDetail' => $companySubPerkDetail
     ]);
-})->middleware('auth');
+});
 
 Route::post('/companies/{companySlug}/add-sub-perk', function(Request $request) {
     $routeParameters = Route::getCurrentRoute()->parameters();
@@ -329,7 +344,7 @@ Route::post('/companies/{companySlug}/add-sub-perk', function(Request $request) 
     }
 
 	return redirect('/companies/'.$company->slug);
-})->middleware('auth');
+});
 
 Route::get('/companies/{companySlug}/add-sub-perk', function() {
     $routeParameters = Route::getCurrentRoute()->parameters();
@@ -362,7 +377,7 @@ Route::get('/companies/{companySlug}/add-sub-perk', function() {
 		'perks' => $perks,
 		'subPerksToShow' => $subPerksToShow
 	]);
-})->middleware('auth');
+});
 
 Route::get('/companies/{companySlug}', function() {
     $routeParameters = Route::getCurrentRoute()->parameters();
@@ -460,12 +475,16 @@ Route::post('/companies/add-company', function(Request $request) {
 
     $company->save();
 
-	if(Auth::user()->email == 'supershazwi@gmail.com') {
-		return redirect('/companies/'.$company->id.'/edit');
+    if(Auth::id() != null) {
+		if(Auth::user()->email == 'supershazwi@gmail.com') {
+			return redirect('/companies/'.$company->id.'/edit');
+		} else {
+			return redirect('/companies/'.$company->slug);
+		} 
 	} else {
 		return redirect('/companies/'.$company->slug);
 	}
-})->middleware('auth');
+});
 
 // PERKS & SUB-PERKS//
 Route::get('/companies/{companySlug}/perks/{perkSlug}/sub-perks/{subPerkSlug}', function() {
@@ -687,7 +706,7 @@ Route::get('/perks/{perkId}/add-sub-perk', function() {
 	} else {
 		return redirect('/');
 	}
-})->middleware('auth');
+});
 
 Route::get('/sub-perks/{subPerkSlugOrId}', function() {
     $routeParameters = Route::getCurrentRoute()->parameters();

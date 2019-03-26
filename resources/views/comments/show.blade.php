@@ -22,6 +22,16 @@
         </div>
       </div>
       <div class="form-group row">
+          <label for="inputPassword" class="col-sm-2 col-form-label">Post Anonymously</label>
+          <div class="col-sm-10">
+            @if($comment->anonymous)
+            <input class="form-control" type="checkbox" name="anonymous" checked/>
+            @else
+            <input class="form-control" type="checkbox" name="anonymous" />
+            @endif
+          </div>
+      </div>
+      <div class="form-group row">
         <label for="inputPassword" class="col-sm-2 col-form-label"></label>
         <div class="col-sm-10">
           <button type="submit" class="btn btn-primary">Submit Comment</button>

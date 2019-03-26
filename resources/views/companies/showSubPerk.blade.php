@@ -31,12 +31,24 @@
       <div class="col-md-4">
         <div class="card mb-4 shadow-sm">
           <div class="card-body">
-            @if(Auth::id() == $comment->user_id)
+            @if(Auth::id() == $comment->user_id && $comment->user_id != 0)
             <a href="/companies/{{$company->slug}}/perks/{{$companySubPerkDetail->subPerk->perk->slug}}/sub-perks/{{$companySubPerkDetail->subPerk->slug}}/comments/{{$comment->id}}"><p>{{$comment->content}}</p></a>
             @else
             <p>{{$comment->content}}</p>
             @endif
+            @if($comment->user_id == 0)
+            <footer class="blockquote-footer">Anonymous User, {{$comment->created_at->diffForHumans()}}</footer>
+            @else
+            @if($comment->anonymous) 
+            @if(Auth::id() == $comment->user_id)
+            <footer class="blockquote-footer">Anonymous User (You), {{$comment->created_at->diffForHumans()}}</footer>
+            @else
+            <footer class="blockquote-footer">Anonymous User, {{$comment->created_at->diffForHumans()}}</footer>
+            @endif
+            @else
             <footer class="blockquote-footer">{{$comment->user->name}}, {{$comment->created_at->diffForHumans()}}</footer>
+            @endif
+            @endif
           </div>
         </div>
       </div>
