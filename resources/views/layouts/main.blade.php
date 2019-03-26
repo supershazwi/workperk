@@ -21,7 +21,7 @@
 
     <meta property="og:title" content="WorkPerk - All company perks and benefits"/>
     <meta property="og:url" content="https://workperk.io/"/>
-    <meta property="og:image" content="https://workperk.io/img/logo.svg"/>
+    <meta property="og:image" content="https://workperk.io/img/logo.png"/>
     <meta property="og:description" content="Know the additional worth of your job. Perks & benefits are ranked 2nd most important factor by job seekers."/>
 
     <style>
