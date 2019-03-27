@@ -42,6 +42,8 @@
     </style>
     <!-- Custom styles for this template -->
     <link href="/css/pricing.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/custom.css">
+    <link rel="stylesheet" href="/css/masonry.css">
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
     <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
     <script>
@@ -78,7 +80,7 @@
             Work<strong>Perk</strong><img class="mb-2" src="/img/logo.svg" alt="" width="24" height="24" style="margin-left: 0.5rem;">
           </h5></a>
           <div>
-            
+            <a href="/find-companies" style="margin-right: 1rem;">Find Your Ideal Company</a>
             <a href="/companies/add-company" style="margin-right: 1rem;">Add Company</a>
             @if(Auth::id())
               @if(Auth::user()->email == "supershazwi@gmail.com")

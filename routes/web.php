@@ -22,6 +22,73 @@ use App\VerifyUser;
 use App\Mail\VerifyMail;
 
 // COMMENTS //
+Route::post('/find-companies', function(Request $request) {
+    $locations = Location::all();
+
+    $selectedSubPerkIds = $request->input('clickedPerks');
+    $selectedSubPerkIds = explode(",", $selectedSubPerkIds);
+
+    $companyArray = array();
+    $colArray = array();
+    $rowArray = array();
+
+    foreach($selectedSubPerkIds as $selectedSubPerkId) {
+        $selectedSubPerk = SubPerk::find($selectedSubPerkId);
+
+        array_push($colArray, $selectedSubPerk);
+
+        foreach($selectedSubPerk->companies as $company) {
+            if(empty($companyArray[$company->id])) {
+                $companyArray[$company->id] = 1;
+            } else {
+                $companyArray[$company->id] += 1;
+            }
+        }
+    }
+
+    arsort($companyArray);
+
+    $companyIdArray = array_keys($companyArray);
+
+    foreach($companyIdArray as $key=>$companyId) {
+        if(empty($rowArray[$key])) {
+            $rowArray[$key] = array();
+        }
+        array_push($rowArray[$key], Company::find($companyId));
+
+        foreach($colArray as $subPerk) {
+            $companySubPerkDetail = CompanySubPerkDetail::where('company_id', $companyId)->where('sub_perk_id', $subPerk->id)->first();
+
+            if($companySubPerkDetail == null) {
+                array_push($rowArray[$key], "Unavailable");
+            } elseif ($companySubPerkDetail->value == -1) {
+                array_push($rowArray[$key], "Available");
+            } elseif ($companySubPerkDetail->value == 0) {
+                array_push($rowArray[$key], "TBC");
+            } elseif ($companySubPerkDetail->value > 0) {
+                array_push($rowArray[$key], $companySubPerkDetail->value);
+            }
+        }
+    }
+
+    return view('findCompaniesResult', [
+        'locations' => $locations,
+        'rowArray' => $rowArray,
+        'colArray' => $colArray
+    ]);
+
+});
+
+Route::get('/find-companies', function() {
+    $locations = Location::all();
+    $perks = Perk::orderBy('title', 'asc')->get();
+
+    return view('findCompanies', [
+        'locations' => $locations,
+        'perks' => $perks
+    ]);
+});
+
 Route::get('/companies/{companySlug}/perks/{perkSlug}/sub-perks/{subPerkSlug}/comments/{commentId}/delete-comment', function() {
     $routeParameters = Route::getCurrentRoute()->parameters();
 
