@@ -103,12 +103,18 @@
               <th scope="row">{{$key+1}}</th>
               <td>{{$companySubPerkDetail->subPerk->title}}</td>
               <td>
+                @if($companySubPerkDetail->subPerk->type == "currency")
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1">$</span>
                   </div>
                   <input type="text" class="form-control" aria-describedby="basic-addon1" name="companySubPerkDetail_{{$companySubPerkDetail->id}}" value="{{$companySubPerkDetail->value}}"/>
                 </div>
+                @else
+                <div class="input-group mb-3">
+                  <input type="text" class="form-control" aria-describedby="basic-addon1" name="companySubPerkDetail_{{$companySubPerkDetail->id}}" value="{{$companySubPerkDetail->value}}"/>
+                </div>
+                @endif
               </td>
             </tr>
           @endforeach
