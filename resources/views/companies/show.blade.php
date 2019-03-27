@@ -43,7 +43,7 @@
                     @if($companySubPerkDetail->value == 0)
                       TBC
                     @else
-                    {{$companySubPerkDetail->value}}
+                    {{$companySubPerkDetail->value}} {{$companySubPerkDetail->subPerk->end}}
                     @endif
                   @endif
                 </span> <span style="font-size: 0.875rem; margin-left: 0.5rem;">{{count($companySubPerkDetail->likes)}} Likes • {{count($companySubPerkDetail->comments)}} Comments</span>
