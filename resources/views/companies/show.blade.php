@@ -31,12 +31,20 @@
               <div class="card-body">
                 <a href="/companies/{{$companySubPerkDetail->company->slug}}/perks/{{$companySubPerkDetail->subPerk->perk->slug}}/sub-perks/{{$companySubPerkDetail->subPerk->slug}}"><p class="lead" style="margin-bottom: 0.5rem;">{{$companySubPerkDetail->subPerk->title}}</p></a>
                 <span style="font-size: 0.875rem; color: #16a085;">
-                  @if($companySubPerkDetail->value == 0)
-                    TBC
-                  @elseif($companySubPerkDetail->value == -1)
+                  @if($companySubPerkDetail->subPerk->type == "currency")
+                    @if($companySubPerkDetail->value == 0)
+                      TBC
+                    @else
+                      ${{number_format($companySubPerkDetail->value)}}
+                    @endif
+                  @elseif($companySubPerkDetail->subPerk->type == "na")
                     N.A.
-                  @else
-                    ${{number_format($companySubPerkDetail->value)}}
+                  @elseif($companySubPerkDetail->subPerk->type == "number")
+                    @if($companySubPerkDetail->value == 0)
+                      TBC
+                    @else
+                    {{$companySubPerkDetail->value}}
+                    @endif
                   @endif
                 </span> <span style="font-size: 0.875rem; margin-left: 0.5rem;">{{count($companySubPerkDetail->likes)}} Likes • {{count($companySubPerkDetail->comments)}} Comments</span>
               </div>

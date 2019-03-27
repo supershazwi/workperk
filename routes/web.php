@@ -382,6 +382,7 @@ Route::post('/companies/{companySlug}/add-sub-perk', function(Request $request) 
     	$subPerk->description = $request->input('description');
     	$subPerk->perk_id = $request->input('perkId');
     	$subPerk->slug = str_slug($request->input('title'), '-');
+        $subPerk->type = "currency";
 
     	$subPerk->save();
 
@@ -584,8 +585,8 @@ Route::post('/companies/{companyId}/save-company-sub-perk-details', function(Req
 
 			$companySubPerkDetail->save();
 
-            if($companySubPerkDetail->value != -1) {
-			 $companyValue += $companySubPerkDetail->value;
+            if($companySubPerkDetail->subPerk->type=="currency" && $companySubPerkDetail->value != -1) {
+			    $companyValue += $companySubPerkDetail->value;
             }
 		}
 
@@ -751,6 +752,7 @@ Route::post('/perks/{perkId}/add-sub-perk', function(Request $request) {
 		$subPerk->description = $request->input('description');
 		$subPerk->perk_id = $routeParameters['perkId'];
 		$subPerk->slug = str_slug($request->input('title'), '-');
+        $subPerk->type = "currency";
 
 		$subPerk->save();
 		
