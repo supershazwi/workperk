@@ -33,6 +33,8 @@
                 <span style="font-size: 0.875rem; color: #16a085;">
                   @if($companySubPerkDetail->value == 0)
                     TBC
+                  @elseif($companySubPerkDetail->value == -1)
+                    N.A.
                   @else
                     ${{number_format($companySubPerkDetail->value)}}
                   @endif

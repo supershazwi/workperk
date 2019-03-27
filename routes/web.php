@@ -415,6 +415,7 @@ Route::get('/companies/{companySlug}', function() {
 });
 
 Route::post('/companies/{companyId}/save-company', function(Request $request) {
+    // dd('hi');
     $routeParameters = Route::getCurrentRoute()->parameters();
 
 	if(Auth::user()->email == 'supershazwi@gmail.com') {
@@ -427,8 +428,6 @@ Route::post('/companies/{companyId}/save-company', function(Request $request) {
 		if(request('image')) {
 		    $company->image = Storage::disk('gcs')->put('/avatars', request('image'), 'public');
 		}
-
-		$company->value = 0;
 
 		$company->save();
 		
@@ -518,7 +517,9 @@ Route::post('/companies/{companyId}/save-company-sub-perk-details', function(Req
 
 			$companySubPerkDetail->save();
 
-			$companyValue += $companySubPerkDetail->value;
+            if($companySubPerkDetail->value != -1) {
+			 $companyValue += $companySubPerkDetail->value;
+            }
 		}
 
 		$company = Company::find($routeParameters['companyId']);
