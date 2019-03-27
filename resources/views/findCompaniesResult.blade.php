@@ -10,7 +10,7 @@
   <div class="row">
     <div class="col-lg-12">
     	<div class="table-responsive">
-	    	<table class="table">
+	    	<table class="table" id="results">
 	    	  <thead class="thead-dark">
 	    	    <tr>
 	    	      <th scope="col">Company</th>
@@ -58,6 +58,12 @@
   </div>
 </div>
 
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+	    $('#results').DataTable();
+	} );
+</script>
 @endsection
 
 @section ('footer')   
