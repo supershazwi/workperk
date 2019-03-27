@@ -74,6 +74,8 @@
 
   </head>
   <body>
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=695661370849079&autoLogAppEvents=1"></script>
     <header>
       <div class="navbar navbar-white bg-transparent">
         <div class="container d-flex justify-content-between">
@@ -120,6 +122,12 @@
                 </ul>
               </div>
               <div class="col-6 col-md">
+                <ul class="list-unstyled text-small" style="margin-bottom: 0rem !important;">
+                  <li><a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-text="You should check out the work done at WorkPerk if you would like to explore companies by their perks and culture values!" data-url="https://www.workperk.io" data-via="hello_workperk" data-hashtags="knowuradditionalworth" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></li>
+                  <li><div class="fb-share-button" data-href="https://workperk.io" data-layout="button" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fworkperk.io%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div></li>
+                </ul>
+                
+                
               </div>
               <div class="col-6 col-md">
               </div>
