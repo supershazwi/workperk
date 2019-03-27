@@ -111,9 +111,9 @@
               <div class="col-6 col-md">
                 <h5>WorkPerk</h5>
                 <ul class="list-unstyled text-small" style="margin-bottom: 0rem !important;">
-                  <li><a class="text-muted" href="/about">About</a></li>
-                  <li><a class="text-muted" href="/privacy-policy">Privacy Policy</a></li>
-                  <li><a class="text-muted" href="/terms-conditions">Terms & Conditions</a></li>
+                  <li><a class="text-muted" href="/about" style="font-size: 0.875rem;">About</a></li>
+                  <li><a class="text-muted" href="/privacy-policy" style="font-size: 0.875rem;">Privacy Policy</a></li>
+                  <li><a class="text-muted" href="/terms-conditions" style="font-size: 0.875rem;">Terms & Conditions</a></li>
                 </ul>
               </div>
               <div class="col-6 col-md">
