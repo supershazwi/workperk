@@ -46,7 +46,11 @@ Route::post('/find-companies', function(Request $request) {
         }
     }
 
+    // dd($companyArray);
+
     arsort($companyArray);
+
+    // dd($companyArray);
 
     $companyIdArray = array_keys($companyArray);
 
@@ -59,15 +63,36 @@ Route::post('/find-companies', function(Request $request) {
         foreach($colArray as $subPerk) {
             $companySubPerkDetail = CompanySubPerkDetail::where('company_id', $companyId)->where('sub_perk_id', $subPerk->id)->first();
 
-            if($companySubPerkDetail == null) {
+            if($companySubPerkDetail) {
+                if($companySubPerkDetail->subPerk->type == "currency") {
+                    if($companySubPerkDetail->value == 0) {
+                        array_push($rowArray[$key], "TBC");
+                    } else {
+                        array_push($rowArray[$key], "$" . number_format($companySubPerkDetail->value));
+                    }
+                } elseif($companySubPerkDetail->subPerk->type == "na") {
+                    array_push($rowArray[$key], "Available");
+                } elseif($companySubPerkDetail->subPerk->type == "number") {
+                    if($companySubPerkDetail->value == 0) {
+                        array_push($rowArray[$key], "TBC");
+                    } else {
+                        array_push($rowArray[$key], $companySubPerkDetail->value . " " . $companySubPerkDetail->subPerk->end);
+                    }
+                }
+            } else {
                 array_push($rowArray[$key], "Unavailable");
-            } elseif ($companySubPerkDetail->value == -1) {
-                array_push($rowArray[$key], "Available");
-            } elseif ($companySubPerkDetail->value == 0) {
-                array_push($rowArray[$key], "TBC");
-            } elseif ($companySubPerkDetail->value > 0) {
-                array_push($rowArray[$key], $companySubPerkDetail->value);
             }
+
+            // if($companySubPerkDetail == null) {
+            //     array_push($rowArray[$key], "Unavailable");
+            // } elseif ($companySubPerkDetail->value == -1) {
+            //     array_push($rowArray[$key], "Available");
+            // } elseif ($companySubPerkDetail->value == 0) {
+            //     array_push($rowArray[$key], "TBC");
+            // } elseif ($companySubPerkDetail->value > 0) {
+            //     array_push($rowArray[$key], "$" . number_format($companySubPerkDetail->value));
+            // }
+            
         }
     }
 

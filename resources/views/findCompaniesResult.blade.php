@@ -26,12 +26,18 @@
 	    	    		@if($key == 0) 
 	    	    			<th scope="row"><a href="/companies/{{$rowDetail->slug}}">{{$rowDetail->name}}</a></th>
 	    	    		@else
-	    	    			@if(is_int($rowDetail)) 
+	    	    			<!-- @if(is_int($rowDetail)) 
 	    	    			<td style="background-color: #00b894;">${{number_format($rowDetail)}}</td>
 	    	    			@elseif($rowDetail == "Available" || $rowDetail == "TBC")
 	    	    			<td style="background-color: #00b894;">{{$rowDetail}}</td>
 	    	    			@else
 	    	    			<td style="background-color: #ff7675;">{{$rowDetail}}</td>
+	    	    			@endif -->
+
+	    	    			@if($rowDetail == "Unavailable")
+	    	    			<td style="background-color: #ff7675;">{{$rowDetail}}</td>
+	    	    			@else
+	    	    			<td style="background-color: #00b894;">{{$rowDetail}}</td>
 	    	    			@endif
 	    	    		@endif
 	    	    	@endforeach
@@ -61,7 +67,9 @@
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
-	    $('#results').DataTable();
+	    $('#results').DataTable( {
+	    	"order": [],
+	    });
 	} );
 </script>
 @endsection
