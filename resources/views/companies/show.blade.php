@@ -38,7 +38,7 @@
                       ${{number_format($companySubPerkDetail->value)}}
                     @endif
                   @elseif($companySubPerkDetail->subPerk->type == "na")
-                    Available
+                    
                   @elseif($companySubPerkDetail->subPerk->type == "number")
                     @if($companySubPerkDetail->value == 0)
                       TBC
