@@ -46,7 +46,12 @@
                     {{$companySubPerkDetail->value}} {{$companySubPerkDetail->subPerk->end}}
                     @endif
                   @endif
-                </span> <span style="font-size: 0.875rem; margin-left: 0.5rem;">{{count($companySubPerkDetail->likes)}} Likes • {{count($companySubPerkDetail->comments)}} Comments</span>
+                </span> 
+                @if($companySubPerkDetail->subPerk->type == "na")
+                <span style="font-size: 0.875rem; margin-left: 0rem;">{{count($companySubPerkDetail->likes)}} Likes • {{count($companySubPerkDetail->comments)}} Comments</span>
+                @else
+                <span style="font-size: 0.875rem; margin-left: 0.5rem;">{{count($companySubPerkDetail->likes)}} Likes • {{count($companySubPerkDetail->comments)}} Comments</span>
+                @endif
               </div>
             </div>
           </div>
