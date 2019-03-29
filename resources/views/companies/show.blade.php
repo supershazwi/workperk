@@ -17,7 +17,7 @@
   </span></p>
 </div>
 
-<div class="py-5 bg-light" style="margin-top: 6rem;">
+<div class="py-5 bg-light" style="margin-top: 6rem; padding-bottom: 2rem !important;">
   <div class="container">
     <div class="row">
       <div class="col-lg-12">
