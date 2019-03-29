@@ -19,51 +19,142 @@
 
 <div class="py-5 bg-light" style="margin-top: 6rem;">
   <div class="container">
-    @foreach($filledPerks as $perk)
-    <p class="lead">
-    <strong>{{$perk->title}}</strong> <a href="/companies/{{$company->slug}}/add-sub-perk"><i class="fas fa-plus" style="margin-left: 0.5rem;"></i></a></p>
-
     <div class="row">
-      @foreach($companySubPerkDetails as $companySubPerkDetail)
-        @if($companySubPerkDetail->subPerk->perk->id == $perk->id)
-          <div class="col-md-4">
-            <div class="card mb-4 shadow-sm">
-              <div class="card-body">
-                <a href="/companies/{{$companySubPerkDetail->company->slug}}/perks/{{$companySubPerkDetail->subPerk->perk->slug}}/sub-perks/{{$companySubPerkDetail->subPerk->slug}}"><p class="lead" style="margin-bottom: 0.5rem;">{{$companySubPerkDetail->subPerk->title}}</p></a>
-                <span style="font-size: 0.875rem; color: #16a085;">
-                  @if($companySubPerkDetail->subPerk->type == "currency")
-                    @if($companySubPerkDetail->value == 0)
-                      TBC
-                    @else
-                      ${{number_format($companySubPerkDetail->value)}}
-                    @endif
-                  @elseif($companySubPerkDetail->subPerk->type == "na")
-                    
-                  @elseif($companySubPerkDetail->subPerk->type == "number")
-                    @if($companySubPerkDetail->value == 0)
-                      TBC
-                    @else
-                    {{$companySubPerkDetail->value}} {{$companySubPerkDetail->subPerk->end}}
-                    @endif
+      <div class="col-lg-12">
+            <div class="row">
+              <div class="col-lg-3" style="">
+                @foreach($filledPerks as $key=>$perk)
+                @if($key % 4 == 0)
+        <div class="card shadow-sm" style="margin-bottom: 1rem;">
+          <div class="card-body">
+                <p style="font-weight: bold; margin-bottom: 0.25rem;">{{$perk->title}}</p>
+                @foreach($companySubPerkDetails as $companySubPerkDetail)
+                  @if($companySubPerkDetail->subPerk->perk->id == $perk->id)
+                    <a href="/companies/{{$companySubPerkDetail->company->slug}}/perks/{{$companySubPerkDetail->subPerk->perk->slug}}/sub-perks/{{$companySubPerkDetail->subPerk->slug}}"><p style="margin-bottom: 0rem;">{{$companySubPerkDetail->subPerk->title}}</p></a>
+                    <span style="font-size: 0.875rem; color: #16a085;">
+                      @if($companySubPerkDetail->subPerk->type == "currency")
+                        @if($companySubPerkDetail->value == 0)
+                          TBC
+                        @else
+                          ${{number_format($companySubPerkDetail->value)}}
+                        @endif
+                      @elseif($companySubPerkDetail->subPerk->type == "na")
+                        
+                      @elseif($companySubPerkDetail->subPerk->type == "number")
+                        @if($companySubPerkDetail->value == 0)
+                          TBC
+                        @else
+                        {{$companySubPerkDetail->value}} {{$companySubPerkDetail->subPerk->end}}
+                        @endif
+                      @endif
+                    </span>
                   @endif
-                </span> 
-                @if($companySubPerkDetail->subPerk->type == "na")
-                <span style="font-size: 0.875rem; margin-left: 0rem;">{{count($companySubPerkDetail->likes)}} Likes • {{count($companySubPerkDetail->comments)}} Comments</span>
-                @else
-                <span style="font-size: 0.875rem; margin-left: 0.5rem;">{{count($companySubPerkDetail->likes)}} Likes • {{count($companySubPerkDetail->comments)}} Comments</span>
+                @endforeach
+        </div>
+      </div>
                 @endif
+                @endforeach
+              </div>
+              <div class="col-lg-3" style="">
+                @foreach($filledPerks as $key=>$perk)
+                @if($key % 4 == 1)
+        <div class="card shadow-sm" style="margin-bottom: 1rem;">
+          <div class="card-body">
+                <p style="font-weight: bold; margin-bottom: 0.25rem;">{{$perk->title}}</p>
+                @foreach($companySubPerkDetails as $companySubPerkDetail)
+                  @if($companySubPerkDetail->subPerk->perk->id == $perk->id)
+                    <a href="/companies/{{$companySubPerkDetail->company->slug}}/perks/{{$companySubPerkDetail->subPerk->perk->slug}}/sub-perks/{{$companySubPerkDetail->subPerk->slug}}"><p style="margin-bottom: 0rem;">{{$companySubPerkDetail->subPerk->title}}</p></a>
+                    <span style="font-size: 0.875rem; color: #16a085;">
+                      @if($companySubPerkDetail->subPerk->type == "currency")
+                        @if($companySubPerkDetail->value == 0)
+                          TBC
+                        @else
+                          ${{number_format($companySubPerkDetail->value)}}
+                        @endif
+                      @elseif($companySubPerkDetail->subPerk->type == "na")
+                        
+                      @elseif($companySubPerkDetail->subPerk->type == "number")
+                        @if($companySubPerkDetail->value == 0)
+                          TBC
+                        @else
+                        {{$companySubPerkDetail->value}} {{$companySubPerkDetail->subPerk->end}}
+                        @endif
+                      @endif
+                    </span>
+                  @endif
+                @endforeach
+                </div>
+      </div>
+                @endif
+                @endforeach
+              </div>
+              <div class="col-lg-3" style="">
+                @foreach($filledPerks as $key=>$perk)
+                @if($key % 4 == 2)
+                <div class="card shadow-sm" style="margin-bottom: 1rem;">
+          <div class="card-body">
+                <p style="font-weight: bold; margin-bottom: 0.25rem;">{{$perk->title}}</p>
+                @foreach($companySubPerkDetails as $companySubPerkDetail)
+                  @if($companySubPerkDetail->subPerk->perk->id == $perk->id)
+                    <a href="/companies/{{$companySubPerkDetail->company->slug}}/perks/{{$companySubPerkDetail->subPerk->perk->slug}}/sub-perks/{{$companySubPerkDetail->subPerk->slug}}"><p style="margin-bottom: 0rem;">{{$companySubPerkDetail->subPerk->title}}</p></a>
+                    <span style="font-size: 0.875rem; color: #16a085;">
+                      @if($companySubPerkDetail->subPerk->type == "currency")
+                        @if($companySubPerkDetail->value == 0)
+                          TBC
+                        @else
+                          ${{number_format($companySubPerkDetail->value)}}
+                        @endif
+                      @elseif($companySubPerkDetail->subPerk->type == "na")
+                        
+                      @elseif($companySubPerkDetail->subPerk->type == "number")
+                        @if($companySubPerkDetail->value == 0)
+                          TBC
+                        @else
+                        {{$companySubPerkDetail->value}} {{$companySubPerkDetail->subPerk->end}}
+                        @endif
+                      @endif
+                    </span>
+                  @endif
+                @endforeach
+              </div></div>
+                @endif
+                @endforeach
+              </div>
+              <div class="col-lg-3" style="">
+                @foreach($filledPerks as $key=>$perk)
+                @if($key % 4 == 3)
+                <div class="card shadow-sm" style="margin-bottom: 1rem;">
+          <div class="card-body">
+                <p style="font-weight: bold; margin-bottom: 0.25rem;">{{$perk->title}}</p>
+                @foreach($companySubPerkDetails as $companySubPerkDetail)
+                  @if($companySubPerkDetail->subPerk->perk->id == $perk->id)
+                    <a href="/companies/{{$companySubPerkDetail->company->slug}}/perks/{{$companySubPerkDetail->subPerk->perk->slug}}/sub-perks/{{$companySubPerkDetail->subPerk->slug}}"><p style="margin-bottom: 0rem;">{{$companySubPerkDetail->subPerk->title}}</p></a>
+                    <span style="font-size: 0.875rem; color: #16a085;">
+                      @if($companySubPerkDetail->subPerk->type == "currency")
+                        @if($companySubPerkDetail->value == 0)
+                          TBC
+                        @else
+                          ${{number_format($companySubPerkDetail->value)}}
+                        @endif
+                      @elseif($companySubPerkDetail->subPerk->type == "na")
+                        
+                      @elseif($companySubPerkDetail->subPerk->type == "number")
+                        @if($companySubPerkDetail->value == 0)
+                          TBC
+                        @else
+                        {{$companySubPerkDetail->value}} {{$companySubPerkDetail->subPerk->end}}
+                        @endif
+                      @endif
+                    </span>
+                  @endif
+                @endforeach
+              </div></div>
+                @endif
+                @endforeach
               </div>
             </div>
           </div>
-        @endif
-      @endforeach
     </div>
-    @endforeach
-
-    @foreach($unfilledPerks as $perk)
-    <p class="lead">
-    <strong>{{$perk->title}}</strong> <a href="/companies/{{$company->slug}}/add-sub-perk"><i class="fas fa-plus" style="margin-left: 0.5rem;"></i></a></p>
-    @endforeach
   </div>
 </div>
 
