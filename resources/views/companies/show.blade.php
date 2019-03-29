@@ -27,7 +27,7 @@
                 @if($key % 4 == 0)
         <div class="card shadow-sm" style="margin-bottom: 1rem;">
           <div class="card-body">
-                <p style="font-weight: bold; margin-bottom: 0.25rem;">{{$perk->title}}</p>
+                <p style="font-weight: bold; margin-bottom: 0.25rem;">{{$perk->title}} <a href="/companies/{{$company->slug}}/add-sub-perk"><i class="fas fa-plus" style="margin-left: 0.5rem;"></i></a></p>
                 @foreach($companySubPerkDetails as $companySubPerkDetail)
                   @if($companySubPerkDetail->subPerk->perk->id == $perk->id)
                     <a href="/companies/{{$companySubPerkDetail->company->slug}}/perks/{{$companySubPerkDetail->subPerk->perk->slug}}/sub-perks/{{$companySubPerkDetail->subPerk->slug}}"><p style="margin-bottom: 0rem;">{{$companySubPerkDetail->subPerk->title}}</p></a>
@@ -60,7 +60,7 @@
                 @if($key % 4 == 1)
         <div class="card shadow-sm" style="margin-bottom: 1rem;">
           <div class="card-body">
-                <p style="font-weight: bold; margin-bottom: 0.25rem;">{{$perk->title}}</p>
+                <p style="font-weight: bold; margin-bottom: 0.25rem;">{{$perk->title}} <a href="/companies/{{$company->slug}}/add-sub-perk"><i class="fas fa-plus" style="margin-left: 0.5rem;"></i></a></p>
                 @foreach($companySubPerkDetails as $companySubPerkDetail)
                   @if($companySubPerkDetail->subPerk->perk->id == $perk->id)
                     <a href="/companies/{{$companySubPerkDetail->company->slug}}/perks/{{$companySubPerkDetail->subPerk->perk->slug}}/sub-perks/{{$companySubPerkDetail->subPerk->slug}}"><p style="margin-bottom: 0rem;">{{$companySubPerkDetail->subPerk->title}}</p></a>
@@ -93,7 +93,7 @@
                 @if($key % 4 == 2)
                 <div class="card shadow-sm" style="margin-bottom: 1rem;">
           <div class="card-body">
-                <p style="font-weight: bold; margin-bottom: 0.25rem;">{{$perk->title}}</p>
+                <p style="font-weight: bold; margin-bottom: 0.25rem;">{{$perk->title}} <a href="/companies/{{$company->slug}}/add-sub-perk"><i class="fas fa-plus" style="margin-left: 0.5rem;"></i></a></p>
                 @foreach($companySubPerkDetails as $companySubPerkDetail)
                   @if($companySubPerkDetail->subPerk->perk->id == $perk->id)
                     <a href="/companies/{{$companySubPerkDetail->company->slug}}/perks/{{$companySubPerkDetail->subPerk->perk->slug}}/sub-perks/{{$companySubPerkDetail->subPerk->slug}}"><p style="margin-bottom: 0rem;">{{$companySubPerkDetail->subPerk->title}}</p></a>
@@ -125,7 +125,7 @@
                 @if($key % 4 == 3)
                 <div class="card shadow-sm" style="margin-bottom: 1rem;">
           <div class="card-body">
-                <p style="font-weight: bold; margin-bottom: 0.25rem;">{{$perk->title}}</p>
+                <p style="font-weight: bold; margin-bottom: 0.25rem;">{{$perk->title}} <a href="/companies/{{$company->slug}}/add-sub-perk"><i class="fas fa-plus" style="margin-left: 0.5rem;"></i></a></p>
                 @foreach($companySubPerkDetails as $companySubPerkDetail)
                   @if($companySubPerkDetail->subPerk->perk->id == $perk->id)
                     <a href="/companies/{{$companySubPerkDetail->company->slug}}/perks/{{$companySubPerkDetail->subPerk->perk->slug}}/sub-perks/{{$companySubPerkDetail->subPerk->slug}}"><p style="margin-bottom: 0rem;">{{$companySubPerkDetail->subPerk->title}}</p></a>
