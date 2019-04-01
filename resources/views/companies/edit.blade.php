@@ -4,7 +4,7 @@
 
 <div class="py-5 bg-white">
   <div class="container">
-    <h5>Edit Company</h5>
+    <h2>Edit Company</h2>
     <br/>
     <form method="POST" action="/companies/{{$company->id}}/save-company" enctype="multipart/form-data">
       @csrf

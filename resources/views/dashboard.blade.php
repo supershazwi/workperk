@@ -4,7 +4,7 @@
 
 <div class="py-5 bg-white">
   <div class="container">
-    <h5>Dashboard</h5>
+    <h2>Dashboard</h2>
     <br/>
     <table class="table">
       <thead class="thead-dark">

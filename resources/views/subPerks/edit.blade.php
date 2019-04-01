@@ -4,7 +4,7 @@
 
 <div class="py-5 bg-white">
   <div class="container">
-    <h5>Edit Sub-perk</h5>
+    <h2>Edit Sub-perk</h2>
     <br/>
     <form method="POST" action="/sub-perks/{{$subPerk->id}}/save-sub-perk">
       @csrf

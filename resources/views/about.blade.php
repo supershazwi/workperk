@@ -1,14 +1,12 @@
 @extends ('layouts.main')
 
 @section ('content')
-<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-  <img src="/img/logo.svg" alt="" class="avatar-img rounded" style="width: 5rem; height: 5rem;">
-  <h1>WorkPerk</h1>
-  <p class="lead">About</p>
+<div class="pricing-header text-center">
+  <h1 style="margin-top: 5rem; margin-bottom: 5rem;">About</h1>
 </div>
-<div class="py-5 bg-light" style="margin-top: 6rem;">
+<div class="py-5 bg-light">
   <div class="container">
-  	<div class="card">
+  	<div class="card" style="margin-bottom: 0rem;">
 	    <div class="card-body">
 	        <div class="row">
 	          <div class="col-lg-2">

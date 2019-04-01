@@ -4,7 +4,7 @@
 
 <div class="py-5 bg-white">
   <div class="container">
-    <h5><a href="/profile">Profile</a> <a href="/likes" style="margin-left: 1rem;">Likes</a> <span style="margin-left: 1rem; text-decoration: underline;">Comments</span></h5>
+    <h2><a href="/profile">Profile</a> <a href="/likes" style="margin-left: 1rem;">Likes</a> <span style="margin-left: 1rem; text-decoration: underline;">Comments</span></h2>
     <br/>
     <table class="table">
       <thead class="thead-dark">

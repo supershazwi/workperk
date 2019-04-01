@@ -11,7 +11,7 @@
         </div>
       </div>
     </div>
-    <h5><span style="text-decoration: underline;">Profile</span> <a href="/likes" style="margin-left: 1rem;">Likes</a> <a href="/comments" style="margin-left: 1rem;">Comments</a></h5>
+    <h2><span style="text-decoration: underline;">Profile</span> <a href="/likes" style="margin-left: 1rem;">Likes</a> <a href="/comments" style="margin-left: 1rem;">Comments</a></h2>
     <br/>
     @if (session('verified'))
     <div class="form-group row" id="successAlert">

@@ -4,7 +4,7 @@
 
 <div class="py-5 bg-white">
   <div class="container">
-    <h5>Add Perk</h5>
+    <h2>Add Perk</h2>
     <br/>
     <form method="POST" action="/perks/add-perk">
       @csrf
