@@ -259,7 +259,7 @@
               <tr>
                 <td style="padding: 0rem;">
                   @if($companySubPerkDetail->comment)
-                    <a href="#" class="comment" data-toggle="tooltip" data-placement="top" title="{{$companySubPerkDetail->comment}}">{{$companySubPerkDetail->subPerk->title}}</a>
+                    <a href="#" class="comment" data-toggle="tooltip" data-placement="top" title="{{$companySubPerkDetail->comment}}" onclick="commentClick()">{{$companySubPerkDetail->subPerk->title}}</a>
                   @else
                     {{$companySubPerkDetail->subPerk->title}}
                   @endif
@@ -304,7 +304,7 @@
               <tr>
                 <td style="padding: 0rem;">
                   @if($companySubPerkDetail->comment)
-                    <a href="#" class="comment" data-toggle="tooltip" data-placement="top" title="{{$companySubPerkDetail->comment}}">{{$companySubPerkDetail->subPerk->title}}</a>
+                    <a href="#" class="comment" data-toggle="tooltip" data-placement="top" title="{{$companySubPerkDetail->comment}}" onclick="commentClick()">{{$companySubPerkDetail->subPerk->title}}</a>
                   @else
                     {{$companySubPerkDetail->subPerk->title}}
                   @endif
@@ -349,7 +349,7 @@
               <tr>
                 <td style="padding: 0rem;">
                   @if($companySubPerkDetail->comment)
-                    <a href="#" class="comment" data-toggle="tooltip" data-placement="top" title="{{$companySubPerkDetail->comment}}">{{$companySubPerkDetail->subPerk->title}}</a>
+                    <a href="#" class="comment" data-toggle="tooltip" data-placement="top" title="{{$companySubPerkDetail->comment}}" onclick="commentClick()">{{$companySubPerkDetail->subPerk->title}}</a>
                   @else
                     {{$companySubPerkDetail->subPerk->title}}
                   @endif
@@ -394,7 +394,7 @@
               <tr>
                 <td style="padding: 0rem;">
                   @if($companySubPerkDetail->comment)
-                    <a href="#" class="comment" data-toggle="tooltip" data-placement="top" title="{{$companySubPerkDetail->comment}}">{{$companySubPerkDetail->subPerk->title}}</a>
+                    <a href="#" class="comment" data-toggle="tooltip" data-placement="top" title="{{$companySubPerkDetail->comment}}" onclick="commentClick()">{{$companySubPerkDetail->subPerk->title}}</a>
                   @else
                     {{$companySubPerkDetail->subPerk->title}}
                   @endif
@@ -442,6 +442,12 @@
   </div>
   @endif
 </div>
+
+<script type="text/javascript">
+  function commentClick() {
+    event.preventDefault();
+  }
+</script>
 @endsection
 
 @section ('footer')   
