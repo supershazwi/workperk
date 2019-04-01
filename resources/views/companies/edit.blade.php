@@ -123,6 +123,7 @@
           <div id="test-editormd2" style="border-radius: 0.5rem;">
             <textarea style="display:none;" name="brief"></textarea>
           </div>
+          <div id="brief-info" style="display: none;">{{$company->brief}}</div>
         </div>
       </div>
   		<div class="form-group row">
