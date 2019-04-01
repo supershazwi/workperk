@@ -11,7 +11,12 @@
         </div>
       </div>
     </div>
-    <h2><span style="text-decoration: underline;">Profile</span> <a href="/likes" style="margin-left: 1rem;">Likes</a> <a href="/comments" style="margin-left: 1rem;">Comments</a></h2>
+    <h2><span style="text-decoration: underline;">Profile</span> <a href="/likes" style="margin-left: 1rem;">Likes</a> <a href="/comments" style="margin-left: 1rem;">Comments</a>
+
+      @if(Auth::user()->email == "supershazwi@gmail.com")
+        <a href="/dashboard" style="margin-left: 1rem;">Dashboard</a>
+      @endif
+    </h2>
     <br/>
     @if (session('verified'))
     <div class="form-group row" id="successAlert">

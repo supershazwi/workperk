@@ -4,7 +4,11 @@
 
 <div class="py-5 bg-white">
   <div class="container">
-    <h2><a href="/profile">Profile</a> <span style="margin-left: 1rem; text-decoration: underline;">Likes</span> <a href="/comments" style="margin-left: 1rem;">Comments</a></h2>
+    <h2><a href="/profile">Profile</a> <span style="margin-left: 1rem; text-decoration: underline;">Likes</span> <a href="/comments" style="margin-left: 1rem;">Comments</a>
+    @if(Auth::user()->email == "supershazwi@gmail.com")
+        <a href="/dashboard" style="margin-left: 1rem;">Dashboard</a>
+      @endif
+    </h2>
     <br/>
     <table class="table">
       <thead class="thead-dark">

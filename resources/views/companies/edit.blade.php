@@ -47,6 +47,84 @@
           </select>
         </div>
       </div>
+      <div class="form-group row">
+        <label for="staticEmail" class="col-sm-2 col-form-label">Premium</label>
+        <div class="col-sm-10">
+          @if($company->premium)
+          <input type="checkbox" checked name="premium" />
+          @else
+          <input type="checkbox" name="premium" />
+          @endif
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="staticEmail" class="col-sm-2 col-form-label">Cover</label>
+        <div class="col-sm-10">
+          <input type="file" id="cover" name="cover">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="staticEmail" class="col-sm-2 col-form-label">Type</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="type" name="type" value="{{$company->type}}">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="staticEmail" class="col-sm-2 col-form-label">Website</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="website" name="website" value="{{$company->website}}">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="staticEmail" class="col-sm-2 col-form-label">Facebook</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="facebook" name="facebook" value="{{$company->facebook}}">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="staticEmail" class="col-sm-2 col-form-label">Twitter</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="twitter" name="twitter" value="{{$company->twitter}}">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="staticEmail" class="col-sm-2 col-form-label">Instagram</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="instagram" name="instagram" value="{{$company->instagram}}">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="staticEmail" class="col-sm-2 col-form-label">YouTube</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="youtube" name="youtube" value="{{$company->youtube}}">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="staticEmail" class="col-sm-2 col-form-label">LinkedIn</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="linkedin" name="linkedin" value="{{$company->linkedin}}">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="staticEmail" class="col-sm-2 col-form-label">Address</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="address" name="address" value="{{$company->address}}">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="staticEmail" class="col-sm-2 col-form-label">Contact</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="contact" name="contact" value="{{$company->contact}}">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="staticEmail" class="col-sm-2 col-form-label">Brief</label>
+        <div class="col-sm-10">
+          <div id="test-editormd2" style="border-radius: 0.5rem;">
+            <textarea style="display:none;" name="brief"></textarea>
+          </div>
+        </div>
+      </div>
   		<div class="form-group row">
   			<label for="inputPassword" class="col-sm-2 col-form-label"></label>
   			<div class="col-sm-10">
@@ -129,6 +207,25 @@
     </form>
   </div>
 </div>
+
+<script type="text/javascript" src="/js/editormd.js"></script>
+<script src="/js/languages/en.js"></script>
+<script type="text/javascript">
+  
+  var editor2 = editormd({
+      id   : "test-editormd2",
+      path : "/lib/",
+      height: 640,
+      placeholder: "Company brief.",
+      onload : function() {
+          //this.watch();
+          //this.setMarkdown("###test onloaded");
+          //testEditor.setMarkdown("###Test onloaded");
+          editor2.insertValue(document.getElementById("brief-info").innerHTML);
+      }
+  });
+
+</script>
 
 @endsection
 

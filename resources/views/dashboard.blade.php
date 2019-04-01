@@ -4,7 +4,12 @@
 
 <div class="py-5 bg-white">
   <div class="container">
-    <h2>Dashboard</h2>
+    <h2><a href="/profile">Profile</a> <a href="/likes" style="margin-left: 1rem;">Likes</a> <a href="/comments" style="margin-left: 1rem;">Comments</a>
+
+      @if(Auth::user()->email == "supershazwi@gmail.com")
+        <span style="text-decoration: underline;margin-left: 1rem;">Dashboard</span>
+      @endif
+    </h2>
     <br/>
     <table class="table">
       <thead class="thead-dark">

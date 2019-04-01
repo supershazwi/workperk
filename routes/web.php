@@ -508,7 +508,6 @@ Route::get('/companies/{companySlug}', function() {
 });
 
 Route::post('/companies/{companyId}/save-company', function(Request $request) {
-    // dd('hi');
     $routeParameters = Route::getCurrentRoute()->parameters();
 
 	if(Auth::user()->email == 'supershazwi@gmail.com') {
@@ -521,6 +520,26 @@ Route::post('/companies/{companyId}/save-company', function(Request $request) {
 		if(request('image')) {
 		    $company->image = Storage::disk('gcs')->put('/avatars', request('image'), 'public');
 		}
+        if(request('cover')) {
+            $company->cover = Storage::disk('gcs')->put('/avatars', request('cover'), 'public');
+        }
+        if(request('premium')) {
+            $company->premium = true;
+        } else {
+            $compnay->premium = false;
+        }
+
+        $company->website = $request->input('website');
+        $company->facebook = $request->input('facebook');
+        $company->twitter = $request->input('twitter');
+        $company->instagram = $request->input('instagram');
+        $company->youtube = $request->input('youtube');
+        $company->linkedin = $request->input('linkedin');
+        $company->address = $request->input('address');
+        $company->contact = $request->input('contact');
+        $company->brief = $request->input('brief');
+        $company->type = $request->input('type');
+
 
 		$company->save();
 		
