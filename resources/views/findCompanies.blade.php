@@ -7,9 +7,9 @@
       <button type="submit" style="display: none;" id="findCompaniesButton">Submit</button>
   </form>
 
-<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+<div class="pricing-header text-center" style="margin-top: 3.5rem; margin-bottom: 3.5rem;">
   <h1>Find Your Ideal Company</h1>
-  <p class="lead">Indicate perks that <span class="compulsory"><strong>matter</strong></span> to you</p>
+  <h2>Indicate perks that <span class="compulsory"><strong>matter</strong></span> to you</h2>
 </div>
 
 <div class="container">
@@ -18,9 +18,9 @@
       @foreach($perks as $key=>$perk)
         @if($key % 3 == 0)
         <div style="margin-bottom: 1rem;">
-          <strong>{{$perk->title}}</strong>
+          <h2 style="margin-bottom: 0.5rem;">{{$perk->title}}</h2>
           @foreach($perk->subPerks->sortBy('title') as $subPerk)
-          <a href="#" onclick="toggleSubPerk()"><p style="font-size: 0.875rem; margin-bottom: 0rem;" class="subperk" id="{{$subPerk->id}}">{{$subPerk->title}}</p></a>
+          <a href="#" onclick="toggleSubPerk()"><p style="margin-bottom: 0rem;" class="subperk" id="{{$subPerk->id}}">{{$subPerk->title}}</p></a>
           @endforeach
         </div>
         @endif
@@ -30,9 +30,9 @@
       @foreach($perks as $key=>$perk)
         @if($key % 3 == 1)
         <div style="margin-bottom: 1rem;">
-          <strong>{{$perk->title}}</strong>
+          <h2 style="margin-bottom: 0.5rem;">{{$perk->title}}</h2>
           @foreach($perk->subPerks->sortBy('title') as $subPerk)
-          <a href="#" onclick="toggleSubPerk()"><p style="font-size: 0.875rem; margin-bottom: 0rem;" class="subperk" id="{{$subPerk->id}}">{{$subPerk->title}}</p></a>
+          <a href="#" onclick="toggleSubPerk()"><p style="margin-bottom: 0rem;" class="subperk" id="{{$subPerk->id}}">{{$subPerk->title}}</p></a>
           @endforeach
         </div>
         @endif
@@ -42,9 +42,9 @@
       @foreach($perks as $key=>$perk)
         @if($key % 3 == 2)
         <div style="margin-bottom: 1rem;">
-          <strong>{{$perk->title}}</strong>
+          <h2 style="margin-bottom: 0.5rem;">{{$perk->title}}</h2>
           @foreach($perk->subPerks->sortBy('title') as $subPerk)
-          <a href="#" onclick="toggleSubPerk()"><p style="font-size: 0.875rem; margin-bottom: 0rem;" class="subperk" id="{{$subPerk->id}}">{{$subPerk->title}}</p></a>
+          <a href="#" onclick="toggleSubPerk()"><p style="margin-bottom: 0rem;" class="subperk" id="{{$subPerk->id}}">{{$subPerk->title}}</p></a>
           @endforeach
         </div>
         @endif
@@ -55,12 +55,6 @@
     <div class="col-lg-10 offset-lg-1">
       <button class="btn btn-block btn-primary" onclick="submitFindCompanies()">Find Companies</button>
     </div>
-  </div>
-</div>
-
-<div class="py-5 bg-white" style="margin-top: 4rem;">
-  <div class="container">
-    
   </div>
 </div>
 

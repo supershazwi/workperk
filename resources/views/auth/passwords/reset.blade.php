@@ -1,72 +1,100 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Know the additional worth of your job. Perks & benefits are ranked 2nd most important factor by job seekers.">
-    <meta name="author" content="Shazwi Suwandi">
-    <meta name="generator" content="Jekyll v3.8.5">
-    <title>WorkPerk - All company perks and benefits</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
 
-    <link rel="canonical" href="https://workperk.io">
-    <link rel="icon" type="image/png" sizes="96x96" href="/img/favicon-96x96.png">
+  <!-- Libs CSS -->
+  <!-- build:css /fonts/feather/feather.min.css -->
+  <link rel="stylesheet" href="/fonts/feather/feather.css">
+  <!-- endbuild -->
+  <link rel="stylesheet" href="/highlight.js/styles/vs2015.css">
+  <link rel="stylesheet" href="/quill/dist/quill.core.css">
+  <link rel="stylesheet" href="/select2/dist/css/select2.min.css">
+  <link rel="stylesheet" href="/flatpickr/dist/flatpickr.min.css">
 
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <!-- Theme CSS -->
+  <!-- build:css /css/theme.min.css -->
+  <link rel="stylesheet" href="/css/theme.css" id="stylesheetLight">
+  <!-- endbuild -->
 
-    <meta property="og:title" content="WorkPerk - All company perks and benefits"/>
-    <meta property="og:url" content="https://workperk.io/"/>
-    <meta property="og:image" content="https://workperk.io/img/logo.svg"/>
-    <meta property="og:description" content="Know the additional worth of your job. Perks & benefits are ranked 2nd most important factor by job seekers."/>
-    
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      }
+  <script>var colorScheme = 'light';</script>
+  <title>Talentail | Forgot password</title>
+  <body class="d-flex align-items-center bg-auth">
 
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
-    <!-- Custom styles for this template -->
-    <link href="/css/signin.css" rel="stylesheet">
-  </head>
-  <body>
+    <!-- CONTENT
+    ================================================== -->
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-5 col-xl-4 my-5">
+          @if (session('status'))
+              <div class="alert alert-success" style="text-align: center;">
+                  {{ session('status') }}
+              </div>
+          @endif
+          @if (session('warning'))
+              <div class="alert alert-warning" style="text-align: center;">
+                  {{ session('warning') }}
+              </div>
+          @endif
+          <!-- Subheading -->
+          <p class="text-center mb-5" style="font-size: 2rem; margin-bottom: 0.25rem !important;">
+            😉
+          </p>
 
-        
+          <!-- Heading -->
+          <h1 class="display-4 text-center mb-3" style="margin-bottom: 2.25rem !important;">
+            One more step!
+          </h1>
+          
+          
+          <!-- Form -->
+          <form method="POST" action="{{ route('password.update') }}">
+            @csrf
 
-    <form method="POST" action="{{ route('password.update') }}" class="form-signin" style="text-align: center;">
-      @csrf
-      <input type="hidden" name="token" value="{{ $token }}">
-      <a href="/" style="color: #212529;"><h5 class="my-0 mr-md-auto font-weight-normal" style="margin-bottom: 2.5rem !important;">Work<strong>Perk</strong><img class="mb-2" src="/img/logo.svg" alt="" width="24" height="24" style=" margin-left: 0.5rem;"></h5></a>
-      <div class="form-group" style="text-align: left !important;">
-        <label for="exampleInputEmail1">Email address</label>
-        <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ $email ?? old('email') }}" required autofocus>
+            <!-- Email address -->
+            <div class="form-group">
 
-        @if ($errors->has('email'))
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $errors->first('email') }}</strong>
-            </span>
-        @endif
-      </div>
-      <div class="form-group" style="text-align: left !important;">
-        <label for="exampleInputEmail1">New password</label>
-        <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required placeholder="New password">
+              <!-- Label -->
+              <label>Email Address</label>
 
-        @if ($errors->has('password'))
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $errors->first('password') }}</strong>
-            </span>
-        @endif
-      </div>
-      <button type="submit" class="btn btn-primary btn-block">Reset password</button>
-    </form>
+              <!-- Input -->
+              <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" placeholder="Name@address.com" required autofocus>
+
+              @if ($errors->has('email'))
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $errors->first('email') }}</strong>
+                  </span>
+              @endif
+
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+
+                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" placeholder="New Password" required>
+
+                @if ($errors->has('password'))
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('password') }}</strong>
+                    </span>
+                @endif
+            </div>
+
+            <!-- Submit -->
+            <button class="btn btn-lg btn-block btn-primary mb-3" type="submit">
+              Reset password
+            </button>
+            
+          </form>
+
+        </div>
+      </div> <!-- / .row -->
+    </div> <!-- / .container -->
+
+    <!-- JAVASCRIPT
+    ================================================== -->
+    @include('scripts.javascript')
+
   </body>
 </html>

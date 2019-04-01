@@ -2,13 +2,18 @@
 
 @section ('content')
 
-<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-  <h1>Know Your Job's Additional Worth</h1>
-  <p class="lead">Perks & benefits are ranked 2<sup>nd</sup> most important factor by job seekers<sup><a href="https://www.glassdoor.com/employers/blog/salary-benefits-survey/">*</a></sup></p>
-  <div style="margin-top: 2.5rem;">
+<div class="pricing-header text-center" style="margin-top: 5rem; margin-bottom: 1.125rem;">
+  <h1>Discover companies by their culture and perks</h1>
+  <p>Click each one of the perk categories below or go straight to <a href="/find-companies"><i>Find Your Ideal Company</i></a></p>
+</div>
+
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center" style="padding-top: 0.5rem !important; padding-bottom: 0rem !important;">
+  <div class="row">
+    <div class="col-lg-8 offset-lg-2">
     @foreach($perks as $perk)
       <a href="/perks/{{$perk->slug}}" class="btn btn-sm btn-primary" style="margin-bottom: 0.25rem;">{{$perk->title}}</a>
     @endforeach
+  </div>
   </div>
 </div>
 

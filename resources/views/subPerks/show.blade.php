@@ -2,9 +2,9 @@
 
 @section ('content')
 
-<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+<div class="pricing-header text-center" style="margin-top: 5rem; margin-bottom: 1.125rem;">
   <h1>{{$subPerk->title}} <sup><span class="badge badge-warning" style="font-size: 0.875rem;">Sub-perk</span></sup></h1>
-  <p class="lead">{{$subPerk->description}}</p>
+  <p style="font-size: 1.25rem;">{{$subPerk->description}}</p>
 </div>
 
 <div class="py-5 bg-light" style="margin-top: 6rem;">
@@ -13,7 +13,7 @@
     <div class="row">
       @foreach($subPerk->companies as $company)
       <div class="col-md-4">
-        <div class="card mb-4 shadow-sm">
+        <div class="card mb-4 shadow-sm"style="text-align: center;">
           <div class="card-body">
             <img src="https://storage.googleapis.com/talentail-123456789/{{$company->image}}" alt="" class="avatar-img rounded" style="width: 2.5rem; height: 2.5rem; margin-bottom: 0.25rem;">
             <a href="/companies/{{$company->slug}}"><p class="lead" style="margin-bottom: 0rem;">{{$company->name}}</p></a>

@@ -1,9 +1,9 @@
 @extends ('layouts.main')
 
 @section ('content')
-<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+<div class="pricing-header text-center" style="margin-top: 3.5rem; margin-bottom: 3.5rem;">
   <h1>Find Your Ideal Company</h1>
-  <p class="lead">Indicate perks that <span class="compulsory"><strong>matter</strong></span> to you</p>
+  <h2>Indicate perks that <span class="compulsory"><strong>matter</strong></span> to you</h2>
 </div>
 
 <div class="container-fluid">
@@ -56,12 +56,6 @@
 	    <a href="/find-companies" class="btn btn-block btn-primary">Find Again</a>
 	  </div>
 	</div>
-</div>
-
-<div class="py-5 bg-white" style="margin-top: 4rem;">
-  <div class="container">
-    
-  </div>
 </div>
 
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.js"></script>
