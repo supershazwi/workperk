@@ -53,12 +53,13 @@
           <h1 class="header-title">
             {{$company->name}}
           </h1>
-
-          @if($company->premium)
+          
+          <p style="margin-top: 0.5rem;">{{$company->description}}</p>
+          <!-- @if($company->premium)
           <p style="margin-top: 0.5rem;">{{$company->description}}</p>
           @else
           <p style="margin-top: 0.5rem; width: 60%;">{{$company->description}}</p>
-          @endif
+          @endif -->
         </div>
         @if($company->premium)
 
