@@ -2,9 +2,10 @@
 
 @section ('content')
 
+<div class="container">
 <div class="pricing-header text-center" style="margin-top: 5rem; margin-bottom: 1.125rem;">
   <h1>{{$perk->title}} <sup><span class="badge badge-primary" style="font-size: 0.875rem;">Perk</span></sup></h1>
-  <p style="font-size: 1.25rem;">{{$perk->description}}</p>
+  <p>{{$perk->description}}</p>
 </div>
 
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center" style="padding-top: 0.5rem !important; padding-bottom: 0rem !important;">
@@ -17,6 +18,7 @@
     @endforeach
   </div>
   </div>
+</div>
 </div>
 
 <div class="py-5 bg-light" style="margin-top: 6rem;">

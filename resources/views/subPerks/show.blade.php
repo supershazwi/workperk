@@ -1,10 +1,11 @@
 @extends ('layouts.main')
 
 @section ('content')
-
+<div class="container">
 <div class="pricing-header text-center" style="margin-top: 5rem; margin-bottom: 1.125rem;">
   <h1>{{$subPerk->title}} <sup><span class="badge badge-warning" style="font-size: 0.875rem;">Sub-perk</span></sup></h1>
-  <p style="font-size: 1.25rem;">{{$subPerk->description}}</p>
+  <p>{{$subPerk->description}}</p>
+</div>
 </div>
 
 <div class="py-5 bg-light" style="margin-top: 6rem;">
