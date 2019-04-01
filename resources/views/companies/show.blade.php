@@ -196,7 +196,7 @@
     <div class="col-lg-3">
       <div class="header-body" style="padding-top: 0rem; padding-bottom: 0rem; border-bottom: 0px;">
         <h5 class="header-pretitle">
-          PERKS
+          PERKS <span style="color: #16a085;">~${{number_format($company->value)}}</span>
         </h5>
       </div>
       <div class="card">
