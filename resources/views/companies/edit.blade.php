@@ -95,6 +95,7 @@
             <th scope="col">#</th>
             <th scope="col">Sub-perk</th>
             <th scope="col">Value</th>
+            <th scope="col">Comment</th>
           </tr>
         </thead>
         <tbody>
@@ -115,6 +116,9 @@
                   <input type="text" class="form-control" aria-describedby="basic-addon1" name="companySubPerkDetail_{{$companySubPerkDetail->id}}" value="{{$companySubPerkDetail->value}}"/>
                 </div>
                 @endif
+              </td>
+              <td>
+                <input type="text" class="form-control" aria-describedby="basic-addon1" name="companySubPerkDetailComment_{{$companySubPerkDetail->id}}" value="{{$companySubPerkDetail->comment}}"/>
               </td>
             </tr>
           @endforeach

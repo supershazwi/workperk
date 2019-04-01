@@ -604,9 +604,10 @@ Route::post('/companies/{companyId}/save-company-sub-perk-details', function(Req
 		$companySubPerkDetails = CompanySubPerkDetail::where('company_id', $routeParameters['companyId'])->get();
 
 		$companyValue = 0;
-
+        
 		foreach($companySubPerkDetails as $companySubPerkDetail) {
 			$companySubPerkDetail->value = $request->input('companySubPerkDetail_'.$companySubPerkDetail->id);
+            $companySubPerkDetail->comment = $request->input('companySubPerkDetailComment_'.$companySubPerkDetail->id);
 
 			$companySubPerkDetail->save();
 
