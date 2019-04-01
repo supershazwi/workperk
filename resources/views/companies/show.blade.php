@@ -266,7 +266,7 @@
                       ${{number_format($companySubPerkDetail->value)}}
                     @endif
                   @elseif($companySubPerkDetail->subPerk->type == "na")
-                    
+                    <i class="fas fa-check"></i>
                   @elseif($companySubPerkDetail->subPerk->type == "number")
                     @if($companySubPerkDetail->value == 0)
                       TBC
@@ -305,7 +305,7 @@
                       ${{number_format($companySubPerkDetail->value)}}
                     @endif
                   @elseif($companySubPerkDetail->subPerk->type == "na")
-                    
+                    <i class="fas fa-check"></i>
                   @elseif($companySubPerkDetail->subPerk->type == "number")
                     @if($companySubPerkDetail->value == 0)
                       TBC
@@ -344,7 +344,7 @@
                       ${{number_format($companySubPerkDetail->value)}}
                     @endif
                   @elseif($companySubPerkDetail->subPerk->type == "na")
-                    
+                    <i class="fas fa-check"></i>
                   @elseif($companySubPerkDetail->subPerk->type == "number")
                     @if($companySubPerkDetail->value == 0)
                       TBC
@@ -383,7 +383,7 @@
                       ${{number_format($companySubPerkDetail->value)}}
                     @endif
                   @elseif($companySubPerkDetail->subPerk->type == "na")
-                    
+                    <i class="fas fa-check"></i>
                   @elseif($companySubPerkDetail->subPerk->type == "number")
                     @if($companySubPerkDetail->value == 0)
                       TBC
@@ -401,6 +401,19 @@
       </div> 
       @endif
     @endforeach
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="header-body" style="padding-top: 0rem; padding-bottom: 0rem; border-bottom: 0px;">
+        <h5 class="header-pretitle">
+          LEGEND
+        </h5>
+      </div>
+      <ul class="list-unstyled text-small" style="margin-bottom: 0rem !important;">
+        <li style="margin-bottom: 0.5rem;"><i class="fas fa-check"></i> - Available</li>
+        <li style="margin-bottom: 0.5rem;">TBC - To be confirmed</a></li>
+      </ul>
     </div>
   </div>
   @endif
