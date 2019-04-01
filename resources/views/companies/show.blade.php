@@ -257,7 +257,7 @@
               @foreach($companySubPerkDetails as $companySubPerkDetail)
                 @if($companySubPerkDetail->subPerk->perk->id == $perk->id)
               <tr>
-                <td style="padding: 0rem;">{{$companySubPerkDetail->subPerk->title}}</td>
+                <td style="padding: 0rem;"><a href="#" data-toggle="tooltip" data-placement="top" title="Free Razer Blade">{{$companySubPerkDetail->subPerk->title}}</a></td>
                 <td style="padding: 0rem; float: right;">
                   @if($companySubPerkDetail->subPerk->type == "currency")
                     @if($companySubPerkDetail->value == 0)
