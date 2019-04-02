@@ -30,7 +30,7 @@
           
           <!-- Avatar -->
           <div class="avatar avatar-xxl header-avatar-top">
-            <img src="https://storage.googleapis.com/talentail-123456789/{{$company->image}}" alt="..." class="avatar-img rounded-circle border border-4 border-body">
+            <img src="https://storage.googleapis.com/talentail-123456789/{{$company->image}}" style="border-radius: 0.5rem !important;" alt="..." class="avatar-img rounded-circle border border-4 border-body">
           </div>
 
         </div>
