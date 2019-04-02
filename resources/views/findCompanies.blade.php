@@ -13,6 +13,8 @@
 </div>
 
 <div class="container">
+  <div class="card">
+    <div class="card-body" style="padding: 2.5rem;">
   <div class="row">
     <div class="col-lg-4" style="margin-bottom: 1rem; text-align: center;">
       @foreach($perks as $key=>$perk)
@@ -56,6 +58,8 @@
       <button class="btn btn-block btn-primary" onclick="submitFindCompanies()">Find Companies</button>
     </div>
   </div>
+</div>
+</div>
 </div>
 
 

@@ -79,9 +79,9 @@
             </div>
           </div>
         @else
-          <a class="btn btn-primary mr-auto" href="/login">
+          <!-- <a class="btn btn-primary mr-auto" href="/login">
               Login
-          </a>
+          </a> -->
         @endif
     </div>
 
@@ -109,7 +109,7 @@
           
           <!-- Card -->
           <div class="card card-inactive"  style="margin-bottom: 0rem;">
-            <div class="card-body">
+            <div class="card-body" style="background: #2c3e50; border-radius: 0.5rem; color: white;">
                 <div class="row">
                     <div class="col-lg-5">
                         <h3>WorkPerk</h3>
@@ -124,9 +124,9 @@
                         <p class="" style="margin-bottom: 0; font-size: .875rem;">Singapore 038987</p>
                     </div>
                     <div class="col-lg-2">
-                        <a href="/about" style="font-size: .875rem;">About</a><br />
-                        <a href="/terms-and-conditions" style="font-size: .875rem;">Terms & Conditions</a><br />
-                        <a href="/privacy-policy" style="font-size: .875rem;">Privacy Policy</a><br />
+                        <a href="/about" style="font-size: .875rem; color: white;">About</a><br />
+                        <a href="/terms-and-conditions" style="font-size: .875rem; color: white;">Terms & Conditions</a><br />
+                        <a href="/privacy-policy" style="font-size: .875rem; color: white;">Privacy Policy</a><br />
                     </div>
                 </div>
             </div>
