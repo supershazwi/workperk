@@ -2174,6 +2174,13 @@ pre code
     background-color: rgba(255, 255, 255, .075);
 }
 
+@media (max-width: 990px)
+{
+    #hangout {
+        display: none;
+    }
+}
+
 @media (max-width: 575.98px)
 {
     .table-responsive-sm

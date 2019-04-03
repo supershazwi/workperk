@@ -11,7 +11,7 @@
           <a href="/perks/{{$perk->slug}}" class="btn btn-sm btn-primary" style="margin-bottom: 0.25rem;">{{$perk->title}}</a>
         @endforeach
       </div>
-      <div class="col-lg-5">
+      <div class="col-lg-5" id="hangout">
         <img src="/img/hangout.svg" style="width: 100%;"/>
       </div>
   </div>
