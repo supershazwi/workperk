@@ -33,7 +33,7 @@
       <div class="form-group row">
         <label for="inputPassword" class="col-sm-2 col-form-label">Description</label>
         <div class="col-sm-10">
-          <textarea class="form-control" name="description" id="description" maxlength="280" rows="5" placeholder="Company description">{{ old('description') }}</textarea>
+          <textarea class="form-control" name="description" id="description" rows="5" placeholder="Company description">{{ old('description') }}</textarea>
         </div>
       </div>
       <div class="form-group row">

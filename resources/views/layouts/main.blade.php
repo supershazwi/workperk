@@ -47,7 +47,7 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light" id="topnav">
+  <nav class="navbar navbar-expand-lg navbar-light" id="topnav" style="background: #f9fbfd; border: #f9fbfd;">
     <div class="container">
 
       <!-- Toggler -->
@@ -56,7 +56,7 @@
       </button>
 
       <!-- Brand -->
-      <a class="navbar-brand order-lg-first" href="/">
+      <a class="navbar-brand order-lg-first" href="/" style="font-size: 1.5rem;">
         Work<strong>Perk</strong><img class="mb-2" src="/img/logo.svg" alt="" width="24" height="24" style="margin-left: 0.5rem;">
       </a>
 
@@ -80,7 +80,7 @@
           </div>
         @else
           <!-- <a class="btn btn-primary mr-auto" href="/login">
-              Login
+              Employer Login
           </a> -->
         @endif
     </div>
@@ -100,7 +100,6 @@
 
     </div> <!-- / .container -->
   </nav>
-  <!-- <div class="main-content bg-fixed-bottom" style="background-image: url(/img/illustrations/sticky.svg);"> -->
   <div class="main-content">
     @yield('content')
     <div class="container">
@@ -116,9 +115,6 @@
                         <p style="margin-bottom: 0; font-size: .875rem;">At WorkPerk, we make it easier for you to compare perks and cultural values across different companies so that you can find the right company to work at.</p>
                     </div>
                     <div class="col-lg-3">
-                        <!-- <a target="_blank" href="https://www.instagram.com/talentail/"><i class="fab fa-instagram"></i></a>
-                        <a target="_blank" href="https://fb.me/talentail" style="margin-left: 0.5rem;"><i class="fab fa-facebook"></i></a> -->
-                        <!-- <p class="" style="margin-top: .65rem; margin-bottom: 0; font-size: .875rem;">7 Temasek Boulevard</p> -->
                         <p class="" style="margin-bottom: 0; font-size: .875rem;">7 Temasek Boulevard</p>
                         <p class="" style="margin-bottom: 0; font-size: .875rem;">#12-07 Suntec Tower One</p>
                         <p class="" style="margin-bottom: 0; font-size: .875rem;">Singapore 038987</p>

@@ -3,23 +3,21 @@
 @section ('content')
 
 <div class="container">
-  <div class="pricing-header text-center" style="margin-top: 5rem; margin-bottom: 1.125rem;">
-    <h1>Discover companies by their culture and perks</h1>
-    <p>Click each one of the perk categories below or go straight to <a href="/find-companies"><i>Find Your Ideal Company</i></a></p>
-  </div>
-
-  <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center" style="padding-top: 0.5rem !important; padding-bottom: 0rem !important;">
-    <div class="row">
-      <div class="col-lg-8 offset-lg-2">
-      @foreach($perks as $perk)
-        <a href="/perks/{{$perk->slug}}" class="btn btn-sm btn-primary" style="margin-bottom: 0.25rem;">{{$perk->title}}</a>
-      @endforeach
-    </div>
-    </div>
+  <div class="row align-items-center">
+      <div class="col-lg-7" style="margin-bottom: 7.5rem;">
+        <h1 style="margin-top: 7.5rem; font-size: 2.5rem; margin-bottom: 2.5rem;">Discover companies by their culture and perks</h1>
+        <p>Click each one of the perk categories below or go straight to <a href="/find-companies"><i>Find Your Ideal Company</i></a></p>
+        @foreach($perks as $perk)
+          <a href="/perks/{{$perk->slug}}" class="btn btn-sm btn-primary" style="margin-bottom: 0.25rem;">{{$perk->title}}</a>
+        @endforeach
+      </div>
+      <div class="col-lg-5">
+        <img src="/img/hangout.svg" style="width: 100%;"/>
+      </div>
   </div>
 </div>
 
-<div class="py-5 bg-light" style="margin-top: 6rem;">
+<div class="py-5">
   <div class="container">
     <p class="lead"><strong>All Companies</strong></p>
     <div class="row">
