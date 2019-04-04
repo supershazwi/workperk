@@ -249,38 +249,60 @@ Route::get('/companies/{companyId}/delete-company', function() {
 	}
 })->middleware('auth');
 
+Route::get('/companies/{companyId}/edit/perks-sub-perks', function() {
+        $routeParameters = Route::getCurrentRoute()->parameters();
+
+        $company = Company::find($routeParameters['companyId']);
+        $locations = Location::all();
+        $subPerks = SubPerk::orderBy('perk_id', 'asc')->get();
+
+        // check many to many table for sub-perks tagged to company
+        $taggedSubPerkIds = array();
+        $taggedSubPerkString = array();
+
+        foreach($company->subPerks as $subPerk) {
+            $taggedSubPerkIds[$subPerk->id] = true;
+            array_push($taggedSubPerkString, $subPerk->perk->id . "_" . $subPerk->id);
+        }
+
+        $taggedSubPerkString = implode(',', $taggedSubPerkString);
+
+        $companySubPerkDetails = CompanySubPerkDetail::where('company_id', $company->id)->get();
+
+        return view('companies.perksSubPerks', [
+            'company' => $company,
+            'locations' => $locations,
+            'subPerks' => $subPerks,
+            'taggedSubPerkIds' => $taggedSubPerkIds,
+            'taggedSubPerkString' => $taggedSubPerkString,
+            'companySubPerkDetails' => $companySubPerkDetails
+        ]);
+})->middleware('auth');
+
+Route::get('/companies/{companyId}/edit/culture', function() {
+        $routeParameters = Route::getCurrentRoute()->parameters();
+
+        $company = Company::find($routeParameters['companyId']);
+        $companySubPerkDetails = CompanySubPerkDetail::where('company_id', $routeParameters['companyId'])->get();
+        $locations = Location::all();
+
+        return view('companies.culture', [
+            'company' => $company,
+            'companySubPerkDetails' => $companySubPerkDetails,
+            'locations' => $locations
+        ]);
+})->middleware('auth');
+
 Route::get('/companies/{companyId}/edit', function() {
-	if(Auth::user()->email == 'supershazwi@gmail.com') {
 		$routeParameters = Route::getCurrentRoute()->parameters();
 
 		$company = Company::find($routeParameters['companyId']);
 		$locations = Location::all();
-		$subPerks = SubPerk::orderBy('perk_id', 'asc')->get();
-
-		// check many to many table for sub-perks tagged to company
-		$taggedSubPerkIds = array();
-		$taggedSubPerkString = array();
-
-		foreach($company->subPerks as $subPerk) {
-			$taggedSubPerkIds[$subPerk->id] = true;
-			array_push($taggedSubPerkString, $subPerk->perk->id . "_" . $subPerk->id);
-		}
-
-		$taggedSubPerkString = implode(',', $taggedSubPerkString);
-
-		$companySubPerkDetails = CompanySubPerkDetail::where('company_id', $company->id)->get();
 
 		return view('companies.edit', [
 			'company' => $company,
-			'locations' => $locations,
-			'subPerks' => $subPerks,
-			'taggedSubPerkIds' => $taggedSubPerkIds,
-			'taggedSubPerkString' => $taggedSubPerkString,
-			'companySubPerkDetails' => $companySubPerkDetails
+			'locations' => $locations
 		]);
-	} else {
-		return redirect('/');
-	}
 })->middleware('auth');
 
 Route::post('/companies/{companySlug}/perks/{perkSlug}/sub-perks/{subPerkSlug}/leave-comment', function(Request $request) {
@@ -481,8 +503,13 @@ Route::get('/companies/{companySlug}', function() {
 
 	$perkIdsFromSubPerkDetails = array();
 
+    $cultureSubPerkDetails = array();
+
 	foreach($companySubPerkDetails as $companySubPerkDetail) {
 		array_push($perkIdsFromSubPerkDetails, $companySubPerkDetail->subPerk->perk->id);
+        if($companySubPerkDetail->subPerk->perk_id == 15) {
+            array_push($cultureSubPerkDetails, $companySubPerkDetail);
+        }
 	}
 
 	$perks = Perk::orderBy('title', 'asc')->get();
@@ -503,7 +530,8 @@ Route::get('/companies/{companySlug}', function() {
 		'locations' => $locations,
 		'companySubPerkDetails' => $companySubPerkDetails,
 		'filledPerks' => $filledPerks,
-		'unfilledPerks' => $unfilledPerks
+		'unfilledPerks' => $unfilledPerks,
+        'cultureSubPerkDetails' => $cultureSubPerkDetails
 	]);
 });
 
@@ -523,11 +551,7 @@ Route::post('/companies/{companyId}/save-company', function(Request $request) {
         if(request('cover')) {
             $company->cover = Storage::disk('gcs')->put('/avatars', request('cover'), 'public');
         }
-        if(request('premium')) {
-            $company->premium = true;
-        } else {
-            $compnay->premium = false;
-        }
+        $company->premium = true;
 
         $company->website = $request->input('website');
         $company->facebook = $request->input('facebook');
@@ -553,13 +577,17 @@ Route::post('/companies/add-company', function(Request $request) {
 
 	$errorsArray = array();
 
+    if(request('image') == null) {
+        array_push($errorsArray, "The image field is required.");
+    }
+
 	if($request->input('name') == null) {
 		array_push($errorsArray, "The name field is required.");
 	}
 
-	if(request('image') == null) {
-		array_push($errorsArray, "The image field is required.");
-	}
+    if($request->input('description') == null) {
+        array_push($errorsArray, "The description field is required.");
+    }
 
 	if($request->input('location') == "Select location") {
 		array_push($errorsArray, "The location field is required.");
@@ -583,9 +611,12 @@ Route::post('/companies/add-company', function(Request $request) {
     }
 
     $company->value = 0;
+    $company->user_id = Auth::id();
 
     $company->save();
 
+    return redirect('/companies/'.$company->id.'/edit');
+    
     if(Auth::id() != null) {
 		if(Auth::user()->email == 'supershazwi@gmail.com') {
 			return redirect('/companies/'.$company->id.'/edit');
@@ -617,7 +648,6 @@ Route::get('/companies/{companySlug}/perks/{perkSlug}/sub-perks/{subPerkSlug}', 
 });
 
 Route::post('/companies/{companyId}/save-company-sub-perk-details', function(Request $request) {
-	if(Auth::user()->email == 'supershazwi@gmail.com') {
 		$routeParameters = Route::getCurrentRoute()->parameters();
 
 		$companySubPerkDetails = CompanySubPerkDetail::where('company_id', $routeParameters['companyId'])->get();
@@ -641,14 +671,34 @@ Route::post('/companies/{companyId}/save-company-sub-perk-details', function(Req
 
 		$company->save();
 
-		return redirect('/companies/'.$routeParameters['companyId'].'/edit');
-	} else {
-		return redirect('/');
-	}
+		return redirect('/companies/'.$routeParameters['companyId'].'/edit/perks-sub-perks');
+});
+
+Route::post('/companies/{companyId}/save-culture', function(Request $request) {
+
+    $routeParameters = Route::getCurrentRoute()->parameters();
+
+    $cultureSubPerks = SubPerk::where('perk_id', 15)->get();
+
+    foreach($cultureSubPerks as $subPerk) {
+        if($request->input('subPerk_'.$subPerk->id)) {
+            $companySubPerkDetail = CompanySubPerkDetail::where("company_id", $routeParameters['companyId'])->where('sub_perk_id', $subPerk->id)->first();
+
+            $companySubPerkDetail->comment = $request->input('subPerk_'.$subPerk->id);
+
+            if(request('image_'.$subPerk->id)) {
+            $companySubPerkDetail->image = Storage::disk('gcs')->put('/avatars', request('image_'.$subPerk->id), 'public');
+            }
+
+            $companySubPerkDetail->save();
+        }
+    }
+
+    return redirect('/companies/'.$routeParameters['companyId'].'/edit/culture');
 });
 
 Route::post('/companies/{companyId}/save-overall-perks', function(Request $request) {
-	if(Auth::user()->email == 'supershazwi@gmail.com') {
+
 		$routeParameters = Route::getCurrentRoute()->parameters();
 		$originalTaggedSubPerkIds = $request->input('taggedSubPerkIds');
 		$company = Company::find($routeParameters['companyId']);
@@ -665,7 +715,7 @@ Route::post('/companies/{companyId}/save-overall-perks', function(Request $reque
 				CompanySubPerkDetail::destroy($companySubPerkDetail->id);
 			}
 
-			return redirect('/companies/'.$routeParameters['companyId'].'/edit');
+			return redirect('/companies/'.$routeParameters['companyId'].'/edit/perks-sub-perks');
 		}
 
 		$futureSubPerkIdArray = array();
@@ -747,10 +797,8 @@ Route::post('/companies/{companyId}/save-overall-perks', function(Request $reque
 			}
 		}
 
-		return redirect('/companies/'.$routeParameters['companyId'].'/edit');
-	} else {
-		return redirect('/');
-	}
+		return redirect('/companies/'.$routeParameters['companyId'].'/edit/perks-sub-perks');
+	
 })->middleware('auth');
 
 
@@ -1060,9 +1108,9 @@ Route::get('/terms-conditions', function() {
 // ADMIN //
 Route::get('/dashboard', function() {
 	if(Auth::user()->email == 'supershazwi@gmail.com') {
-		$perks = Perk::all();
-		$companies = Company::all();
-		$locations = Location::select('country')->groupBy('country')->get();
+        $perks = Perk::all();
+        $companies = Company::all();
+        $locations = Location::select('country')->groupBy('country')->get();
 
 		return view('dashboard', [
 			'perks' => $perks,
@@ -1070,7 +1118,15 @@ Route::get('/dashboard', function() {
     		'locations' => $locations
 		]);
 	} else {
-		return redirect('/');
+        $perks = Perk::all();
+        $companies = Company::where('user_id', Auth::id())->get();
+        $locations = Location::select('country')->groupBy('country')->get();
+
+		return view('companyDashboard', [
+            'perks' => $perks,
+            'companies' => $companies,
+            'locations' => $locations
+        ]);
 	}
 })->middleware('auth');
 
@@ -1128,6 +1184,16 @@ Route::get('/profile', function () {
 })->middleware('auth');
 
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
+
+Route::get('/claim', function () {
+    $companies = Company::orderBy('value', 'desc')->get();
+    $locations = Location::select('country')->groupBy('country')->get();
+
+    return view('claim', [
+        'companies' => $companies,
+        'locations' => $locations
+    ]);
+});
 
 Route::get('/', function () {
 	$perks = Perk::orderBy('title', 'asc')->get();

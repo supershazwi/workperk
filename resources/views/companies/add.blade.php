@@ -2,9 +2,10 @@
 
 @section ('content')
 
-<div class="py-5 bg-white">
+<div class="py-5">
   <div class="container">
-    <h5>Add Company</h5>
+    <h2><a href="/profile">Profile</a> <a href="/claim" style="margin-left: 1rem;">Claim Company</a> <span style="text-decoration: underline; margin-left: 1rem;">Create Company</span> <a href="/dashboard" style="margin-left: 1rem;">Dashboard</a>
+    </h2>
     <br/>
     <form method="POST" action="/companies/add-company" enctype="multipart/form-data">
       @csrf
@@ -25,7 +26,7 @@
         </div>
       </div>
       <div class="form-group row">
-        <label for="staticEmail" class="col-sm-2 col-form-label">Company</label>
+        <label for="staticEmail" class="col-sm-2 col-form-label">Name</label>
         <div class="col-sm-10">
           <input type="text" class="form-control" id="name" name="name" placeholder="Company name" value="{{ old('name') }}">
         </div>

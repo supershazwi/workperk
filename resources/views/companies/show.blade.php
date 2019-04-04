@@ -179,36 +179,23 @@
       </div>
       <div class="card">
         <div class="card-body">
-          <div style="margin-bottom: 1rem;">
-            <span style="font-size: 1.25rem; color: #dca419;">Open to Ideas</span>
-            <p style="margin-top: 0.5rem;">Over here, we know that there's always room for improvement. We constantly look out for improvements to be done in three aspects - people, process and technology. From inventory optimisation to digital transformation projects, so long it better serves our purpose of focusing on our customer's work, we would implement the idea.</p>
-            <p style="margin-top: 0.5rem;">What people should know is most of the time, our employees are the one coming up with the various initiatives. Being 'on-the-ground', they have the firsthand view of the situation and probably the best to devise a solution.</p>
-          </div>
-          <div style="margin-bottom: 0rem;">
-            <span style="font-size: 1.25rem; color: #dca419;">Team-oriented</span>
-            <p style="margin-top: 0.5rem;">A customer's equipment rental booking can go from order to fulfilment fast and it is only possible by our teamwork. From the checking of equipment availability to ensuring the items are not faulty, each task is done together as a team.</p>
-            <p style="margin-top: 0.5rem;">For every decision or action we take, we consider whether it would bring about the success of the team as a whole and also the mission of the company.</p>
-            <p style="margin-top: 0.5rem;">Outside of work, some of us will hold events to gather all of us to simply have a good time.</p>
-            <figure class="figure" style="text-align: center; margin-bottom: 0rem;">
-              <img src="https://scontent.fsin8-2.fna.fbcdn.net/v/t1.0-9/13681024_10154951204211124_5323269331142389810_n.jpg?_nc_cat=107&_nc_ht=scontent.fsin8-2.fna&oh=40f2eb014f3f0f59116a990b1a955130&oe=5D433E1A" class="figure-img img-fluid rounded" style="width: 100%; border-radius: 5px;"/>
-              <figcaption class="figure-caption">The team chilling at Khamis' house for Hari Raya!</figcaption>
-            </figure>
-          </div>
-          <div style="margin-bottom: 1rem;">
-            <span style="font-size: 1.25rem; color: #dca419;">Employee First</span>
-            <p style="margin-top: 0.5rem;">While there's the popular saying of "Customer comes first", at Camwerkz, we wholeheartedly believe and practise an "Employee First" culture. In order to get to a state of our customer's work being our focus, we focus on the interface between the customer and the company - which is our team.</p>
-            <p style="margin-top: 0.5rem;">Especially at a time today when trust between the management and employees are amongst the lowest, the first thing we do is create an environment of trust where our team believes in what we are saying and doing. The management is always available to listen to the needs of every individual team member.</p>
-            <p style="margin-top: 0.5rem;">With this, having happy and fulfilled customers is a no brainer.</p>
-            <figure class="figure" style="text-align: center; margin-bottom: 0rem;">
-              <img src="https://scontent-sin6-2.xx.fbcdn.net/v/t1.0-9/55575833_10158253734831124_7278478457154043904_n.jpg?_nc_cat=103&_nc_ht=scontent-sin6-2.xx&oh=15fdddf146f06d924773568f30883fa6&oe=5D454ECF" class="figure-img img-fluid rounded" style="width: 100%; border-radius: 5px;"/>
-              <figcaption class="figure-caption">Hanis learning how to xxx xxx.</figcaption>
-            </figure>
-          </div>
-          <div style="margin-bottom: 0rem;">
-            <span style="font-size: 1.25rem; color: #dca419;">Open to Failures</span>
-            <p style="margin-top: 0.5rem;">We encourage our team to try new things and different ways of solving a problem as a form of continuous improvement. This occasionally leads to things not working out as planned. We often use this opportunity as a way to learn what went wrong and what could have been done better.</p>
-            <p style="margin-top: 0.5rem; margin-bottom: 0rem;">The only way to learn fast and well is to not be afraid of venturing into the unknown and we make sure that Camwerkz is a safe environment for our team to do that.</p>
-          </div>
+          @foreach($cultureSubPerkDetails as $cultureSubPerkDetail)
+            @if($cultureSubPerkDetail->subPerk->perk_id == 15)
+            @if($loop->last)
+            <div style="margin-bottom: 0rem !important;">
+            @else
+            <div style="margin-bottom: 1rem;">
+            @endif
+              <span style="font-size: 1.25rem; color: #dca419;">{{$cultureSubPerkDetail->subPerk->title}}</span>
+              <p style="margin-top: 0.5rem; margin-bottom: 0rem;">{{$cultureSubPerkDetail->comment}}</p>
+              @if($cultureSubPerkDetail->image)
+              <figure class="figure" style="text-align: center; margin-bottom: 0rem;">
+                <img src="https://storage.googleapis.com/talentail-123456789/{{$cultureSubPerkDetail->image}}" class="figure-img img-fluid rounded" style="width: 100%; border-radius: 5px; margin-bottom: 0rem; margin-top: 1rem;"/>
+              </figure>
+              @endif
+            </div>
+            @endif
+          @endforeach
         </div>
       </div>  
     </div>
@@ -233,7 +220,7 @@
                   @if($companySubPerkDetail->subPerk->perk->id == $perk->id)
                     <tr>
                       <td style="padding: 0rem;">
-                        @if($companySubPerkDetail->comment)
+                        @if($companySubPerkDetail->comment && $companySubPerkDetail->subPerk->perk_id != 15)
                           <a href="#" class="comment" data-toggle="tooltip" data-placement="top" title="{{$companySubPerkDetail->comment}}" onclick="commentClick()">{{$companySubPerkDetail->subPerk->title}}</a>
                         @else
                           {{$companySubPerkDetail->subPerk->title}}
@@ -265,6 +252,7 @@
           @endforeach
         </div>
       </div>  
+      @if($company->contact || $company->address)
       <div class="header-body" style="padding-top: 0rem; padding-bottom: 0rem; border-bottom: 0px;">
         <h5 class="header-pretitle">
           CONTACT DETAILS
@@ -282,6 +270,7 @@
           </ul>
         </div>
       </div>
+      @endif
     </div>
   </div>
   @else

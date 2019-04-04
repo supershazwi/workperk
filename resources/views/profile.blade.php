@@ -2,7 +2,7 @@
 
 @section ('content')
 
-<div class="py-5 bg-white">
+<div class="py-5">
   <div class="container">
     <div class="form-group row" id="emailSent" style="display: none;" >
       <div class="col-sm-12">
@@ -12,13 +12,7 @@
       </div>
     </div>
     <h2><span style="text-decoration: underline;">Profile</span> 
-      <a href="/claim" style="margin-left: 1rem;">Claim Company</a> <a href="/companies/add-company" style="margin-left: 1rem;">Create Company</a>
-
-      <!-- <a href="/likes" style="margin-left: 1rem;">Likes</a> <a href="/comments" style="margin-left: 1rem;">Comments</a> -->
-
-      @if(Auth::user()->email == "supershazwi@gmail.com")
-        <a href="/dashboard" style="margin-left: 1rem;">Dashboard</a>
-      @endif
+      <a href="/claim" style="margin-left: 1rem;">Claim Company</a> <a href="/companies/add-company" style="margin-left: 1rem;">Create Company</a> <a href="/dashboard" style="margin-left: 1rem;">Dashboard</a>
     </h2>
     <br/>
     @if (session('verified'))
