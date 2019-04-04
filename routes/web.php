@@ -215,6 +215,30 @@ Route::post('/company-sub-perk-detail/{companySubPerkDetailId}/unlike', function
 });	
 
 // COMPANIES //
+Route::post('/companies/{companyId}/unclaim', function() {
+    $routeParameters = Route::getCurrentRoute()->parameters();
+
+    $company = Company::find($routeParameters['companyId']);
+
+    $company->user_id = null;
+
+    $company->save();
+
+    return redirect('/claim')->with('claimed', 'You have unclaimed ' . $company->name . '.');
+});
+
+Route::post('/companies/{companyId}/claim', function() {
+    $routeParameters = Route::getCurrentRoute()->parameters();
+
+    $company = Company::find($routeParameters['companyId']);
+
+    $company->user_id = Auth::id();
+
+    $company->save();
+
+    return redirect('/claim')->with('claimed', 'You have claimed ' . $company->name . '. Please go to the dashboard to view it.');
+});
+
 Route::get('/companies/add-company', function() {
 	$locations = Location::all();
 
