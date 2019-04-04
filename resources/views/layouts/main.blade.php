@@ -79,9 +79,9 @@
             </div>
           </div>
         @else
-          <!-- <a class="btn btn-primary mr-auto" href="/login">
+          <a class="btn btn-primary mr-auto" href="/login">
               Employer Login
-          </a> -->
+          </a>
         @endif
     </div>
 
