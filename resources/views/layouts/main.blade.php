@@ -48,6 +48,22 @@
 
     gtag('config', 'UA-136900548-1');
   </script>
+  <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
+<script>
+window.addEventListener("load", function(){
+window.cookieconsent.initialise({
+  "palette": {
+    "popup": {
+      "background": "#2c7be5"
+    },
+    "button": {
+      "background": "#fff",
+      "text": "#2c7be5"
+    }
+  }
+})});
+</script>
 </head>
 
 <body>
