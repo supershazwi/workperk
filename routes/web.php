@@ -310,9 +310,23 @@ Route::get('/companies/{companyId}/edit/culture', function() {
         $companySubPerkDetails = CompanySubPerkDetail::where('company_id', $routeParameters['companyId'])->get();
         $locations = Location::all();
 
+        $companyCultureSubPerkDetails = array();
+        $companyCultureSubPerkDetailsId = array();
+
+        foreach($companySubPerkDetails as $companySubPerkDetail) {
+            if($companySubPerkDetail->subPerk->perk_id == 15) {
+                array_push($companyCultureSubPerkDetails, $companySubPerkDetail);
+                array_push($companyCultureSubPerkDetailsId, $companySubPerkDetail->subPerk->id);
+            }
+        }
+
+        $companyCultureSubPerkDetailsId = implode(",", $companyCultureSubPerkDetailsId);
+
+
         return view('companies.culture', [
             'company' => $company,
             'companySubPerkDetails' => $companySubPerkDetails,
+            'companyCultureSubPerkDetailsId' => $companyCultureSubPerkDetailsId,
             'locations' => $locations
         ]);
 })->middleware('auth');

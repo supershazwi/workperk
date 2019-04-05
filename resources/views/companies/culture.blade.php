@@ -2,6 +2,8 @@
 
 @section ('content')
 
+<input type="hidden" id="companyCultureSubPerkDetailsId" value="{{$companyCultureSubPerkDetailsId}}" />
+
 <div class="py-5">
   <div class="container">
     <h2><a href="/dashboard">Dashboard</a> > {{$company->name}} > Edit Company</h2>
@@ -78,7 +80,23 @@
   $(document).ready(function() {
       $('.js-example-basic-single').select2();
       $('.js-example-basic-single2').select2();
+
+      let companyCultureSubPerkDetailsId = document.getElementById("companyCultureSubPerkDetailsId").value;
+
+      var array = companyCultureSubPerkDetailsId.split(",");
+
+      for (var i = 0; i < array.length; i++) {
+        var simplemde = new SimpleMDE({ 
+          element: $("#subPerk_" + array[i])[0],
+          toolbar: false
+        });
+
+      }
   });
+</script>
+
+<script>
+
 </script>
 
 @endsection

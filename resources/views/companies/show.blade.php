@@ -187,7 +187,8 @@
             <div style="margin-bottom: 1rem;">
             @endif
               <span style="font-size: 1.25rem; color: #dca419;">{{$cultureSubPerkDetail->subPerk->title}}</span>
-              <p style="margin-top: 0.5rem; margin-bottom: 0rem;">{{$cultureSubPerkDetail->comment}}</p>
+              <!-- <p style="margin-top: 0.5rem; margin-bottom: 0rem;">{{$cultureSubPerkDetail->comment}}</p> -->
+              @parsedown($cultureSubPerkDetail->comment)
               @if($cultureSubPerkDetail->image)
               <figure class="figure" style="text-align: center; margin-bottom: 0rem;">
                 <img src="https://storage.googleapis.com/talentail-123456789/{{$cultureSubPerkDetail->image}}" class="figure-img img-fluid rounded" style="width: 100%; border-radius: 5px; margin-bottom: 0rem; margin-top: 1rem;"/>
