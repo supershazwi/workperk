@@ -23,4 +23,8 @@ class Company extends Model
     public function companySubPerkDetails() {
         return $this->hasMany(CompanySubPerkDetail::class);
     }
+
+    public function jobs() {
+        return $this->hasMany(Job::class);
+    }
 }

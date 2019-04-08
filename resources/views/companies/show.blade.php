@@ -14,6 +14,11 @@
   @endif
   
   <div class="container">
+    @if (!$company->visible)
+        <div class="alert alert-warning text-center" style="margin-bottom: 0rem;">
+          This company is currently hidden.
+        </div>
+    @endif
 
     <!-- Body -->
     @if($company->premium)
@@ -98,7 +103,7 @@
 
   </div>
 </div>
-@if($company->premium)
+@if($company->premium && count($company->jobs) > 0)
 <div class="container">
   <div class="header-body" style="padding-top: 0rem; padding-bottom: 0rem; border-bottom: 0px;">
 
@@ -107,62 +112,22 @@
     </h5>
   </div>
   <div class="row">
+    @foreach($company->jobs as $job)
     <div class="col-lg-3">
       <div class="card" style="box-shadow: none !important;">
         <div class="card-body text-center" style="box-shadow: none !important;">
-          <h3 class="card-title">Regional Account Director</h3>
+          <h3 class="card-title">{{$job->title}}</h3>
           <p class="card-text" style="margin-bottom: 0.25rem;">
-            Singapore
+            {{$job->location->state}}, {{$job->location->country}}
           </p>
           <p class="card-text" style="margin-bottom: 0.5rem;">
-            Full-time
+            {{$job->type}}
           </p>
-          <a href="#" class="btn btn-sm btn-primary">More Info</a>
+          <a href="/jobs/{{$job->id}}" class="btn btn-sm btn-primary">More Info</a>
         </div>
       </div>
     </div>
-    <div class="col-lg-3">
-      <div class="card" style="box-shadow: none !important;">
-        <div class="card-body text-center" style="box-shadow: none !important;">
-          <h3 class="card-title">Procurement Buyer</h3>
-          <p class="card-text" style="margin-bottom: 0.25rem;">
-            Singapore
-          </p>
-          <p class="card-text" style="margin-bottom: 0.5rem;">
-            Full-time
-          </p>
-          <a href="#" class="btn btn-sm btn-primary">More Info</a>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-3">
-      <div class="card" style="box-shadow: none !important;">
-        <div class="card-body text-center" style="box-shadow: none !important;">
-          <h3 class="card-title">Receptionist</h3>
-          <p class="card-text" style="margin-bottom: 0.25rem;">
-            Singapore
-          </p>
-          <p class="card-text" style="margin-bottom: 0.5rem;">
-            Full-time
-          </p>
-          <a href="#" class="btn btn-sm btn-primary">More Info</a>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-3">
-      <div class="card" style="box-shadow: none !important;">
-        <div class="card-body text-center" style="box-shadow: none !important;">
-          <h3 class="card-title">Intern</h3>
-          <p class="card-text" style="margin-bottom: 0.25rem;">
-            Singapore
-          </p>
-          <p class="card-text" style="margin-bottom: 0.5rem;">
-            Full-time
-          </p>
-          <a href="#" class="btn btn-sm btn-primary">More Info</a>
-        </div>
-      </div>
-    </div>
+    @endforeach
   </div>
 </div>
 @endif
@@ -206,7 +171,6 @@
       <div class="header-body" style="padding-top: 0rem; padding-bottom: 0rem; border-bottom: 0px;">
         <h5 class="header-pretitle">
           PERKS VALUE <span style="color: #16a085;">~${{number_format($company->value)}}</span>
-          <!-- PERKS -->
         </h5>
       </div>
       <div class="card" style="box-shadow: none !important;">

@@ -25,6 +25,11 @@
               Write-up On Culture
             </a>
           </li>
+          <li class="nav-item">
+            <a href="/companies/{{$company->id}}/edit/jobs" class="nav-link">
+              Jobs Management
+            </a>
+          </li>
         </ul>
       </div>
     </div>
@@ -284,6 +289,22 @@
         <label for="staticEmail" class="col-sm-2 col-form-label">Contact</label>
         <div class="col-sm-10">
           <input type="text" class="form-control" id="contact" name="contact" value="{{$company->contact}}" placeholder="60000000">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="staticEmail" class="col-sm-2 col-form-label">Visibility</label>
+        <div class="col-sm-10">
+          <select class="form-control" data-toggle="select" name="visibility">
+            <option value="">Select visibility</option>
+
+            @if($company->visible)
+            <option value="0">Hidden</option>
+            <option value="1" selected>Public</option>
+            @else
+            <option value="0" selected>Hidden</option>
+            <option value="1">Public</option>
+            @endif
+          </select>
         </div>
       </div>
   		<div class="form-group row">

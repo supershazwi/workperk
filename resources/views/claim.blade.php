@@ -9,7 +9,7 @@
       <h4 class="alert-heading" style="margin-bottom: 0;">{{session('claimed')}}</h4>
     </div>
     @endif
-    <h2><a href="/profile">Profile</a> <span style="text-decoration: underline; margin-left: 1rem;">Claim Company</span> <a href="/companies/add-company" style="margin-left: 1rem;">Create Company</a> <a href="/dashboard" style="margin-left: 1rem;">Dashboard</a>
+    <h2><a href="/profile">Profile</a> <span style="text-decoration: underline; margin-left: 1rem;">Claim Company</span> <a href="/companies/add-company" style="margin-left: 1rem;">Create Company</a> <a href="/jobs/add-job" style="margin-left: 1rem;">Create Job</a> <a href="/dashboard" style="margin-left: 1rem;">Dashboard</a>
     </h2>
     <p class="lead"><strong>All Companies</strong></p>
     <div class="row">

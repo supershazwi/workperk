@@ -25,6 +25,11 @@
               Write-up On Culture
             </a>
           </li>
+          <li class="nav-item">
+            <a href="/companies/{{$company->id}}/edit/jobs" class="nav-link">
+              Jobs Management
+            </a>
+          </li>
         </ul>
       </div>
     </div>

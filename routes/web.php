@@ -13,6 +13,7 @@ use App\Mail\SendResetPasswordLink;
 use App\Comment;
 use App\Company;
 use App\CompanySubPerkDetail;
+use App\Job;
 use App\Like;
 use App\Location;
 use App\Perk;
@@ -20,6 +21,214 @@ use App\SubPerk;
 use App\User;
 use App\VerifyUser;
 use App\Mail\VerifyMail;
+
+// JOBS //
+Route::get('/jobs/{jobId}', function() {
+    $routeParameters = Route::getCurrentRoute()->parameters();
+
+    $job = Job::find($routeParameters['jobId']);
+
+    if($job == null || $job->user_id != Auth::id()) {
+        return redirect('/');
+    }
+
+    $company = $job->company;
+    $locations = Location::select('country')->groupBy('country')->get();
+    $companySubPerkDetails = CompanySubPerkDetail::where('company_id', $company->id)->get();
+
+    $perkIdsFromSubPerkDetails = array();
+
+    $cultureSubPerkDetails = array();
+
+    foreach($companySubPerkDetails as $companySubPerkDetail) {
+        array_push($perkIdsFromSubPerkDetails, $companySubPerkDetail->subPerk->perk->id);
+        if($companySubPerkDetail->subPerk->perk_id == 15) {
+            array_push($cultureSubPerkDetails, $companySubPerkDetail);
+        }
+    }
+
+    $perks = Perk::orderBy('title', 'asc')->get();
+
+    $filledPerks = array();
+    $unfilledPerks = array();
+
+    foreach ($perks as $key => $perk) {
+        if(in_array($perk->id, $perkIdsFromSubPerkDetails)) {
+            array_push($filledPerks, $perk);
+        } else {
+            array_push($unfilledPerks, $perk);
+        }
+    }
+
+    return view('jobs.show', [
+        'locations' => $locations,
+        'job' => $job,
+        'companySubPerkDetails' => $companySubPerkDetails,
+        'filledPerks' => $filledPerks,
+        'unfilledPerks' => $unfilledPerks
+    ]);
+});
+
+Route::post('/jobs/{jobId}/edit', function(Request $request) {
+    $routeParameters = Route::getCurrentRoute()->parameters();
+
+    // check if a company is created already
+
+    $errorsArray = array();
+
+    if($request->input('title') == null || $request->input('level') == null || $request->input('location') == null || $request->input('company') == null || $request->input('visibility') == null || $request->input('job_description') == null || $request->input('job_progression') == null || $request->input('type') == null) {
+
+        if($request->input('title') == null) {
+            array_push($errorsArray, "The title field is required.");
+        }
+
+        if($request->input('level') == null) {
+            array_push($errorsArray, "The level field is required.");
+        }
+
+        if($request->input('location') == null) {
+            array_push($errorsArray, "The location field is required.");
+        }
+
+        if($request->input('visibility') == null) {
+            array_push($errorsArray, "The visibility field is required.");
+        }
+
+        if($request->input('company') == null) {
+            array_push($errorsArray, "The company field is required.");
+        }
+
+        if($request->input('job_description') == null) {
+            array_push($errorsArray, "The job description field is required.");
+        }
+
+        if($request->input('job_progression') == null) {
+            array_push($errorsArray, "The job progression field is required.");
+        }
+
+        if($request->input('type') == null) {
+            array_push($errorsArray, "The type field is required.");
+        }
+    }
+    
+
+    if(count($errorsArray) > 0) {
+        return redirect('/jobs/add-job')->with('errorsArray', $errorsArray)->withInput();
+    } 
+
+    $job = Job::find($routeParameters['jobId']);
+
+    $job->title = $request->input('title');
+    $company = Company::find($request->input('company'));
+    $job->slug = strtolower($company->name) . '-' . str_slug($request->input('title'), '-');
+    $job->level = $request->input('level');
+    $job->type = $request->input('type');
+    $job->visible = $request->input('visibility');
+    $job->location_id = $request->input('location');
+    $job->company_id = $request->input('company');
+    $job->user_id = Auth::id();
+    $job->description = $request->input('job_description');
+    $job->progression = $request->input('job_progression');
+
+    $job->save();
+
+    return redirect('/companies/'.$request->input('company').'/edit/jobs'); 
+
+})->middleware('auth');
+
+
+Route::get('/jobs/{jobId}/edit', function() {
+    $routeParameters = Route::getCurrentRoute()->parameters();
+
+    $locations = Location::all();
+
+    $job = Job::find($routeParameters['jobId']);
+    $companies = Company::where('user_id', Auth::id())->get();
+
+    return view('jobs.edit', [
+        'locations' => $locations,
+        'companies' => $companies,
+        'job' => $job
+    ]);
+})->middleware('auth');
+
+Route::post('/jobs/add-job', function(Request $request) {
+    // check if a company is created already
+
+    $errorsArray = array();
+
+    if($request->input('title') == null || $request->input('level') == null || $request->input('location') == null || $request->input('company') == null || $request->input('visibility') == null || $request->input('job_description') == null || $request->input('job_progression') == null || $request->input('type') == null) {
+
+        if($request->input('title') == null) {
+            array_push($errorsArray, "The title field is required.");
+        }
+
+        if($request->input('level') == null) {
+            array_push($errorsArray, "The level field is required.");
+        }
+
+        if($request->input('location') == null) {
+            array_push($errorsArray, "The location field is required.");
+        }
+
+        if($request->input('visibility') == null) {
+            array_push($errorsArray, "The visibility field is required.");
+        }
+
+        if($request->input('company') == null) {
+            array_push($errorsArray, "The company field is required.");
+        }
+
+        if($request->input('job_description') == null) {
+            array_push($errorsArray, "The job description field is required.");
+        }
+
+        if($request->input('job_progression') == null) {
+            array_push($errorsArray, "The job progression field is required.");
+        }
+
+        if($request->input('type') == null) {
+            array_push($errorsArray, "The type field is required.");
+        }
+    }
+    
+
+    if(count($errorsArray) > 0) {
+        return redirect('/jobs/add-job')->with('errorsArray', $errorsArray)->withInput();
+    } 
+
+    $job = new Job;
+
+    $job->title = $request->input('title');
+    $company = Company::find($request->input('company'));
+    $job->slug = strtolower($company->name) . '-' . str_slug($request->input('title'), '-');
+    $job->level = $request->input('level');
+    $job->type = $request->input('type');
+    $job->visible = $request->input('visibility');
+    $job->location_id = $request->input('location');
+    $job->company_id = $request->input('company');
+    $job->user_id = Auth::id();
+    $job->description = $request->input('job_description');
+    $job->progression = $request->input('job_progression');
+
+    $job->save();
+
+    return redirect('/companies/'.$request->input('company').'/edit/jobs');
+
+})->middleware('auth');
+
+Route::get('/jobs/add-job', function() {
+    // check if a company is created already
+    $locations = Location::all();
+
+    $companies = Company::where('user_id', Auth::id())->get();
+
+    return view('jobs.add', [
+        'locations' => $locations,
+        'companies' => $companies
+    ]);
+
+})->middleware('auth');
 
 // COMMENTS //
 Route::post('/find-companies', function(Request $request) {
@@ -320,6 +529,22 @@ Route::get('/companies/{companyId}/edit/perks-sub-perks', function() {
         ]);
 })->middleware('auth');
 
+Route::get('/companies/{companyId}/edit/jobs', function() {
+        $routeParameters = Route::getCurrentRoute()->parameters();
+
+        $company = Company::find($routeParameters['companyId']);
+        $locations = Location::all();
+
+        $jobs = Job::where('company_id', $company->id)->get();
+
+
+        return view('companies.jobs', [
+            'company' => $company,
+            'jobs' => $jobs,
+            'locations' => $locations
+        ]);
+})->middleware('auth');
+
 Route::get('/companies/{companyId}/edit/culture', function() {
         $routeParameters = Route::getCurrentRoute()->parameters();
 
@@ -593,7 +818,6 @@ Route::get('/companies/{companySlug}', function() {
 Route::post('/companies/{companyId}/save-company', function(Request $request) {
     $routeParameters = Route::getCurrentRoute()->parameters();
 
-	if(Auth::user()->email == 'supershazwi@gmail.com') {
 		$company = Company::find($routeParameters['companyId']);
 
 		$company->name = $request->input('name');
@@ -618,14 +842,13 @@ Route::post('/companies/{companyId}/save-company', function(Request $request) {
         $company->contact = $request->input('contact');
         $company->brief = $request->input('brief');
         $company->type = $request->input('type');
-
+        $company->instagram = $request->input('instagram');
+        $company->visible = $request->input('visibility');
 
 		$company->save();
 		
 		return redirect('/companies/'.$company->id.'/edit');
-	} else {
-		return redirect('/');
-	}
+	
 })->middleware('auth');
 
 Route::post('/companies/add-company', function(Request $request) {
@@ -660,6 +883,7 @@ Route::post('/companies/add-company', function(Request $request) {
     $company->description = $request->input('description');
     $company->location_id = $request->input('location');
     $company->slug = str_slug($request->input('name'), '-');
+    $company->visible = false;
 
     if(request('image')) {
         $company->image = Storage::disk('gcs')->put('/avatars', request('image'), 'public');

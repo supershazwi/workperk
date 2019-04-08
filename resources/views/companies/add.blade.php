@@ -4,7 +4,7 @@
 
 <div class="py-5">
   <div class="container">
-    <h2><a href="/profile">Profile</a> <a href="/claim" style="margin-left: 1rem;">Claim Company</a> <span style="text-decoration: underline; margin-left: 1rem;">Create Company</span> <a href="/dashboard" style="margin-left: 1rem;">Dashboard</a>
+    <h2><a href="/profile">Profile</a> <a href="/claim" style="margin-left: 1rem;">Claim Company</a> <span style="text-decoration: underline; margin-left: 1rem;">Create Company</span> <a href="/jobs/add-job" style="margin-left: 1rem;">Create Job</a> <a href="/dashboard" style="margin-left: 1rem;">Dashboard</a>
     </h2>
     <br/>
     <form method="POST" action="/companies/add-company" enctype="multipart/form-data">

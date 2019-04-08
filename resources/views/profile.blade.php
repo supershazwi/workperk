@@ -12,7 +12,7 @@
       </div>
     </div>
     <h2><span style="text-decoration: underline;">Profile</span> 
-      <a href="/claim" style="margin-left: 1rem;">Claim Company</a> <a href="/companies/add-company" style="margin-left: 1rem;">Create Company</a> <a href="/dashboard" style="margin-left: 1rem;">Dashboard</a>
+      <a href="/claim" style="margin-left: 1rem;">Claim Company</a> <a href="/companies/add-company" style="margin-left: 1rem;">Create Company</a> <a href="/jobs/add-job" style="margin-left: 1rem;">Create Job</a> <a href="/dashboard" style="margin-left: 1rem;">Dashboard</a>
     </h2>
     <br/>
     @if (session('verified'))
