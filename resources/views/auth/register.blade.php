@@ -34,7 +34,7 @@
 
           <!-- Heading -->
           <h1 class="display-4 text-center mb-3" style="margin-bottom: 2.25rem !important;">
-            Create an account.
+            Register an account.
           </h1>
           
           

@@ -2179,6 +2179,18 @@ pre code
     #hangout {
         display: none;
     }
+
+    #h1hangout {
+        margin-top: 2.5rem !important;
+    }
+
+    #colhangout {
+        margin-bottom: 0rem !important;
+    }
+
+    #ulhangout {
+        margin-bottom: 2.5rem !important;
+    }
 }
 
 @media (max-width: 575.98px)

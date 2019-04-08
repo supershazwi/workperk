@@ -110,7 +110,7 @@
     <div class="col-lg-3">
       <div class="card" style="box-shadow: none !important;">
         <div class="card-body text-center" style="box-shadow: none !important;">
-          <h3 class="card-title">Master Technician</h3>
+          <h3 class="card-title">Regional Account Director</h3>
           <p class="card-text" style="margin-bottom: 0.25rem;">
             Singapore
           </p>
@@ -124,7 +124,7 @@
     <div class="col-lg-3">
       <div class="card" style="box-shadow: none !important;">
         <div class="card-body text-center" style="box-shadow: none !important;">
-          <h3 class="card-title">Technician</h3>
+          <h3 class="card-title">Procurement Buyer</h3>
           <p class="card-text" style="margin-bottom: 0.25rem;">
             Singapore
           </p>
@@ -138,7 +138,7 @@
     <div class="col-lg-3">
       <div class="card" style="box-shadow: none !important;">
         <div class="card-body text-center" style="box-shadow: none !important;">
-          <h3 class="card-title">IT Administrator</h3>
+          <h3 class="card-title">Receptionist</h3>
           <p class="card-text" style="margin-bottom: 0.25rem;">
             Singapore
           </p>
@@ -178,20 +178,22 @@
         </h5>
       </div>
       <div class="card" style="box-shadow: none !important;">
-        <div class="card-body" style="box-shadow: none !important;">
+        <div class="card-body" style="box-shadow: none !important; padding-bottom: 0.5rem;">
           @foreach($cultureSubPerkDetails as $cultureSubPerkDetail)
             @if($cultureSubPerkDetail->subPerk->perk_id == 15)
             @if($loop->last)
-            <div style="margin-bottom: 0rem !important;">
+            <div style="margin-bottom: 1rem !important;">
             @else
             <div style="margin-bottom: 1rem;">
             @endif
               <span style="font-size: 1.25rem; color: #dca419;">{{$cultureSubPerkDetail->subPerk->title}}</span>
               <!-- <p style="margin-top: 0.5rem; margin-bottom: 0rem;">{{$cultureSubPerkDetail->comment}}</p> -->
-              @parsedown($cultureSubPerkDetail->comment)
+              <div style="margin-top: 0.5rem; margin-bottom: 0rem;">
+                @parsedown($cultureSubPerkDetail->comment)
+              </div>
               @if($cultureSubPerkDetail->image)
               <figure class="figure" style="text-align: center; margin-bottom: 0rem;">
-                <img src="https://storage.googleapis.com/talentail-123456789/{{$cultureSubPerkDetail->image}}" class="figure-img img-fluid rounded" style="width: 100%; border-radius: 5px; margin-bottom: 0rem; margin-top: 1rem;"/>
+                <img src="https://storage.googleapis.com/talentail-123456789/{{$cultureSubPerkDetail->image}}" class="figure-img img-fluid rounded" style="width: 100%; border-radius: 5px; margin-bottom: 0rem; margin-top: 0.5rem;"/>
               </figure>
               @endif
             </div>
@@ -203,8 +205,8 @@
     <div class="col-lg-3">
       <div class="header-body" style="padding-top: 0rem; padding-bottom: 0rem; border-bottom: 0px;">
         <h5 class="header-pretitle">
-          <!-- PERKS VALUE <span style="color: #16a085;">~${{number_format($company->value)}}</span> -->
-          PERKS
+          PERKS VALUE <span style="color: #16a085;">~${{number_format($company->value)}}</span>
+          <!-- PERKS -->
         </h5>
       </div>
       <div class="card" style="box-shadow: none !important;">
@@ -281,8 +283,8 @@
 
       <div class="header-body" style="padding-top: 0rem; padding-bottom: 0rem; border-bottom: 0px;">
         <h5 class="header-pretitle">
-          <!-- PERKS VALUE <span style="color: #16a085;">~${{number_format($company->value)}}</span> -->
-          PERKS
+          PERKS VALUE <span style="color: #16a085;">~${{number_format($company->value)}}</span>
+          <!-- PERKS -->
         </h5>
       </div>
     </div>

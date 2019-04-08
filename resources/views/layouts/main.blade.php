@@ -85,8 +85,14 @@ window.cookieconsent.initialise({
         @if(Auth::id())
           <div class="navbar-user">
             <!-- Dropdown -->
+            <!-- <div class="dropdown mr-4 d-none d-lg-flex">
+              <a href="/shopping-cart" class="text-muted" role="button">
+                  <span class="icon">
+                    <i class="fas fa-shopping-cart"></i>
+                  </span>
+              </a>
+            </div> -->
             <div class="dropdown">
-          
               <!-- Toggle -->
               <a href="/profile" class="avatar avatar-sm" role="button">
                 @if(Auth::user()->avatar)

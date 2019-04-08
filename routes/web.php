@@ -1078,6 +1078,14 @@ Route::get('/perks/{perkId}/edit', function() {
 })->middleware('auth');
 
 // MISC //
+// Route::get('/shopping-cart', function() {
+//     $locations = Location::select('country')->groupBy('country')->get();
+
+//     return view('shoppingCart', [
+//         'locations' => $locations
+//     ]);
+// });
+
 Route::get('/about', function() {
 	$locations = Location::select('country')->groupBy('country')->get();
 
