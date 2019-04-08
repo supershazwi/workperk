@@ -7,6 +7,7 @@
       <div class="col-lg-7" style="margin-bottom: 7.5rem;" id="colhangout">
         <h1 style="margin-top: 7.5rem; font-size: 2.5rem; margin-bottom: 2.5rem;" id="h1hangout">Employees value company culture more than anything</h1>
         <p>Users now expect to see a company’s culture even before looking at a job’s description.</p>
+        <a href="/img/lets-change-the-world-together.png" style="display: none;" id="samplepic1">View Sample Profile</a>
       </div>
       <div class="col-lg-5" id="hangout">
         <img src="/img/winners.svg" style="width: 100%;"/>
@@ -21,12 +22,13 @@
       </div>
       <div class="col-lg-5 offset-lg-1">
         <h1 style="margin-top: 1.5rem; font-size: 2.5rem; margin-bottom: 2.5rem;">Give users a glimpse of your company's way of working</h1>
-        <ul id="ulhangout">
+        <ul id="ulhangout" style="padding-left: 1.2rem;">
           <li>Stop wasting time on qualifying a candidate only to have him/her be incompatible with the company's culture</li>
           <li style="margin-top: 1rem;">Increase your team's productivity by attracting candidates who are in sync</li>
           <li style="margin-top: 1rem;">Offer something more than just a job description</li>
           <li style="margin-top: 1rem;">Employees tend to enjoy their work when their needs and values are in line with what is set in the company</li>
         </ul>
+        <a href="/img/lets-change-the-world-together.png" style="display: none;" id="samplepic2">View Sample Profile</a>
       </div>
   </div>
 </div>

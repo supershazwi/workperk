@@ -2189,6 +2189,14 @@ pre code
     }
 
     #ulhangout {
+    }
+
+    #samplepic1 {
+        display: block !important;
+    }
+
+    #samplepic2 {
+        display: block !important;
         margin-bottom: 2.5rem !important;
     }
 }
