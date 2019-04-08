@@ -10,7 +10,7 @@
   <div class="row">
     <div class="col-lg-12">
     	<div class="table-responsive">
-	    	<table class="table" id="results">
+	    	<table class="table bg-white" id="results">
 	    	  <thead class="thead-dark">
 	    	    <tr>
 	    	      <th scope="col">Company</th>
