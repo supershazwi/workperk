@@ -111,9 +111,26 @@ window.cookieconsent.initialise({
         <!-- Navigation -->
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
+              @if(!empty($parameter) && $parameter == "findCompanies")
+               <a class="nav-link active" href="/find-companies">
+                 Find Your Ideal Company
+               </a>
+              @else
                <a class="nav-link" href="/find-companies">
                  Find Your Ideal Company
                </a>
+              @endif
+           </li>
+           <li class="nav-item">
+              @if(!empty($parameter) && $parameter == "forCompanies")
+               <a class="nav-link active" href="/for-companies">
+                 For Companies
+               </a>
+              @else
+               <a class="nav-link" href="/for-companies">
+                 For Companies
+               </a>
+              @endif
            </li>
         </ul>
       </div>

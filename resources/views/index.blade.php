@@ -23,8 +23,8 @@
     <div class="row">
       @foreach($companies as $company)
       <div class="col-md-4">
-        <div class="card mb-4 shadow-sm"style="text-align: center;">
-          <div class="card-body">
+        <div class="card mb-4" style="text-align: center; box-shadow: none !important;">
+          <div class="card-body" style=" box-shadow: none !important;">
             <img src="https://storage.googleapis.com/talentail-123456789/{{$company->image}}" alt="" class="avatar-img rounded" style="width: 2.5rem; height: 2.5rem; margin-bottom: 0.25rem;">
             <a href="/companies/{{$company->slug}}"><p class="lead" style="margin-bottom: 0rem;">{{$company->name}}</p></a>
             <p style="margin-bottom: 0.5rem; font-size: 0.875rem;">{{$company->location->state}}, {{$company->location->country}}</p>
@@ -36,13 +36,13 @@
             @if(count($company->perks) > 3)
               <button class="btn btn-sm btn-primary" disabled style="margin-bottom: 0.25rem; font-size: 0.75rem;">+{{count($company->perks) - 3}} more</button>
             @endif
-            <p style="margin-bottom: 0rem; margin-top: 0.5rem; font-size: 0.875rem;">Perks Value: 
+            <!-- <p style="margin-bottom: 0rem; margin-top: 0.5rem; font-size: 0.875rem;">Perks Value: 
               @if($company->value == 0)
               <span style="color: #16a085;">TBC</span>
               @else
               <span style="color: #16a085;">~${{number_format($company->value)}}</span>
               @endif
-            </p>
+            </p> -->
           </div>
         </div>
       </div>

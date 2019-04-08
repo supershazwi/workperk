@@ -108,8 +108,8 @@
   </div>
   <div class="row">
     <div class="col-lg-3">
-      <div class="card">
-        <div class="card-body text-center">
+      <div class="card" style="box-shadow: none !important;">
+        <div class="card-body text-center" style="box-shadow: none !important;">
           <h3 class="card-title">Master Technician</h3>
           <p class="card-text" style="margin-bottom: 0.25rem;">
             Singapore
@@ -122,8 +122,8 @@
       </div>
     </div>
     <div class="col-lg-3">
-      <div class="card">
-        <div class="card-body text-center">
+      <div class="card" style="box-shadow: none !important;">
+        <div class="card-body text-center" style="box-shadow: none !important;">
           <h3 class="card-title">Technician</h3>
           <p class="card-text" style="margin-bottom: 0.25rem;">
             Singapore
@@ -136,8 +136,8 @@
       </div>
     </div>
     <div class="col-lg-3">
-      <div class="card">
-        <div class="card-body text-center">
+      <div class="card" style="box-shadow: none !important;">
+        <div class="card-body text-center" style="box-shadow: none !important;">
           <h3 class="card-title">IT Administrator</h3>
           <p class="card-text" style="margin-bottom: 0.25rem;">
             Singapore
@@ -150,8 +150,8 @@
       </div>
     </div>
     <div class="col-lg-3">
-      <div class="card">
-        <div class="card-body text-center">
+      <div class="card" style="box-shadow: none !important;">
+        <div class="card-body text-center" style="box-shadow: none !important;">
           <h3 class="card-title">Intern</h3>
           <p class="card-text" style="margin-bottom: 0.25rem;">
             Singapore
@@ -177,8 +177,8 @@
           CULTURE
         </h5>
       </div>
-      <div class="card">
-        <div class="card-body">
+      <div class="card" style="box-shadow: none !important;">
+        <div class="card-body" style="box-shadow: none !important;">
           @foreach($cultureSubPerkDetails as $cultureSubPerkDetail)
             @if($cultureSubPerkDetail->subPerk->perk_id == 15)
             @if($loop->last)
@@ -203,11 +203,12 @@
     <div class="col-lg-3">
       <div class="header-body" style="padding-top: 0rem; padding-bottom: 0rem; border-bottom: 0px;">
         <h5 class="header-pretitle">
-          PERKS VALUE <span style="color: #16a085;">~${{number_format($company->value)}}</span>
+          <!-- PERKS VALUE <span style="color: #16a085;">~${{number_format($company->value)}}</span> -->
+          PERKS
         </h5>
       </div>
-      <div class="card">
-        <div class="card-body">
+      <div class="card" style="box-shadow: none !important;">
+        <div class="card-body" style="box-shadow: none !important;">
           @foreach($filledPerks as $key=>$perk)
           @if(!$loop->last)
           <div style="margin-bottom: 1rem;">
@@ -259,8 +260,8 @@
           CONTACT DETAILS
         </h5>
       </div>
-      <div class="card">
-        <div class="card-body">
+      <div class="card" style="box-shadow: none !important;">
+        <div class="card-body" style="box-shadow: none !important;">
           <ul class="list-unstyled text-small" style="margin-bottom: 0rem !important;">
             @if($company->address)
             <li style="margin-bottom: 0.5rem;"><i class="fas fa-map-marker-alt"></i> {{$company->address}}</li>
@@ -280,7 +281,8 @@
 
       <div class="header-body" style="padding-top: 0rem; padding-bottom: 0rem; border-bottom: 0px;">
         <h5 class="header-pretitle">
-          PERKS VALUE <span style="color: #16a085;">~${{number_format($company->value)}}</span>
+          <!-- PERKS VALUE <span style="color: #16a085;">~${{number_format($company->value)}}</span> -->
+          PERKS
         </h5>
       </div>
     </div>
@@ -289,8 +291,8 @@
     <div class="col-lg-3">
     @foreach($filledPerks as $key=>$perk)
       @if($key % 4 == 0)
-      <div class="card" style="margin-bottom: 1rem;">
-        <div class="card-body">
+      <div class="card" style="margin-bottom: 1rem; box-shadow: none !important;">
+        <div class="card-body" style="box-shadow: none !important;">
           <h3 style="margin-bottom: 0.5rem;">{{$perk->title}}</h3>
           <table class="table table-borderless" style="margin-bottom: 0rem;">
             <tbody>
@@ -334,8 +336,8 @@
     <div class="col-lg-3">
     @foreach($filledPerks as $key=>$perk)
       @if($key % 4 == 1)
-      <div class="card" style="margin-bottom: 1rem;">
-        <div class="card-body">
+      <div class="card" style="margin-bottom: 1rem; box-shadow: none !important;">
+        <div class="card-body" style="box-shadow: none !important;">
           <h3 style="margin-bottom: 0.5rem;">{{$perk->title}}</h3>
           <table class="table table-borderless" style="margin-bottom: 0rem;">
             <tbody>
@@ -379,8 +381,8 @@
     <div class="col-lg-3">
     @foreach($filledPerks as $key=>$perk)
       @if($key % 4 == 2)
-      <div class="card" style="margin-bottom: 1rem;">
-        <div class="card-body">
+      <div class="card" style="margin-bottom: 1rem; box-shadow: none !important;">
+        <div class="card-body" style="box-shadow: none !important;">
           <h3 style="margin-bottom: 0.5rem;">{{$perk->title}}</h3>
           <table class="table table-borderless" style="margin-bottom: 0rem;">
             <tbody>
@@ -424,8 +426,8 @@
     <div class="col-lg-3">
     @foreach($filledPerks as $key=>$perk)
       @if($key % 4 == 3)
-      <div class="card" style="margin-bottom: 1rem;">
-        <div class="card-body">
+      <div class="card" style="margin-bottom: 1rem; box-shadow: none !important;">
+        <div class="card-body" style="box-shadow: none !important;">
           <h3 style="margin-bottom: 0.5rem;">{{$perk->title}}</h3>
           <table class="table table-borderless" style="margin-bottom: 0rem;">
             <tbody>

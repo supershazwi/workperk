@@ -13,8 +13,17 @@
 </div>
 
 <div class="container">
-  <div class="card">
-    <div class="card-body" style="padding: 2.5rem;">
+  @if (session('error'))
+  <div class="form-group row" id="errorAlert">
+    <div class="col-sm-12">
+      <div class="alert alert-danger" style="text-align: center;">
+        <p class="alert-heading" style="margin-bottom: 0;">{{session('error')}}</p>
+      </div>
+    </div>
+  </div>
+  @endif
+  <div class="card" style=" box-shadow: none !important;">
+    <div class="card-body" style="padding: 2.5rem; box-shadow: none !important;">
   <div class="row">
     <div class="col-lg-4" style="margin-bottom: 1rem; text-align: center;">
       @foreach($perks as $key=>$perk)

@@ -23,6 +23,12 @@ use App\Mail\VerifyMail;
 
 // COMMENTS //
 Route::post('/find-companies', function(Request $request) {
+
+
+    if($request->input('clickedPerks') == null) {
+        return redirect('/find-companies')->with('error', 'You have not selected any perks below. Therefore, we are unable to find companies to fit your preferences.');
+    }
+
     $locations = Location::all();
 
     $selectedSubPerkIds = $request->input('clickedPerks');
@@ -97,6 +103,7 @@ Route::post('/find-companies', function(Request $request) {
     }
 
     return view('findCompaniesResult', [
+        'parameter' => 'findCompanies',
         'locations' => $locations,
         'rowArray' => $rowArray,
         'colArray' => $colArray
@@ -104,11 +111,21 @@ Route::post('/find-companies', function(Request $request) {
 
 });
 
+Route::get('/for-companies', function() {
+    $locations = Location::all();
+
+    return view('forCompanies', [
+        'parameter' => 'forCompanies',
+        'locations' => $locations
+    ]);
+});
+
 Route::get('/find-companies', function() {
     $locations = Location::all();
     $perks = Perk::orderBy('title', 'asc')->get();
 
     return view('findCompanies', [
+        'parameter' => 'findCompanies',
         'locations' => $locations,
         'perks' => $perks
     ]);
