@@ -25,6 +25,7 @@
           <li>Stop wasting time on qualifying a candidate only to have him/her be incompatible with the company's culture</li>
           <li style="margin-top: 1rem;">Increase your team's productivity by attracting candidates who are in sync</li>
           <li style="margin-top: 1rem;">Offer something more than just a job description</li>
+          <li style="margin-top: 1rem;">Employees tend to enjoy their work when their needs and values are in line with what is set in the company</li>
         </ul>
       </div>
   </div>
