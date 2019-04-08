@@ -37,6 +37,14 @@
     </div>
     <br/>
     <br/>
+    @if(empty($companyCultureSubPerkDetailsId))
+    <div class="card">
+      <div class="card-body text-center" style="padding-top: 10rem; padding-bottom: 10rem;">
+        <span style="font-size: 2.5rem;">🤨</span> 
+        <h2 style="margin-bottom: 0rem;">You need to <a href="/companies/{{$company->id}}/edit/perks-sub-perks" style="color: #2c7be5;">tag culture values</a> to your company.</h2>
+      </div>
+    </div>
+    @else
     <form method="POST" action="/companies/{{$company->id}}/save-culture" enctype="multipart/form-data">
       @csrf
       @foreach($companySubPerkDetails as $companySubPerkDetail)
@@ -58,6 +66,7 @@
       @endforeach
       <button type="submit" class="btn btn-primary">Save Write-up</button>
     </form>
+    @endif
   </div>
 </div>
 

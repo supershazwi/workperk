@@ -1,6 +1,20 @@
 @extends ('layouts.main')
 
 @section ('content')
+
+@if (!$company->visible)
+  <div class="row">
+    <div class="col-lg-8 offset-lg-2">
+      <div class="alert alert-warning text-center" style="margin-top: 1.5rem;">
+        This company is currently hidden. 
+        @if($company->user_id == Auth::id())
+        <a href="/companies/{{$company->id}}/edit">Publicise it.</a>
+        @endif
+    </div>
+  </div>
+</div>
+@endif
+
 <div class="header" style="margin-bottom: 0px;">
 
   <!-- Image -->
@@ -14,12 +28,6 @@
   @endif
   
   <div class="container">
-    @if (!$company->visible)
-        <div class="alert alert-warning text-center" style="margin-bottom: 0rem;">
-          This company is currently hidden.
-        </div>
-    @endif
-
     <!-- Body -->
     @if($company->premium)
       @if($company->cover)

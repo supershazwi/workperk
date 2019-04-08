@@ -564,7 +564,6 @@ Route::get('/companies/{companyId}/edit/culture', function() {
 
         $companyCultureSubPerkDetailsId = implode(",", $companyCultureSubPerkDetailsId);
 
-
         return view('companies.culture', [
             'company' => $company,
             'companySubPerkDetails' => $companySubPerkDetails,
@@ -1493,7 +1492,7 @@ Route::get('/', function () {
 		}
 	}
 
-	$companies = Company::orderBy('value', 'desc')->get();
+	$companies = Company::orderBy('value', 'desc')->where('visible', true)->get();
 	$locations = Location::select('country')->groupBy('country')->get();
 
     return view('index', [
