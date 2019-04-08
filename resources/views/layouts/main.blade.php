@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="A platform for career newcomers or switchers to gain the necessary work experience by attempting real world projects.">
+  <meta name="description" content="Compare perks and cultural values across different companies so that you can find the right company to work at.">
 
   <!-- Libs CSS -->
   <!-- build:css /fonts/feather/feather.min.css -->

@@ -2,7 +2,7 @@
 <html lang="en">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
+  <meta name="description" content="Compare perks and cultural values across different companies so that you can find the right company to work at.">
 
   <!-- Libs CSS -->
   <!-- build:css /fonts/feather/feather.min.css -->
