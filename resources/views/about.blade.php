@@ -14,8 +14,8 @@
 	          </div>
 	          <div class="col-lg-10">
 	            <h3 data-filter-by="text">Hi, my name is Shaz.</h3>
-	            <p>I created WorkPerk to help people find out the true worth of their jobs. There are so many different aspects that make up a job. The salary, the culture of the company and the perks of working at the company. I've been reading up tweets, blog posts and articles on cool perks at companies such as an in-house barista, paid vacations and work-life balance but have realised there isn't an easy way to filter or browse companies by perks.</p>
-	            <p>This is a continuous work in progress so if there's anything I am doing wrong or could do better, let me know right away. If you're in Singapore and would love a cup of coffee, I'd be down for that too.</p>
+	            <p>I created WorkPerk to fill up a very specific gap in the job discovery process today. There are plenty of articles detailing cultures and perks at select companies but there isn't a way to discover other companies that have similar traits.</p>
+	            <p>This is a continuous work in progress so if there's anything I am doing wrong or could do better, let me know right away. If you're in Singapore and would love a cup of coffee (or tea, or bandung) with me, I'd be down for that too.</p>
 	            <a target="_blank" href="https://www.linkedin.com/in/shazwi/"><i class="fab fa-linkedin"></i></a>
 	            <a target="_blank" href="https://www.twitter.com/supershazwi/" style="margin-left: 0.5rem;"><i class="fab fa-twitter"></i></a>
 	            <a target="_blank" href="https://t.me/supershazwi" style="margin-left: 0.5rem;"><i class="fab fa-telegram"></i></a>
