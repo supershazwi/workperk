@@ -637,7 +637,7 @@ Route::get('/companies/{companySlug}/perks/{perkSlug}/sub-perks/{subPerkSlug}/le
     ]);
 });
 
-Route::post('/companies/{companySlug}/add-sub-perk', function(Request $request) {
+Route::post('/companies/{companyId}/add-sub-perk', function(Request $request) {
     $routeParameters = Route::getCurrentRoute()->parameters();
 
     $errorsArray = array();
@@ -658,11 +658,11 @@ Route::post('/companies/{companySlug}/add-sub-perk', function(Request $request) 
     
 
     if(count($errorsArray) > 0) {
-    	return redirect('/companies/'.$routeParameters['companySlug'].'/add-sub-perk')->with('errorsArray', $errorsArray)->withInput();
+    	return redirect('/companies/'.$routeParameters['companyId'].'/add-sub-perk')->with('errorsArray', $errorsArray)->withInput();
     }
 
-	$company = Company::where('slug', $routeParameters['companySlug'])->first();
-
+	$company = Company::find($routeParameters['companyId']);
+    
     if($request->input("subPerkIds")) {
     	$subPerkIdsArray = $request->input("subPerkIds");
 
@@ -737,13 +737,13 @@ Route::post('/companies/{companySlug}/add-sub-perk', function(Request $request) 
     	$companySubPerkDetail->save();
     }
 
-	return redirect('/companies/'.$company->slug);
+	return redirect('/companies/'.$company->id.'/edit/perks-sub-perks');
 });
 
-Route::get('/companies/{companySlug}/add-sub-perk', function() {
+Route::get('/companies/{companyId}/add-sub-perk', function() {
     $routeParameters = Route::getCurrentRoute()->parameters();
 
-	$company = Company::where('slug', $routeParameters['companySlug'])->first();
+	$company = Company::find($routeParameters['companyId']);
 	$locations = Location::select('country')->groupBy('country')->get();
 	$perks = Perk::orderBy('title', 'asc')->get();
 	
@@ -926,6 +926,7 @@ Route::get('/companies/{companySlug}/perks/{perkSlug}/sub-perks/{subPerkSlug}', 
 });
 
 Route::post('/companies/{companyId}/save-company-sub-perk-details', function(Request $request) {
+    dd("hi");
 		$routeParameters = Route::getCurrentRoute()->parameters();
 
 		$companySubPerkDetails = CompanySubPerkDetail::where('company_id', $routeParameters['companyId'])->get();

@@ -2,11 +2,11 @@
 
 @section ('content')
 
-<div class="py-5 bg-white">
+<div class="py-5">
   <div class="container">
   <h2>Add Sub-perk to {{$company->name}}</h2>
     <br/>
-    <form method="POST" action="/companies/{{$company->slug}}/add-sub-perk">
+    <form method="POST" action="/companies/{{$company->id}}/add-sub-perk">
       @csrf
       @if (session('errorsArray'))
           <div class="alert alert-danger" id="errors">
@@ -17,7 +17,7 @@
               </ul>
           </div>
       @endif
-      <div class="form-group row">
+      <!-- <div class="form-group row">
         <label for="staticEmail" class="col-sm-2 col-form-label">Select Sub-perk</label>
         <div class="col-sm-10">
           <select class="js-example-basic-multiple" name="subPerkIds[]" multiple="multiple" style="width: 100%;">
@@ -27,13 +27,9 @@
           </select>
           <a href="#" onclick="showNewSubPerk()"><span style="font-size: 0.875rem;">Can't find what you're looking for?</span></a>
         </div>
-      </div>
+      </div> -->
 
-      @if(!empty($errorsArray))
       <div id="addNewSubPerk">
-      @else
-      <div id="addNewSubPerk" style="display: none;">
-      @endif
         <div class="form-group row">
           <label for="staticEmail" class="col-sm-2 col-form-label">Sub-perk Title</label>
           <div class="col-sm-10">
@@ -44,7 +40,6 @@
           <label for="staticEmail" class="col-sm-2 col-form-label">Perk Category</label>
           <div class="col-sm-10">
             <select class="js-example-basic-single" name="perkId" style="width: 100%;">
-              <option value="nil">Select Perk Category</option>
               @if(old('perkId'))
               <option>Select Perk Category</option>
               @else
@@ -71,8 +66,8 @@
       <div class="form-group row">
         <label for="inputPassword" class="col-sm-2 col-form-label"></label>
         <div class="col-sm-10">
-          <button type="submit" class="btn btn-primary">Add Sub-perks</button>
-          <a href="/companies/{{$company->slug}}" class="btn btn-light">Cancel</a>
+          <button type="submit" class="btn btn-primary">Add Sub-perk</button>
+          <a href="/companies/{{$company->id}}/edit/perks-sub-perks" class="btn btn-light">Cancel</a>
         </div>
       </div>
     </form>

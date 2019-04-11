@@ -63,6 +63,8 @@
       </table>
       <input type="hidden" name="taggedSubPerkIds" value="{{$taggedSubPerkString}}"/>
       <button type="submit" class="btn btn-primary">Save Perks & Sub-perks</button>
+      <span style="margin-left: 0.5rem;">Can't find a sub-perk? <a href="/companies/{{$company->id}}/add-sub-perk">Add a Sub-perk</a></span>
+      
     </form>
       <br/>
     <br/>
