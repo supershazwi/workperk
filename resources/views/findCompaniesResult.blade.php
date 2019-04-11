@@ -58,7 +58,10 @@
 	</div>
 </div>
 
-<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.js"></script>
+
+@endsection
+
+@section ('footer')   
 <script type="text/javascript">
 	$(document).ready(function() {
 	    $('#results').DataTable( {
@@ -66,7 +69,4 @@
 	    });
 	} );
 </script>
-@endsection
-
-@section ('footer')   
 @endsection

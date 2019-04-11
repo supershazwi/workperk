@@ -9,6 +9,8 @@
 <script src="/quill/dist/quill.min.js"></script>
 <script src="/dropzone/dist/min/dropzone.min.js"></script>
 <script src="/select2/dist/js/select2.min.js"></script>
+<script src="/js/jquery.dataTables.min.js"></script> 
+<script src="/js/dataTables.bootstrap4.min.js"></script> 
 
 <script src="/js/charts.js"></script>
 <script src="/js/dashkit.js"></script>

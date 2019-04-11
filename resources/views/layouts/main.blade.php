@@ -28,14 +28,13 @@
 
   <!-- endbuild -->
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
 
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/dropzone.js"></script>
-
   <meta name="google-site-verification" content="OJantCXfGuTlfFzI5XMc9vihxeFMsqGDhFqiON_qcws" />
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.css"/>
+
   
   <script>var colorScheme = 'light';</script>
   <title>WorkPerk</title>
@@ -49,7 +48,7 @@
     gtag('config', 'UA-136900548-1');
   </script>
   <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
-<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>  
 <script>
 window.addEventListener("load", function(){
 window.cookieconsent.initialise({
@@ -176,5 +175,6 @@ window.cookieconsent.initialise({
     </div>
   </div> <!-- / .main-content -->
   @include('scripts.javascript')
+  @yield('footer')
 </body>
 </html>

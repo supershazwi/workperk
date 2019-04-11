@@ -37,7 +37,7 @@
     <br/>
     <form method="POST" action="/companies/{{$company->id}}/save-overall-perks">
       @csrf
-      <table class="table bg-white">
+      <table id="example" class="table bg-white">
         <thead class="thead-dark">
           <tr>
             <th scope="col">#</th>
@@ -62,15 +62,17 @@
         </tbody>
       </table>
       <input type="hidden" name="taggedSubPerkIds" value="{{$taggedSubPerkString}}"/>
+      <div style="margin-top: 0.5rem;">
       <button type="submit" class="btn btn-primary">Save Perks & Sub-perks</button>
       <span style="margin-left: 0.5rem;">Can't find a sub-perk? <a href="/companies/{{$company->id}}/add-sub-perk">Add a Sub-perk</a></span>
+    </div>
       
     </form>
       <br/>
     <br/>
     <form method="POST" action="/companies/{{$company->id}}/save-company-sub-perk-details">
       @csrf
-      <table class="table bg-white">
+      <table id="example2" class="table bg-white">
         <thead class="thead-dark">
           <tr>
             <th scope="col">#</th>
@@ -113,39 +115,17 @@
           @endforeach
         </tbody>
       </table>
-      <button type="submit" class="btn btn-primary">Save Values</button>
+      <button type="submit" class="btn btn-primary" style="margin-top: 0.5rem;">Save Values</button>
     </form>
   </div>
 </div>
-
-<script type="text/javascript" src="/js/editormd.js"></script>
-<script src="/js/languages/en.js"></script>
-<script type="text/javascript">
-  
-  var editor2 = editormd({
-      id   : "test-editormd2",
-      path : "/lib/",
-      height: 640,
-      placeholder: "Company brief.",
-      onload : function() {
-          //this.watch();
-          //this.setMarkdown("###test onloaded");
-          //testEditor.setMarkdown("###Test onloaded");
-          editor2.insertValue(document.getElementById("brief-info").innerHTML);
-      }
-  });
-
-</script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script> 
-<script type="text/javascript">
-  $(document).ready(function() {
-      $('.js-example-basic-single').select2();
-      $('.js-example-basic-single2').select2();
-  });
-</script>
-
 @endsection
 
-@section ('footer')   
+@section ('footer')  
+<script type="text/javascript">
+  $(document).ready(function() {
+      $('#example').DataTable();
+      $('#example2').DataTable();
+  });
+</script> 
 @endsection
