@@ -26,7 +26,7 @@
     <p class="lead">Companies with <strong>{{$perk->title}} perks</strong></p>
     <div class="row">
       @foreach($perk->companies as $company)
-      @if($company->vislble)
+      @if($company->visible)
       <div class="col-md-4">
         <div class="card mb-4" style="text-align: center; box-shadow: none !important;">
           <div class="card-body" style=" box-shadow: none !important;">
