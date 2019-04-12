@@ -519,6 +519,7 @@ Route::get('/companies/{companyId}/edit/perks-sub-perks', function() {
 
         $companySubPerkDetails = CompanySubPerkDetail::where('company_id', $company->id)->get();
 
+
         return view('companies.perksSubPerks', [
             'company' => $company,
             'locations' => $locations,
@@ -977,12 +978,11 @@ Route::post('/companies/{companyId}/save-culture', function(Request $request) {
 });
 
 Route::post('/companies/{companyId}/save-overall-perks', function(Request $request) {
-
 		$routeParameters = Route::getCurrentRoute()->parameters();
 		$originalTaggedSubPerkIds = $request->input('taggedSubPerkIds');
 		$company = Company::find($routeParameters['companyId']);
 
-		$overallPerkIdArray = $request->input('overallPerkIds');
+		$overallPerkIdArray = explode(",", $request->input('overallPerkIds'));
 
 		if($overallPerkIdArray == null) {
 			$company->perks()->detach();

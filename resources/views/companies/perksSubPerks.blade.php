@@ -53,21 +53,24 @@
               <td>{{$subPerk->title}}</td>
               <td>{{$subPerk->perk->title}}</td>
               @if(!empty($taggedSubPerkIds[$subPerk->id]) && $taggedSubPerkIds[$subPerk->id] == true)
-              <td><input type="checkbox" checked name="overallPerkIds[]" value="{{$subPerk->perk->id}}_{{$subPerk->id}}"/></td>
+              <td><input type="checkbox" checked value="{{$subPerk->perk->id}}_{{$subPerk->id}}" onclick="toggleSelect(this.value)"/></td>
               @else
-              <td><input type="checkbox" name="overallPerkIds[]" value="{{$subPerk->perk->id}}_{{$subPerk->id}}"/></td>
+              <td><input type="checkbox" value="{{$subPerk->perk->id}}_{{$subPerk->id}}" onclick="toggleSelect(this.value)"/></td>
               @endif
             </tr>
           @endforeach
         </tbody>
       </table>
+      <input type="hidden" name="overallPerkIds" id="overallPerkIds" />
+      <input type="hidden" name="overallPerkIdsArray" id="overallPerkIdsArray" value="{{$taggedSubPerkString}}"/>
       <input type="hidden" name="taggedSubPerkIds" value="{{$taggedSubPerkString}}"/>
       <div style="margin-top: 0.5rem;">
-      <button type="submit" class="btn btn-primary">Save Perks & Sub-perks</button>
-      <span style="margin-left: 0.5rem;">Can't find a sub-perk? <a href="/companies/{{$company->id}}/add-sub-perk">Add a Sub-perk</a></span>
+      <button type="submit" class="btn btn-primary" style="display: none;" id="savePerks">Save Perks & Sub-perks</button>
     </div>
       
     </form>
+      <button onclick="savePerks()" class="btn btn-primary">Save Perks & Sub-perks</button>      <span style="margin-left: 0.5rem;">Can't find a sub-perk? <a href="/companies/{{$company->id}}/add-sub-perk">Add a Sub-perk</a></span>
+
       <br/>
     <br/>
     <form method="POST" action="/companies/{{$company->id}}/save-company-sub-perk-details">
@@ -119,6 +122,29 @@
     </form>
   </div>
 </div>
+
+<script type="text/javascript">
+  function toggleSelect(value) {
+    var overallPerkIdsArray = document.getElementById("overallPerkIdsArray").value.split(',');
+
+    if(overallPerkIdsArray.indexOf(value) == -1) {
+      overallPerkIdsArray.push(value);
+    } else {
+      overallPerkIdsArray.splice(overallPerkIdsArray.indexOf(value), 1);
+    }
+      
+    document.getElementById("overallPerkIdsArray").value = overallPerkIdsArray.join();
+  }
+
+  function savePerks() {
+    event.preventDefault();
+
+    document.getElementById("overallPerkIds").value = document.getElementById("overallPerkIdsArray").value.split(',');
+
+    document.getElementById("savePerks").click();
+  }
+</script>
+
 @endsection
 
 @section ('footer')  
