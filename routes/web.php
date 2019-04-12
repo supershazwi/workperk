@@ -519,7 +519,6 @@ Route::get('/companies/{companyId}/edit/perks-sub-perks', function() {
 
         $companySubPerkDetails = CompanySubPerkDetail::where('company_id', $company->id)->get();
 
-
         return view('companies.perksSubPerks', [
             'company' => $company,
             'locations' => $locations,
@@ -927,7 +926,6 @@ Route::get('/companies/{companySlug}/perks/{perkSlug}/sub-perks/{subPerkSlug}', 
 });
 
 Route::post('/companies/{companyId}/save-company-sub-perk-details', function(Request $request) {
-    dd($request);
 		$routeParameters = Route::getCurrentRoute()->parameters();
 
 		$companySubPerkDetails = CompanySubPerkDetail::where('company_id', $routeParameters['companyId'])->get();

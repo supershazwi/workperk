@@ -95,11 +95,11 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1">$</span>
                   </div>
-                  <input type="text" class="form-control" aria-describedby="basic-addon1" name="companySubPerkDetail_{{$companySubPerkDetail->id}}" value="{{$companySubPerkDetail->value}}"/>
+                  <input type="text" class="form-control" aria-describedby="basic-addon1" id="companySubPerkDetail_{{$companySubPerkDetail->id}}" value="{{$companySubPerkDetail->value}}" onblur="leaveValue(this)"/>
                 </div>
                 @elseif($companySubPerkDetail->subPerk->type == "number")
                 <div class="input-group mb-3">
-                  <input type="text" class="form-control" aria-describedby="basic-addon1" name="companySubPerkDetail_{{$companySubPerkDetail->id}}" value="{{$companySubPerkDetail->value}}"/>
+                  <input type="text" class="form-control" aria-describedby="basic-addon1" id="companySubPerkDetail_{{$companySubPerkDetail->id}}" value="{{$companySubPerkDetail->value}}" onblur="leaveValue(this)"/>
                 </div>
                 @else
                 <div class="input-group mb-3">
@@ -111,13 +111,19 @@
                 @if($companySubPerkDetail->subPerk->perk_id == 15)
                 Elaborate further in <a href="/companies/{{$company->id}}/edit/culture"><i>Write-up On Culture</i></a>
                 @else
-                <input type="text" class="form-control" aria-describedby="basic-addon1" name="companySubPerkDetailComment_{{$companySubPerkDetail->id}}" value="{{$companySubPerkDetail->comment}}"/>
+                <input type="text" class="form-control" aria-describedby="basic-addon1" id="companySubPerkDetailComment_{{$companySubPerkDetail->id}}" value="{{$companySubPerkDetail->comment}}" onblur="leaveComment(this)"/>
                 @endif
               </td>
             </tr>
           @endforeach
         </tbody>
       </table>
+      @foreach($companySubPerkDetails as $key=>$companySubPerkDetail)
+        @if($companySubPerkDetail->subPerk->perk_id != 15)
+          <input type="hidden" id="companySubPerkDetail2_{{$companySubPerkDetail->id}}" name="companySubPerkDetail_{{$companySubPerkDetail->id}}" value="{{$companySubPerkDetail->value}}"/>
+          <input type="hidden" id="companySubPerkDetailComment2_{{$companySubPerkDetail->id}}" name="companySubPerkDetailComment_{{$companySubPerkDetail->id}}" value="{{$companySubPerkDetail->comment}}"/>
+          @endif
+        @endforeach
       <button type="submit" class="btn btn-primary" style="margin-top: 0.5rem;">Save Values</button>
     </form>
   </div>
@@ -143,6 +149,17 @@
 
     document.getElementById("savePerks").click();
   }
+
+  function leaveValue(obj) {
+    var string = obj.id.split('_');
+    document.getElementById("companySubPerkDetail2_"+string[1]).value = obj.value;
+  }
+
+  function leaveComment(obj) {
+    var string = obj.id.split('_');
+    document.getElementById("companySubPerkDetailComment2_"+string[1]).value = obj.value;
+  }
+
 </script>
 
 @endsection
