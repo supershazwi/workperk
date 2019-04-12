@@ -18,7 +18,7 @@
 <div class="container">
   <div class="row align-items-top">
       <div class="col-lg-6" id="hangout" style="margin-bottom: 7.5rem; padding: 1.5rem;">
-        <a href="/img/lets-change-the-world-together.png"><img src="/img/lets-change-the-world-together.png" style="width: 100%; border-radius: 0.5rem;"/></a>
+        <a href="/img/gummy.png"><img src="/img/gummy.png" style="width: 100%; border-radius: 0.5rem;"/></a>
       </div>
       <div class="col-lg-5 offset-lg-1">
         <h1 style="margin-top: 1.5rem; font-size: 2.5rem; margin-bottom: 2.5rem;">Give users a glimpse of your company's way of working</h1>
