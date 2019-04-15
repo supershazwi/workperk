@@ -1002,8 +1002,10 @@ Route::post('/companies/{companyId}/save-overall-perks', function(Request $reque
 
 		foreach($overallPerkIdArray as $overallPerkId) {
 			$string = explode('_', $overallPerkId);
-			array_push($futurePerkIdArray, $string[0]);
-			array_push($futureSubPerkIdArray, $string[1]);
+            if(!empty($string[0])) {
+    			array_push($futurePerkIdArray, $string[0]);
+    			array_push($futureSubPerkIdArray, $string[1]);
+            }
 		}
 
 		$originalTaggedSubPerkIds = explode(',', $originalTaggedSubPerkIds);
