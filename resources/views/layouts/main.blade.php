@@ -118,11 +118,11 @@ window.cookieconsent.initialise({
             <li class="nav-item">
               @if(!empty($parameter) && $parameter == "findCompanies")
                <a class="nav-link active" href="/find-companies">
-                 Find Your Ideal Company
+                 For Job Seekers
                </a>
               @else
                <a class="nav-link" href="/find-companies">
-                 Find Your Ideal Company
+                 For Job Seekers
                </a>
               @endif
            </li>
