@@ -64,7 +64,7 @@
   </div>
   <div class="row">
     <div class="col-lg-10 offset-lg-1">
-      <button class="btn btn-block btn-primary" onclick="submitFindCompanies()">Find Companies</button>
+      <button class="btn btn-block btn-primary" onclick="submitFindCompanies()" id="findCompanies" style="display: none;">Find Companies</button>
     </div>
   </div>
 </div>
@@ -91,6 +91,8 @@
       for (var i = 0; i < tags.length; i++) {
           tags[i].className = "subperk";
       }
+
+      document.getElementById("findCompanies").style.display = "none";
     } else {
       tags = document.getElementsByClassName('subperk');
 
@@ -99,7 +101,10 @@
           tags[i].className = "subperk text-muted";
         }
       }
+
+      document.getElementById("findCompanies").style.display = "block";
     }
+
   }
 
   function submitFindCompanies() {
