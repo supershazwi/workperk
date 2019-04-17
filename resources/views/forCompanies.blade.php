@@ -21,7 +21,7 @@
         <a href="/img/lets-change-the-world-together.png"><img src="/img/lets-change-the-world-together.png" style="width: 100%; border-radius: 0.5rem;"/></a>
       </div>
       <div class="col-lg-5 offset-lg-1">
-        <h1 style="margin-top: 1.5rem; font-size: 2.5rem; margin-bottom: 2.5rem;">Give users a glimpse of your company's way of working</h1>
+        <h1 style="margin-top: 1.5rem; font-size: 2.5rem; margin-bottom: 2.5rem;">Give users a glimpse of your company's ways of working</h1>
         <ul id="ulhangout" style="padding-left: 1.2rem;">
           <li>Stop wasting time on qualifying a candidate only to have him/her be incompatible with the company's culture</li>
           <li style="margin-top: 1rem;">Increase your team's productivity by attracting candidates who are in sync</li>
