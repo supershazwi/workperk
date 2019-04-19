@@ -20,7 +20,7 @@
 	            <a target="_blank" href="https://www.twitter.com/supershazwi/" style="margin-left: 0.5rem;"><i class="fab fa-twitter"></i></a>
 	            <a target="_blank" href="https://t.me/supershazwi" style="margin-left: 0.5rem;"><i class="fab fa-telegram"></i></a>
 	            <a target="_blank" href="https://wa.me/6593839053" style="margin-left: 0.5rem;"><i class="fab fa-whatsapp-square"></i></a>
-	            <a href="mailto:supershazwi@gmail.com?Subject=Hello%20Shazwi" target="_top" style="margin-left: 0.5rem;"><i class="fas fa-envelope-square"></i></a>
+	            <a href="mailto:shazwi@workperk.io?Subject=Hello%20Shazwi" target="_top" style="margin-left: 0.5rem;"><i class="fas fa-envelope-square"></i></a>
 	          </div>
 	        </div>
 	    </div>
