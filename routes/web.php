@@ -23,6 +23,89 @@ use App\VerifyUser;
 use App\Mail\VerifyMail;
 
 // JOBS //
+
+Route::post('/jobs/add-job', function(Request $request) {
+    // check if a company is created already
+
+    $errorsArray = array();
+
+    if($request->input('title') == null || $request->input('level') == null || $request->input('location') == null || $request->input('company') == null || $request->input('visibility') == null || $request->input('job_description') == null || $request->input('job_progression') == null || $request->input('type') == null) {
+
+        if($request->input('title') == null) {
+            array_push($errorsArray, "The title field is required.");
+        }
+
+        if($request->input('level') == null) {
+            array_push($errorsArray, "The level field is required.");
+        }
+
+        if($request->input('location') == null) {
+            array_push($errorsArray, "The location field is required.");
+        }
+
+        if($request->input('visibility') == null) {
+            array_push($errorsArray, "The visibility field is required.");
+        }
+
+        if($request->input('company') == null) {
+            array_push($errorsArray, "The company field is required.");
+        }
+
+        if($request->input('job_description') == null) {
+            array_push($errorsArray, "The job description field is required.");
+        }
+
+        if($request->input('job_progression') == null) {
+            array_push($errorsArray, "The job progression field is required.");
+        }
+
+        if($request->input('interview_process') == null) {
+            array_push($errorsArray, "The interview process field is required.");
+        }
+
+        if($request->input('type') == null) {
+            array_push($errorsArray, "The type field is required.");
+        }
+    }
+    
+
+    if(count($errorsArray) > 0) {
+        return redirect('/jobs/add-job')->with('errorsArray', $errorsArray)->withInput();
+    } 
+
+    $job = new Job;
+
+    $job->title = $request->input('title');
+    $company = Company::find($request->input('company'));
+    $job->slug = strtolower($company->name) . '-' . str_slug($request->input('title'), '-');
+    $job->level = $request->input('level');
+    $job->type = $request->input('type');
+    $job->visible = $request->input('visibility');
+    $job->location_id = $request->input('location');
+    $job->company_id = $request->input('company');
+    $job->user_id = Auth::id();
+    $job->description = $request->input('job_description');
+    $job->interview_process = $request->input('interview_process');
+    $job->progression = $request->input('job_progression');
+
+    $job->save();
+
+    return redirect('/companies/'.$request->input('company').'/edit/jobs');
+
+})->middleware('auth');
+
+Route::get('/jobs/add-job', function() {
+    // check if a company is created already
+    $locations = Location::all();
+
+    $companies = Company::where('user_id', Auth::id())->get();
+
+    return view('jobs.add', [
+        'locations' => $locations,
+        'companies' => $companies
+    ]);
+
+})->middleware('auth');
 Route::get('/jobs/{jobId}', function() {
     $routeParameters = Route::getCurrentRoute()->parameters();
 
@@ -152,83 +235,6 @@ Route::get('/jobs/{jobId}/edit', function() {
     ]);
 })->middleware('auth');
 
-Route::post('/jobs/add-job', function(Request $request) {
-    // check if a company is created already
-
-    $errorsArray = array();
-
-    if($request->input('title') == null || $request->input('level') == null || $request->input('location') == null || $request->input('company') == null || $request->input('visibility') == null || $request->input('job_description') == null || $request->input('job_progression') == null || $request->input('type') == null) {
-
-        if($request->input('title') == null) {
-            array_push($errorsArray, "The title field is required.");
-        }
-
-        if($request->input('level') == null) {
-            array_push($errorsArray, "The level field is required.");
-        }
-
-        if($request->input('location') == null) {
-            array_push($errorsArray, "The location field is required.");
-        }
-
-        if($request->input('visibility') == null) {
-            array_push($errorsArray, "The visibility field is required.");
-        }
-
-        if($request->input('company') == null) {
-            array_push($errorsArray, "The company field is required.");
-        }
-
-        if($request->input('job_description') == null) {
-            array_push($errorsArray, "The job description field is required.");
-        }
-
-        if($request->input('job_progression') == null) {
-            array_push($errorsArray, "The job progression field is required.");
-        }
-
-        if($request->input('type') == null) {
-            array_push($errorsArray, "The type field is required.");
-        }
-    }
-    
-
-    if(count($errorsArray) > 0) {
-        return redirect('/jobs/add-job')->with('errorsArray', $errorsArray)->withInput();
-    } 
-
-    $job = new Job;
-
-    $job->title = $request->input('title');
-    $company = Company::find($request->input('company'));
-    $job->slug = strtolower($company->name) . '-' . str_slug($request->input('title'), '-');
-    $job->level = $request->input('level');
-    $job->type = $request->input('type');
-    $job->visible = $request->input('visibility');
-    $job->location_id = $request->input('location');
-    $job->company_id = $request->input('company');
-    $job->user_id = Auth::id();
-    $job->description = $request->input('job_description');
-    $job->progression = $request->input('job_progression');
-
-    $job->save();
-
-    return redirect('/companies/'.$request->input('company').'/edit/jobs');
-
-})->middleware('auth');
-
-Route::get('/jobs/add-job', function() {
-    // check if a company is created already
-    $locations = Location::all();
-
-    $companies = Company::where('user_id', Auth::id())->get();
-
-    return view('jobs.add', [
-        'locations' => $locations,
-        'companies' => $companies
-    ]);
-
-})->middleware('auth');
 
 // COMMENTS //
 Route::post('/find-companies', function(Request $request) {

@@ -121,11 +121,14 @@
 	        			</div>
 	        		</div>  	
          	 	</div>
-	          	<p style="font-size: 1.25rem;">Job Description</p>
-	          	<textarea class="form-control" name="job_description" id="jobDescription" rows="5" placeholder="Elaborate on the job description."></textarea>
+	          	<p style="font-size: 1.25rem; margin-bottom: 0.5rem; ">Job Description</p>
+	          	<textarea class="form-control" name="job_description" id="jobDescription" rows="5" placeholder="Elaborate on the job description." style="margin-bottom: 1.375rem;">{{old('job_description')}}</textarea>
 	        	
-	        	<p style="font-size: 1.25rem;">Job Progression</p>
-	          	<textarea class="form-control" name="job_progression" id="jobProgression" rows="5" placeholder="Elaborate on the job progression. What's in store for an employee in this position in terms of promotions, opportunities, etc."></textarea>
+	        	<p style="font-size: 1.25rem; margin-bottom: 0.5rem; ">Job Progression</p>
+	          	<textarea class="form-control" name="job_progression" id="jobProgression" rows="5" placeholder="Elaborate on the job progression. What's in store for an employee in this position in terms of promotions, opportunities, etc.">{{old('job_progression')}}</textarea>
+
+	          	<p style="font-size: 1.25rem; margin-bottom: 0.5rem; ">Interview Process</p>
+	          	<textarea class="form-control" name="interview_process" id="interviewProcess" rows="5" placeholder="Elaborate on the interview process for this job opportunity.">{{old('interview_process')}}</textarea>
 
 	        </div>
 	      </div>
@@ -134,6 +137,9 @@
 	</div>
 </div>
 
+@endsection
+
+@section ('footer') 
 <script type="text/javascript">
   $(document).ready(function() {
       var simplemde = new SimpleMDE({ 
@@ -145,10 +151,11 @@
         element: document.getElementById("jobProgression"),
         toolbar: ["unordered-list", "ordered-list"]
       });
+
+      var simplemde3 = new SimpleMDE({ 
+        element: document.getElementById("interviewProcess"),
+        toolbar: ["unordered-list", "ordered-list"]
+      });
   });
-</script>
-
-@endsection
-
-@section ('footer')   
+</script>  
 @endsection

@@ -28,7 +28,8 @@
     </div>
     <div class="card" style="box-shadow: none !important;">
       <div class="card-body" style="box-shadow: none !important;">
-        <span style="font-size: 1.25rem;">{{$job->title}}</span>
+        <h1>{{$job->title}}</h1>
+        <p>{{$job->level}} - {{$job->type}} - {{$job->location->state}}, {{$job->location->country}}</p>
         <div style="margin-top: 0.5rem; margin-bottom: -1rem;">
           @parsedown($job->description)
         </div>
@@ -47,6 +48,19 @@
         </div>
       </div>
     </div>
+
+    <div class="header-body" style="padding-bottom: 0rem; border-bottom: 0px; padding-top: 0rem;">
+    <h5 class="header-pretitle">
+      INTERVIEW PROCESS
+    </h5>
+    </div>
+    <div class="card" style="box-shadow: none !important;">
+      <div class="card-body" style="box-shadow: none !important;">
+        <div style="margin-bottom: -1rem;">
+          @parsedown($job->interview_process)
+        </div>
+      </div>
+    </div>
   </div>
   <div class="col-lg-3">
     <div class="header-body" style="padding-bottom: 0rem; border-bottom: 0px;">
@@ -56,11 +70,15 @@
     </div>
     <div class="card" style="box-shadow: none !important;">
       <div class="card-body" style="box-shadow: none !important;">
+        <img src="https://storage.googleapis.com/talentail-123456789/{{$job->company->image}}" alt="" class="avatar-img rounded" style="width: 2.5rem; height: 2.5rem; margin-bottom: 0.25rem;">
+        <br/> 
         <a href="/companies/{{$job->company->slug}}"><span style="font-size: 1.25rem;">{{$job->company->name}}</span></a>
         <p>{{$job->company->type}}</p>
-        <div style="margin-top: 0.5rem; margin-bottom: -1rem;">
-          @parsedown($job->description)
+        <div style="margin-top: 0.5rem;">
+          @parsedown($job->company->description)
         </div>
+        <hr/>
+        <a href="/jobs/{{$job->id}}/apply" class="btn btn-primary btn-block">Apply to Job Opportunity</a>
       </div>
     </div>
 

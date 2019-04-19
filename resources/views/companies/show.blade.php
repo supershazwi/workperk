@@ -121,6 +121,7 @@
   </div>
   <div class="row">
     @foreach($company->jobs as $job)
+    @if($job->visible)
     <div class="col-lg-3">
       <div class="card" style="box-shadow: none !important;">
         <div class="card-body text-center" style="box-shadow: none !important;">
@@ -135,6 +136,23 @@
         </div>
       </div>
     </div>
+    @elseif(!$job->visible && $job->company->user_id == Auth::id())
+    <div class="col-lg-3">
+      <div class="card" style="box-shadow: none !important;">
+        <div class="card-body text-center" style="box-shadow: none !important;">
+          <h3 class="card-title">{{$job->title}}</h3>
+          <span class="badge badge-danger" style="margin-bottom: 0.25rem;">Hidden</span>
+          <p class="card-text" style="margin-bottom: 0.25rem;">
+            {{$job->location->state}}, {{$job->location->country}}
+          </p>
+          <p class="card-text" style="margin-bottom: 0.5rem;">
+            {{$job->type}}
+          </p>
+          <a href="/jobs/{{$job->id}}" class="btn btn-sm btn-primary">More Info</a>
+        </div>
+      </div>
+    </div>
+    @endif
     @endforeach
   </div>
 </div>
