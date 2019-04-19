@@ -98,7 +98,7 @@
     <br/>
     <h2>9. Contact Us</h2>
 
-    <p class="text-small">If you have any questions about these Terms, please contact us: hello.workperk@gmail.com</p>
+    <p class="text-small">If you have any questions about these Terms, please contact us: shazwi@workperk.io</p>
   </div>
 </div>
 

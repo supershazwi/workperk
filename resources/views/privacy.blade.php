@@ -135,7 +135,7 @@
 
     <br/>
     <h2>11. Contact Us</h2>
-    <p class="text-small">If you have any questions about this Privacy Policy, please contact us: hello.workperk@gmail.com</p>
+    <p class="text-small">If you have any questions about this Privacy Policy, please contact us: shazwi@workperk.io</p>
   </div>
 </div>
 
