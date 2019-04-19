@@ -4,7 +4,7 @@
 <div class="pricing-header text-center">
   <h1 style="margin-top: 5rem; margin-bottom: 5rem;">About</h1>
 </div>
-<div class="py-5 bg-light">
+<div class="py-5">
   <div class="container">
   	<div class="card" style="margin-bottom: 0rem;">
 	    <div class="card-body">
