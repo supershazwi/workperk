@@ -8,8 +8,8 @@
   </form>
 
 <div class="pricing-header text-center" style="margin-top: 3.5rem; margin-bottom: 3.5rem;">
-  <h1>Find Your Ideal Company</h1>
-  <h2>Indicate perks that <span class="compulsory"><strong>matter</strong></span> to you</h2>
+  <h1 style="font-size: 2.5rem;">Find Your Ideal Company</h1>
+  <p>Indicate perks that <span class="compulsory"><strong>matter</strong></span> to you</p>
 </div>
 
 <div class="container">

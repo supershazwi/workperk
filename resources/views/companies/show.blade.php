@@ -177,7 +177,8 @@
             @else
             <div style="margin-bottom: 1rem;">
             @endif
-              <span style="font-size: 1.25rem; color: #dca419;">{{$cultureSubPerkDetail->subPerk->title}}</span>
+              <span style="font-size: 1.25rem; color: #dca419; font-weight: bold;">{{$cultureSubPerkDetail->subPerk->title}}</span>
+              <!-- <h1 style="color: #dca419;">{{$cultureSubPerkDetail->subPerk->title}}</h1> -->
               <!-- <p style="margin-top: 0.5rem; margin-bottom: 0rem;">{{$cultureSubPerkDetail->comment}}</p> -->
               <div style="margin-top: 0.5rem; margin-bottom: 0rem;">
                 @parsedown($cultureSubPerkDetail->comment)
