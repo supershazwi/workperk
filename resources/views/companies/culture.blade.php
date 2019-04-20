@@ -47,19 +47,25 @@
     @else
     <form method="POST" action="/companies/{{$company->id}}/save-culture" enctype="multipart/form-data">
       @csrf
-      @foreach($companySubPerkDetails as $companySubPerkDetail)
+      @foreach($companySubPerkDetails as $key=>$companySubPerkDetail)
         @if($companySubPerkDetail->subPerk->perk_id == 15)
           <div class="card">
             <div class="card-body">
               <p style="font-size: 1.25rem; color: #dca419;">{{$companySubPerkDetail->subPerk->title}}</p>
               <textarea class="form-control" name="subPerk_{{$companySubPerkDetail->subPerk->id}}" id="subPerk_{{$companySubPerkDetail->subPerk->id}}" rows="5" placeholder="Elaborate more on '{{$companySubPerkDetail->subPerk->title}}'.">{{$companySubPerkDetail->comment}}</textarea>
 
-              @if($companySubPerkDetail->image)
-                <img src="https://storage.googleapis.com/talentail-123456789/{{$companySubPerkDetail->image}}" style="margin-top: 1rem; width: 30%; border: 0px !important; border-radius: 0.5rem !important;" alt="..." class="avatar-img rounded-circle border border-4 border-body">
+              @if(count($companySubPerkDetail->cultureImages) > 0)
+                <div class="row" style="padding-left: 9.5px; padding-right: 9.5px;">
+                  @foreach($companySubPerkDetail->cultureImages as $cultureImage)
+                  <div class="col-lg-4" style="height: 200px; padding: 2.5px;">
+                    <img src="https://storage.googleapis.com/talentail-123456789/{{$cultureImage->url}}" style="border: 1px solid #ddd;margin-top: 1rem; width: 100%; object-fit: cover; height: 100%;" alt="...">
+                  </div>
+                  @endforeach
+                </div>
                 <br/>
               @endif
 
-              <input type="file" id="image_{{$companySubPerkDetail->subPerk->id}}" name="image_{{$companySubPerkDetail->subPerk->id}}" style="margin-top: 1rem;">
+              <input type="file" id="image_{{$companySubPerkDetail->subPerk->id}}" name="image_{{$companySubPerkDetail->subPerk->id}}[]" style="margin-top: 1rem;" multiple>
             </div>
           </div>
         @endif
@@ -69,32 +75,11 @@
     @endif
   </div>
 </div>
+@endsection
 
-<script type="text/javascript" src="/js/editormd.js"></script>
-<script src="/js/languages/en.js"></script>
-<script type="text/javascript">
-  
-  var editor2 = editormd({
-      id   : "test-editormd2",
-      path : "/lib/",
-      height: 640,
-      placeholder: "Company brief.",
-      onload : function() {
-          //this.watch();
-          //this.setMarkdown("###test onloaded");
-          //testEditor.setMarkdown("###Test onloaded");
-          editor2.insertValue(document.getElementById("brief-info").innerHTML);
-      }
-  });
-
-</script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script> 
+@section ('footer')   
 <script type="text/javascript">
   $(document).ready(function() {
-      $('.js-example-basic-single').select2();
-      $('.js-example-basic-single2').select2();
-
       let companyCultureSubPerkDetailsId = document.getElementById("companyCultureSubPerkDetailsId").value;
 
       var array = companyCultureSubPerkDetailsId.split(",");
@@ -108,12 +93,4 @@
       }
   });
 </script>
-
-<script>
-
-</script>
-
-@endsection
-
-@section ('footer')   
 @endsection

@@ -183,10 +183,26 @@
               <div style="margin-top: 0.5rem; margin-bottom: 0rem;">
                 @parsedown($cultureSubPerkDetail->comment)
               </div>
-              @if($cultureSubPerkDetail->image)
+              <!-- @if($cultureSubPerkDetail->image)
               <figure class="figure" style="text-align: center; margin-bottom: 0rem;">
                 <img src="https://storage.googleapis.com/talentail-123456789/{{$cultureSubPerkDetail->image}}" class="figure-img img-fluid rounded" style="width: 100%; border-radius: 5px; margin-bottom: 0rem; margin-top: 0.5rem;"/>
               </figure>
+              @endif -->
+
+              @if(count($cultureSubPerkDetail->cultureImages) > 0)
+                <div class="row" style="padding-left: 9.5px; padding-right: 9.5px;">
+                  @foreach($cultureSubPerkDetail->cultureImages as $cultureImage)
+                  <div class="col-lg-4" style="height: 200px; padding: 2.5px;">
+                    
+                    <a href="https://storage.googleapis.com/talentail-123456789/{{$cultureImage->url}}" class="thumbnail gallery">
+                      <img src="https://storage.googleapis.com/talentail-123456789/{{$cultureImage->url}}" style="border: 1px solid #ddd;margin-top: 0rem; width: 100%; object-fit: cover; height: 100%;" alt="...">
+                    </a>
+                  </div>
+                  @endforeach
+                  <!-- <a href="https://player.vimeo.com/video/33110953" data-featherlight="iframe" data-featherlight-iframe-frameborder="0" data-featherlight-iframe-allow="autoplay; encrypted-media" data-featherlight-iframe-allowfullscreen="true" data-featherlight-iframe-style="display:block;border:none;height:85vh;width:85vw;">
+                      <img src="https://storage.googleapis.com/talentail-123456789/{{$cultureImage->url}}" style="border: 1px solid #ddd;margin-top: 0rem; width: 100%; object-fit: cover; height: 100%;" alt="...">
+                    </a> -->
+                </div>
               @endif
             </div>
             @endif
@@ -486,4 +502,21 @@
 @endsection
 
 @section ('footer')   
+<script src="//code.jquery.com/jquery-latest.js"></script>
+<script src="//cdn.rawgit.com/noelboss/featherlight/1.7.13/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="//cdn.rawgit.com/noelboss/featherlight/1.7.13/release/featherlight.gallery.min.js" type="text/javascript" charset="utf-8"></script>
+
+<script type="text/javascript">
+      $(document).ready(function(){
+        $('.gallery').featherlightGallery({
+          gallery: {
+            fadeIn: 300,
+            fadeOut: 300
+          },
+          openSpeed:    300,
+          closeSpeed:   300
+        });
+      })
+</script>
+
 @endsection

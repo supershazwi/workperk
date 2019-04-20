@@ -49,6 +49,10 @@ class User extends Authenticatable
         return $this->hasMany(Like::class);
     }
 
+    public function cultureImages() {
+        return $this->hasMany(CultureImage::class);
+    }
+
     public function jobs() {
         return $this->hasMany(Job::class);
     }

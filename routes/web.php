@@ -13,6 +13,7 @@ use App\Mail\SendResetPasswordLink;
 use App\Comment;
 use App\Company;
 use App\CompanySubPerkDetail;
+use App\CultureImage;
 use App\Job;
 use App\Like;
 use App\Location;
@@ -959,7 +960,6 @@ Route::post('/companies/{companyId}/save-company-sub-perk-details', function(Req
 });
 
 Route::post('/companies/{companyId}/save-culture', function(Request $request) {
-
     $routeParameters = Route::getCurrentRoute()->parameters();
 
     $cultureSubPerks = SubPerk::where('perk_id', 15)->get();
@@ -970,11 +970,24 @@ Route::post('/companies/{companyId}/save-culture', function(Request $request) {
 
             $companySubPerkDetail->comment = $request->input('subPerk_'.$subPerk->id);
 
-            if(request('image_'.$subPerk->id)) {
-            $companySubPerkDetail->image = Storage::disk('gcs')->put('/avatars', request('image_'.$subPerk->id), 'public');
-            }
-
             $companySubPerkDetail->save();
+        }
+
+        if(request('image_'.$subPerk->id)) {
+            $companySubPerkDetail = CompanySubPerkDetail::where("company_id", $routeParameters['companyId'])->where('sub_perk_id', $subPerk->id)->first();
+
+            $images = request('image_'.$subPerk->id);
+            foreach($images as $image) {
+                $cultureImage = new CultureImage;
+
+                $cultureImage->url = Storage::disk('gcs')->put('/avatars', $image, 'public');
+                $cultureImage->type = "image";
+                $cultureImage->company_sub_perk_detail_id = $companySubPerkDetail->id;
+                $cultureImage->user_id = Auth::id();
+
+                $cultureImage->save();
+            }
+        
         }
     }
 

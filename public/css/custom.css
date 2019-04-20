@@ -11,3 +11,14 @@
 .header-pretitle {
 	color: #6e84a3 !important;
 }
+
+.dz-preview {
+	text-align: left !important;
+    margin-top: 1.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.vp-center {
+	background: black !important;
+}

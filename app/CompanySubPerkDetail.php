@@ -12,6 +12,10 @@ class CompanySubPerkDetail extends Model
         return $this->hasMany(Like::class);
     }
 
+    public function cultureImages() {
+        return $this->hasMany(CultureImage::class);
+    }
+
     public function comments() {
         return $this->hasMany(Comment::class);
     }

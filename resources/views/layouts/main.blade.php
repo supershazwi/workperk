@@ -26,6 +26,9 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
   <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
 
+  <link href="/css/featherlight.css" type="text/css" rel="stylesheet" />
+  <link href="/css/featherlight.gallery.css" type="text/css" rel="stylesheet" />
+
   <!-- endbuild -->
 
   <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
