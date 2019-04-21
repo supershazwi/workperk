@@ -2180,6 +2180,10 @@ pre code
         display: none;
     }
 
+    #hangout2 {
+        display: block;
+    }
+
     #h1hangout {
         margin-top: 2.5rem !important;
     }
@@ -2197,7 +2201,6 @@ pre code
 
     #samplepic2 {
         display: block !important;
-        margin-bottom: 2.5rem !important;
     }
 }
 
