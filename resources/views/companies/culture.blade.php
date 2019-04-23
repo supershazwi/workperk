@@ -65,6 +65,7 @@
                 <br/>
               @endif
 
+              <p style="margin-bottom: 0rem;">Attach Image(s)</p>
               <input type="file" id="image_{{$companySubPerkDetail->subPerk->id}}" name="image_{{$companySubPerkDetail->subPerk->id}}[]" style="margin-top: 1rem;" multiple>
             </div>
           </div>
