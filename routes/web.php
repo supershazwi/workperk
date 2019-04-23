@@ -25,6 +25,19 @@ use App\User;
 use App\VerifyUser;
 use App\Mail\VerifyMail;
 
+// SHOUTOUTS //
+
+
+Route::post('/shoutouts/approve', function(Request $request) {
+    $shoutout = Shoutout::find($request->input('shoutout_id'));
+
+    $shoutout->approved = true;
+
+    $shoutout->save();
+
+    return redirect('/companies/'.$request->input('company_slug'));
+});
+
 // NOTIFICATIONS //
 Route::get('/notifications', function() {
     // check if a company is created already
@@ -498,6 +511,7 @@ Route::post('/companies/{companySlug}/shoutout', function(Request $request) {
     $shoutout->content = $request->input('content');
     $shoutout->company_id = $company->id;
     $shoutout->user_id = Auth::id();
+    $shoutout->approved = 0;
 
     $shoutout->save();
 

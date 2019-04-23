@@ -2,6 +2,14 @@
 
 @section ('content')
 
+<form method="POST" action="/shoutouts/approve">
+  @csrf
+  <input type="hidden" name="shoutout_id" id="shoutoutId" />
+  <input type="hidden" name="company_slug" value="{{$company->slug}}" />
+  <button type="submit" style="display: none;" id="approveButton">Submit</button>
+</form>
+
+
 @if (!$company->visible)
   <div class="row">
     <div class="col-lg-8 offset-lg-2">
@@ -219,10 +227,10 @@
                   
                   <!-- Avatar -->
                   <a href="#!" class="avatar" id="{{$shoutout->id}}">
-                    @if(Auth::user()->avatar)
-                     <img src="https://storage.googleapis.com/talentail-123456789/{{Auth::user()->avatar}}" alt="..." class="avatar-img" style="border-radius: 0.5rem;">
+                    @if($shoutout->user->avatar)
+                     <img src="https://storage.googleapis.com/talentail-123456789/{{$shoutout->user->avatar}}" alt="..." class="avatar-img" style="border-radius: 0.5rem;">
                     @else
-                    <img src="https://api.adorable.io/avatars/150/{{Auth::user()->email}}.png" alt="..." class="avatar-img" style="border-radius: 0.5rem;">
+                    <img src="https://api.adorable.io/avatars/150/{{$shoutout->user->email}}.png" alt="..." class="avatar-img" style="border-radius: 0.5rem;">
                     @endif
                   </a>
 
@@ -239,6 +247,15 @@
                     <span class="fe fe-clock"></span> <time>{{$shoutout->created_at->diffForHumans()}}</time>
                   </p>
                   
+                </div>
+                <div class="col-auto">
+                  @if(!$shoutout->approved)
+                    @if($company->user_id == Auth::id())
+                      <btn class="btn btn-sm btn-primary" id="shoutout_{{$shoutout->id}}" onclick="approve(this.id)">Approve</btn>
+                    @else
+                      <span class="badge badge-light">Awaiting approval</span>
+                    @endif
+                  @endif      
                 </div>
               </div> <!-- / .row -->
             </div>
@@ -549,6 +566,15 @@
 <script type="text/javascript">
   function commentClick() {
     event.preventDefault();
+  }
+
+  function approve(id) {
+    event.preventDefault();
+
+    var value = id.split("_");
+
+    document.getElementById("shoutoutId").value = value[1];
+    document.getElementById("approveButton").click();
   }
 </script>
 @endsection
