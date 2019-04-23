@@ -17,11 +17,34 @@ use App\CultureImage;
 use App\Job;
 use App\Like;
 use App\Location;
+use App\Notification;
 use App\Perk;
+use App\Shoutout;
 use App\SubPerk;
 use App\User;
 use App\VerifyUser;
 use App\Mail\VerifyMail;
+
+// NOTIFICATIONS //
+Route::get('/notifications', function() {
+    // check if a company is created already
+    $locations = Location::all();
+
+    $notifications = Notification::where('recipient_id', Auth::id())->orderBy('created_at', 'desc')->get();
+
+    foreach($notifications as $notification) {
+        $notification->read = true;
+
+        $notification->save();
+    }
+
+    return view('notifications.index', [
+        'notificationCount' => Notification::where('recipient_id', Auth::id())->where('read', 0)->count(),
+        'notifications' => $notifications,
+        'locations' => $locations
+    ]);
+
+})->middleware('auth');
 
 // JOBS //
 
@@ -102,6 +125,7 @@ Route::get('/jobs/add-job', function() {
     $companies = Company::where('user_id', Auth::id())->get();
 
     return view('jobs.add', [
+        'notificationCount' => Notification::where('recipient_id', Auth::id())->where('read', 0)->count(),
         'locations' => $locations,
         'companies' => $companies
     ]);
@@ -145,6 +169,7 @@ Route::get('/jobs/{jobId}', function() {
     }
 
     return view('jobs.show', [
+        'notificationCount' => Notification::where('recipient_id', Auth::id())->where('read', 0)->count(),
         'locations' => $locations,
         'job' => $job,
         'companySubPerkDetails' => $companySubPerkDetails,
@@ -230,6 +255,7 @@ Route::get('/jobs/{jobId}/edit', function() {
     $companies = Company::where('user_id', Auth::id())->get();
 
     return view('jobs.edit', [
+        'notificationCount' => Notification::where('recipient_id', Auth::id())->where('read', 0)->count(),
         'locations' => $locations,
         'companies' => $companies,
         'job' => $job
@@ -319,6 +345,7 @@ Route::post('/find-companies', function(Request $request) {
     }
 
     return view('findCompaniesResult', [
+        'notificationCount' => Notification::where('recipient_id', Auth::id())->where('read', 0)->count(),
         'parameter' => 'findCompanies',
         'locations' => $locations,
         'rowArray' => $rowArray,
@@ -331,6 +358,7 @@ Route::get('/for-companies', function() {
     $locations = Location::all();
 
     return view('forCompanies', [
+        'notificationCount' => Notification::where('recipient_id', Auth::id())->where('read', 0)->count(),
         'parameter' => 'forCompanies',
         'locations' => $locations
     ]);
@@ -341,6 +369,7 @@ Route::get('/find-companies', function() {
     $perks = Perk::orderBy('title', 'asc')->get();
 
     return view('findCompanies', [
+        'notificationCount' => Notification::where('recipient_id', Auth::id())->where('read', 0)->count(),
         'parameter' => 'findCompanies',
         'locations' => $locations,
         'perks' => $perks
@@ -407,6 +436,7 @@ Route::get('/companies/{companySlug}/perks/{perkSlug}/sub-perks/{subPerkSlug}/co
     	$locations = Location::all();
 
     	return view('comments.show', [
+            'notificationCount' => Notification::where('recipient_id', Auth::id())->where('read', 0)->count(),
     		'comment' => $comment,
     		'locations' => $locations,
     		'companySubPerkDetail' => $companySubPerkDetail
@@ -448,6 +478,56 @@ Route::post('/company-sub-perk-detail/{companySubPerkDetailId}/unlike', function
 });	
 
 // COMPANIES //
+Route::post('/companies/{companySlug}/shoutout', function(Request $request) {
+    $routeParameters = Route::getCurrentRoute()->parameters();
+
+    $company = Company::where('slug', $routeParameters['companySlug'])->first();
+
+    $validator = Validator::make($request->all(), [
+        'content' => 'required'
+    ]);
+
+    if($validator->fails()) {
+        return redirect('/companies/'.$routeParameters['companySlug'].'/shoutout/')
+                    ->withErrors($validator)
+                    ->withInput();
+    }
+
+    $shoutout = new Shoutout;
+
+    $shoutout->content = $request->input('content');
+    $shoutout->company_id = $company->id;
+    $shoutout->user_id = Auth::id();
+
+    $shoutout->save();
+
+    $notification = new Notification;
+
+    $notification->message = "has submitted a shoutout on the company profile.";
+    $notification->recipient_id = $company->user_id;
+    $notification->user_id = Auth::id();
+    $notification->url = "/companies/".$company->slug."#".$shoutout->id;
+    $notification->read = 0;
+
+    $notification->save();
+
+    return redirect('companies/'.$company->slug.'#test');
+
+})->middleware('auth');
+
+Route::get('/companies/{companySlug}/shoutout', function() {
+    $routeParameters = Route::getCurrentRoute()->parameters();
+    $locations = Location::all();
+
+    $company = Company::where('slug', $routeParameters['companySlug'])->first();
+
+    return view('companies.shoutout', [
+        'notificationCount' => Notification::where('recipient_id', Auth::id())->where('read', 0)->count(),
+        'locations' => $locations,
+        'company' => $company
+    ]);
+})->middleware('auth');
+
 Route::post('/companies/{companyId}/unclaim', function() {
     $routeParameters = Route::getCurrentRoute()->parameters();
 
@@ -476,6 +556,7 @@ Route::get('/companies/add-company', function() {
 	$locations = Location::all();
 
 	return view('companies.add', [
+        'notificationCount' => Notification::where('recipient_id', Auth::id())->where('read', 0)->count(),
 		'locations' => $locations
 	]);
 });
@@ -488,6 +569,7 @@ Route::get('/companies/{companySlug}/perks/{perkSlug}', function() {
 	$locations = Location::select('country')->groupBy('country')->get();
 	
 	return view('companies.managePerk', [
+        'notificationCount' => Notification::where('recipient_id', Auth::id())->where('read', 0)->count(),
 		'company' => $company,
 		'perk' => $perk,
 		'locations' => $locations
@@ -527,6 +609,7 @@ Route::get('/companies/{companyId}/edit/perks-sub-perks', function() {
         $companySubPerkDetails = CompanySubPerkDetail::where('company_id', $company->id)->get();
 
         return view('companies.perksSubPerks', [
+            'notificationCount' => Notification::where('recipient_id', Auth::id())->where('read', 0)->count(),
             'company' => $company,
             'locations' => $locations,
             'subPerks' => $subPerks,
@@ -546,6 +629,7 @@ Route::get('/companies/{companyId}/edit/jobs', function() {
 
 
         return view('companies.jobs', [
+            'notificationCount' => Notification::where('recipient_id', Auth::id())->where('read', 0)->count(),
             'company' => $company,
             'jobs' => $jobs,
             'locations' => $locations
@@ -572,6 +656,7 @@ Route::get('/companies/{companyId}/edit/culture', function() {
         $companyCultureSubPerkDetailsId = implode(",", $companyCultureSubPerkDetailsId);
 
         return view('companies.culture', [
+            'notificationCount' => Notification::where('recipient_id', Auth::id())->where('read', 0)->count(),
             'company' => $company,
             'companySubPerkDetails' => $companySubPerkDetails,
             'companyCultureSubPerkDetailsId' => $companyCultureSubPerkDetailsId,
@@ -586,6 +671,7 @@ Route::get('/companies/{companyId}/edit', function() {
 		$locations = Location::all();
 
 		return view('companies.edit', [
+            'notificationCount' => Notification::where('recipient_id', Auth::id())->where('read', 0)->count(),
 			'company' => $company,
 			'locations' => $locations
 		]);
@@ -638,6 +724,7 @@ Route::get('/companies/{companySlug}/perks/{perkSlug}/sub-perks/{subPerkSlug}/le
     $companySubPerkDetail = CompanySubPerkDetail::where('company_id', $company->id)->where('sub_perk_id', $subPerk->id)->first();
 
     return view('subPerks.leaveComment', [
+        'notificationCount' => Notification::where('recipient_id', Auth::id())->where('read', 0)->count(),
     	'company' => $company,
     	'locations' => $locations,
     	'companySubPerkDetail' => $companySubPerkDetail
@@ -773,6 +860,7 @@ Route::get('/companies/{companyId}/add-sub-perk', function() {
 	}
 
 	return view('companies.addSubPerk', [
+        'notificationCount' => Notification::where('recipient_id', Auth::id())->where('read', 0)->count(),
 		'company' => $company,
 		'locations' => $locations,
 		'perks' => $perks,
@@ -812,6 +900,7 @@ Route::get('/companies/{companySlug}', function() {
 	}
 
 	return view('companies.show', [
+        'notificationCount' => Notification::where('recipient_id', Auth::id())->where('read', 0)->count(),
 		'company' => $company,
 		'locations' => $locations,
 		'companySubPerkDetails' => $companySubPerkDetails,
@@ -924,6 +1013,7 @@ Route::get('/companies/{companySlug}/perks/{perkSlug}/sub-perks/{subPerkSlug}', 
 	$likeClicked = Like::where('company_sub_perk_detail_id', $companySubPerkDetail->id)->where('user_id', Auth::id())->first();
 
 	return view('companies.showSubPerk', [
+        'notificationCount' => Notification::where('recipient_id', Auth::id())->where('read', 0)->count(),
 		'locations' => $locations,
 		'subPerk' => $subPerk,
 		'company' => $company,
@@ -1126,6 +1216,7 @@ Route::get('/perks/add-perk', function() {
 		$locations = Location::select('country')->groupBy('country')->get();
 
 		return view('perks.add', [
+            'notificationCount' => Notification::where('recipient_id', Auth::id())->where('read', 0)->count(),
 			'locations' => $locations
 		]);
 	} else {
@@ -1161,6 +1252,7 @@ Route::get('/perks/{perkId}/add-sub-perk', function() {
 		$locations = Location::select('country')->groupBy('country')->get();
 		
 		return view('subPerks.add', [
+            'notificationCount' => Notification::where('recipient_id', Auth::id())->where('read', 0)->count(),
 			'perk' => $perk,
 			'locations' => $locations
 		]);
@@ -1177,6 +1269,7 @@ Route::get('/sub-perks/{subPerkSlugOrId}', function() {
 
 	if($subPerk) {
 		return view('subPerks.show', [
+            'notificationCount' => Notification::where('recipient_id', Auth::id())->where('read', 0)->count(),
 			'subPerk' => $subPerk,
 			'locations' => $locations
 		]);
@@ -1185,6 +1278,7 @@ Route::get('/sub-perks/{subPerkSlugOrId}', function() {
 			$subPerk = SubPerk::find($routeParameters['subPerkSlugOrId']);
 
 			return view('subPerks.edit', [
+                'notificationCount' => Notification::where('recipient_id', Auth::id())->where('read', 0)->count(),
 				'subPerk' => $subPerk,
 				'locations' => $locations
 			]);
@@ -1214,6 +1308,7 @@ Route::get('/perks/{perkSlug}', function() {
 
 	$locations = Location::select('country')->groupBy('country')->get();
 	return view('perks.show', [
+        'notificationCount' => Notification::where('recipient_id', Auth::id())->where('read', 0)->count(),
 		'perk' => $perk,
 		'locations' => $locations,
 		'subPerks' => $subPerks
@@ -1296,6 +1391,7 @@ Route::get('/sub-perks/{subPerkId}/edit', function() {
 		$locations = Location::select('country')->groupBy('country')->get();
 
 		return view('subPerks.edit', [
+            'notificationCount' => Notification::where('recipient_id', Auth::id())->where('read', 0)->count(),
 			'subPerk' => $subPerk,
 			'locations' => $locations
 		]);
@@ -1312,6 +1408,7 @@ Route::get('/perks/{perkId}/edit', function() {
 		$locations = Location::select('country')->groupBy('country')->get();
 
 		return view('perks.edit', [
+            'notificationCount' => Notification::where('recipient_id', Auth::id())->where('read', 0)->count(),
 			'perk' => $perk,
 			'locations' => $locations
 		]);
@@ -1333,6 +1430,7 @@ Route::get('/about', function() {
 	$locations = Location::select('country')->groupBy('country')->get();
 
 	return view('about', [
+        'notificationCount' => Notification::where('recipient_id', Auth::id())->where('read', 0)->count(),
 		'locations' => $locations
 	]);
 });
@@ -1359,6 +1457,7 @@ Route::get('/likes', function() {
 	$likes = Like::where('user_id', Auth::id())->orderBy('created_at', 'desc')->get();
 
 	return view('likes', [
+        'notificationCount' => Notification::where('recipient_id', Auth::id())->where('read', 0)->count(),
 		'locations' => $locations,
 		'likes' => $likes
 	]);
@@ -1369,6 +1468,7 @@ Route::get('/comments', function() {
 	$comments = Comment::where('user_id', Auth::id())->orderBy('created_at', 'desc')->get();
 
 	return view('comments', [
+        'notificationCount' => Notification::where('recipient_id', Auth::id())->where('read', 0)->count(),
 		'locations' => $locations,
 		'comments' => $comments
 	]);
@@ -1399,6 +1499,7 @@ Route::get('/privacy-policy', function() {
 	$locations = Location::select('country')->groupBy('country')->get();
 
 	return view('privacy', [
+        'notificationCount' => Notification::where('recipient_id', Auth::id())->where('read', 0)->count(),
 		'locations' => $locations
 	]);
 });
@@ -1407,6 +1508,7 @@ Route::get('/terms-conditions', function() {
 	$locations = Location::select('country')->groupBy('country')->get();
 
 	return view('terms', [
+        'notificationCount' => Notification::where('recipient_id', Auth::id())->where('read', 0)->count(),
 		'locations' => $locations
 	]);
 });
@@ -1419,6 +1521,7 @@ Route::get('/dashboard', function() {
         $locations = Location::select('country')->groupBy('country')->get();
 
 		return view('dashboard', [
+            'notificationCount' => Notification::where('recipient_id', Auth::id())->where('read', 0)->count(),
 			'perks' => $perks,
 			'companies' => $companies,
     		'locations' => $locations
@@ -1429,6 +1532,7 @@ Route::get('/dashboard', function() {
         $locations = Location::select('country')->groupBy('country')->get();
 
 		return view('companyDashboard', [
+            'notificationCount' => Notification::where('recipient_id', Auth::id())->where('read', 0)->count(),
             'perks' => $perks,
             'companies' => $companies,
             'locations' => $locations
@@ -1477,14 +1581,28 @@ Route::get('/profile/edit-password', function () {
 	$locations = Location::select('country')->groupBy('country')->get();
 
     return view('editPassword', [
+        'notificationCount' => Notification::where('recipient_id', Auth::id())->where('read', 0)->count(),
     	'locations' => $locations
     ]);
+})->middleware('auth');
+
+Route::post('/profile', function (Request $request) {
+    $locations = Location::select('country')->groupBy('country')->get();
+
+    if($request->avatar) {
+        $user = Auth::user();
+        $user->avatar = Storage::disk('gcs')->put('/avatars', request('avatar'), 'public');
+        $user->save();
+    }
+
+    return redirect('profile');
 })->middleware('auth');
 
 Route::get('/profile', function () {
 	$locations = Location::select('country')->groupBy('country')->get();
 
     return view('profile', [
+        'notificationCount' => Notification::where('recipient_id', Auth::id())->where('read', 0)->count(),
     	'locations' => $locations
     ]);
 })->middleware('auth');
@@ -1496,6 +1614,7 @@ Route::get('/claim', function () {
     $locations = Location::select('country')->groupBy('country')->get();
 
     return view('claim', [
+        'notificationCount' => Notification::where('recipient_id', Auth::id())->where('read', 0)->count(),
         'companies' => $companies,
         'locations' => $locations
     ]);
@@ -1516,6 +1635,7 @@ Route::get('/', function () {
 	$locations = Location::select('country')->groupBy('country')->get();
 
     return view('index', [
+        'notificationCount' => Notification::where('recipient_id', Auth::id())->where('read', 0)->count(),
     	'perks' => $availablePerks,
     	'companies' => $companies,
     	'locations' => $locations

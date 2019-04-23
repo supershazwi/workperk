@@ -17,10 +17,6 @@
 
 <div class="header" style="margin-bottom: 0px;">
 
-  <!-- Image -->
-  <!-- <img src="/img/photo.jpg" class="header-img-top" alt="..."> -->
-  <!-- <img src="/img/Zig-Zag.svg" class="header-img-top" alt="..."> -->
-
   @if($company->premium)
     @if($company->cover)
       <img src="https://storage.googleapis.com/talentail-123456789/{{$company->cover}}" class="header-img-top" alt="...">
@@ -86,22 +82,22 @@
         @endif
           <ul class="list-unstyled text-small" style="margin-bottom: 0rem !important;">
             @if($company->website)
-            <li style="margin-bottom: 0.5rem;"><i class="fas fa-globe-asia"></i> <a href="{{$company->website}}">Website</a></li>
+            <li style="margin-bottom: 0.5rem;"><i class="fas fa-globe-asia"></i> <a href="{{$company->website}}" style="color: #6e84a3 !important;">Website</a></li>
             @endif
             @if($company->linkedin)
-            <li style="margin-bottom: 0.5rem;"><i class="fab fa-linkedin-square"></i> <a href="{{$company->linkedin}}">LinkedIn</a></li>
+            <li style="margin-bottom: 0.5rem;"><i class="fab fa-linkedin-square"></i> <a href="{{$company->linkedin}}" style="color: #6e84a3 !important;">LinkedIn</a></li>
             @endif
             @if($company->facebook)
-            <li style="margin-bottom: 0.5rem;"><i class="fab fa-facebook-square"></i> <a href="{{$company->facebook}}">Facebook</a></li>
+            <li style="margin-bottom: 0.5rem;"><i class="fab fa-facebook-square"></i> <a href="{{$company->facebook}}" style="color: #6e84a3 !important;">Facebook</a></li>
             @endif
             @if($company->instagram)
-            <li style="margin-bottom: 0.5rem;"><i class="fab fa-instagram"></i> <a href="{{$company->instagram}}">Instagram</a></li>
+            <li style="margin-bottom: 0.5rem;"><i class="fab fa-instagram"></i> <a href="{{$company->instagram}}" style="color: #6e84a3 !important;">Instagram</a></li>
             @endif
             @if($company->twitter)
-            <li style="margin-bottom: 0.5rem;"><i class="fab fa-twitter-square"></i> <a href="{{$company->twitter}}">Twitter</a></li>
+            <li style="margin-bottom: 0.5rem;"><i class="fab fa-twitter-square"></i> <a href="{{$company->twitter}}" style="color: #6e84a3 !important;">Twitter</a></li>
             @endif
             @if($company->youtube)
-            <li style="margin-bottom: 0.5rem;"><i class="fab fa-youtube-square"></i> <a href="{{$company->youtube}}">YouTube</a></li>
+            <li style="margin-bottom: 0.5rem;"><i class="fab fa-youtube-square"></i> <a href="{{$company->youtube}}" style="color: #6e84a3 !important;">YouTube</a></li>
             @endif
           </ul>
         </div>
@@ -125,14 +121,13 @@
     <div class="col-lg-3">
       <div class="card" style="box-shadow: none !important;">
         <div class="card-body text-center" style="box-shadow: none !important;">
-          <h3 class="card-title">{{$job->title}}</h3>
+          <a href="/jobs/{{$job->id}}"><h3 class="card-title">{{$job->title}}</h3></a>
           <p class="card-text" style="margin-bottom: 0.25rem;">
             {{$job->location->state}}, {{$job->location->country}}
           </p>
-          <p class="card-text" style="margin-bottom: 0.5rem;">
+          <p class="card-text" style="margin-bottom: 0rem;">
             {{$job->type}}
           </p>
-          <a href="/jobs/{{$job->id}}" class="btn btn-sm btn-primary">More Info</a>
         </div>
       </div>
     </div>
@@ -140,15 +135,14 @@
     <div class="col-lg-3">
       <div class="card" style="box-shadow: none !important;">
         <div class="card-body text-center" style="box-shadow: none !important;">
-          <h3 class="card-title">{{$job->title}}</h3>
+          <a href="/jobs/{{$job->id}}"><h3 class="card-title">{{$job->title}}</h3></a>
           <span class="badge badge-danger" style="margin-bottom: 0.25rem;">Hidden</span>
           <p class="card-text" style="margin-bottom: 0.25rem;">
             {{$job->location->state}}, {{$job->location->country}}
           </p>
-          <p class="card-text" style="margin-bottom: 0.5rem;">
+          <p class="card-text" style="margin-bottom: 0rem;">
             {{$job->type}}
           </p>
-          <a href="/jobs/{{$job->id}}" class="btn btn-sm btn-primary">More Info</a>
         </div>
       </div>
     </div>
@@ -209,8 +203,66 @@
           @endforeach
         </div>
       </div>  
+
+      <div class="header-body" style="padding-top: 0rem; padding-bottom: 0rem; border-bottom: 0px;">
+        <h5 class="header-pretitle">
+          SHOUTOUTS
+        </h5>
+        @foreach($company->shoutouts as $shoutout)
+        <div class="card" style="box-shadow: none !important;">
+          <div class="card-body">
+            
+            <!-- Header -->
+            <div class="mb-3">
+              <div class="row align-items-center">
+                <div class="col-auto">
+                  
+                  <!-- Avatar -->
+                  <a href="#!" class="avatar" id="{{$shoutout->id}}">
+                    @if(Auth::user()->avatar)
+                     <img src="https://storage.googleapis.com/talentail-123456789/{{Auth::user()->avatar}}" alt="..." class="avatar-img" style="border-radius: 0.5rem;">
+                    @else
+                    <img src="https://api.adorable.io/avatars/150/{{Auth::user()->email}}.png" alt="..." class="avatar-img" style="border-radius: 0.5rem;">
+                    @endif
+                  </a>
+
+                </div>
+                <div class="col ml-n2">
+
+                  <!-- Title -->
+                  <h4 class="card-title mb-1">
+                    {{$shoutout->user->name}}
+                  </h4>
+
+                  <!-- Time -->
+                  <p class="card-text small text-muted">
+                    <span class="fe fe-clock"></span> <time>{{$shoutout->created_at->diffForHumans()}}</time>
+                  </p>
+                  
+                </div>
+              </div> <!-- / .row -->
+            </div>
+
+            <!-- Text -->
+            <p style="margin-bottom: 0rem;">
+              {{$shoutout->content}}
+            </p>
+          </div>
+        </div>
+        @endforeach
+      </div>
     </div>
     <div class="col-lg-3">
+      <div class="header-body" style="padding-top: 0rem; padding-bottom: 0rem; border-bottom: 0px;">
+        <h5 class="header-pretitle">
+          GIVE A SHOUTOUT!
+        </h5>
+        <div class="card" style="box-shadow: none !important;">
+          <div class="card-body" style="box-shadow: none !important;">
+            <a href="/companies/{{$company->slug}}/shoutout" class="btn btn-block btn-primary">I'll do it!</a>
+          </div>
+        </div>
+      </div>
       <div class="header-body" style="padding-top: 0rem; padding-bottom: 0rem; border-bottom: 0px;">
         <h5 class="header-pretitle">
           PERKS VALUE <span style="color: #16a085;">~${{number_format($company->value)}}</span>

@@ -2,7 +2,7 @@
 
 @section ('content')
 
-<div class="py-5 bg-white">
+<div class="py-5">
   <div class="container">
     @if (session('success'))
     <div class="form-group row" id="successAlert">
@@ -22,8 +22,10 @@
         </div>
       </div>
     @endif
-    <h5 style="margin-bottom: 1rem;"><a href="/profile">Profile</a> <a href="/likes" style="margin-left: 1rem;">Likes</a> <a href="/comments" style="margin-left: 1rem;">Comments</a></h5>
-    <h5 style="text-decoration: underline;">Edit Password</h5>
+    <h2><a href="/profile" style="text-decoration: underline;">Profile</a> 
+      <a href="/claim" style="margin-left: 1rem;">Claim Company</a> <a href="/companies/add-company" style="margin-left: 1rem;">Create Company</a> <a href="/jobs/add-job" style="margin-left: 1rem;">Create Job</a> <a href="/dashboard" style="margin-left: 1rem;">Dashboard</a>
+    </h2>
+    <p class="lead"><strong>Edit Password</strong></p>
     <br/>
     <form method="POST" action="/profile/edit-password">
       @csrf

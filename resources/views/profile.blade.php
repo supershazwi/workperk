@@ -1,7 +1,6 @@
 @extends ('layouts.main')
 
 @section ('content')
-
 <div class="py-5">
   <div class="container">
     <div class="form-group row" id="emailSent" style="display: none;" >
@@ -24,6 +23,31 @@
       </div>
     </div>
     @endif
+    <div class="form-group row" id="uploadingAlert" style="display: none;">
+      <div class="col-sm-12">
+        <div class="alert alert-primary" style="text-align: center;">
+          <p class="alert-heading" style="margin-bottom: 0;">Uploading avatar.</p>
+        </div>
+      </div>
+    </div>
+    <div class="form-group row" style="margin-bottom: 0rem;">
+      <label for="staticEmail" class="col-sm-2 col-form-label">Avatar</label>
+      <div class="col-sm-10">
+        <div>
+          @if(Auth::user()->avatar)
+           <img src="https://storage.googleapis.com/talentail-123456789/{{Auth::user()->avatar}}" alt="..." class="avatar-img" style="border-radius: 0.5rem; width: 96px; height: 96px;">
+          @else
+          <img src="https://api.adorable.io/avatars/150/{{Auth::user()->email}}.png" alt="..." class="avatar-img" style="border-radius: 0.5rem; width: 96px; height: 96px;">
+          @endif
+        </div>
+        <form method="POST" action="/profile" id="avatarForm" enctype="multipart/form-data">
+          @csrf
+          <input type="file" id="avatar" name="avatar" class="font-control-file" style="margin-top: 1rem;" onchange="uploadAvatar()"> 
+          <button type="submit" style="display: none;" id="uploadAvatarButton">Submit</button> 
+        </form>
+        <small class="form-text text-muted">Please make sure it's a square!</small>
+      </div>
+    </div>
     <div class="form-group row" style="margin-bottom: 0rem;">
       <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
       <div class="col-sm-10">
@@ -81,6 +105,11 @@
        }
      });
   } 
+
+  function uploadAvatar() {
+    document.getElementById('uploadAvatarButton').click();
+    document.getElementById('uploadingAlert').style.display = 'block';
+  }
 </script>
 
 <script type="text/javascript">

@@ -27,4 +27,8 @@ class Company extends Model
     public function jobs() {
         return $this->hasMany(Job::class);
     }
+
+    public function shoutouts() {
+        return $this->hasMany(Shoutout::class);
+    }
 }

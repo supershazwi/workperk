@@ -86,21 +86,29 @@ window.cookieconsent.initialise({
       <div class="navbar-user order-lg-last">
         @if(Auth::id())
           <div class="navbar-user">
-            <!-- Dropdown -->
-            <!-- <div class="dropdown mr-4 d-none d-lg-flex">
-              <a href="/shopping-cart" class="text-muted" role="button">
-                  <span class="icon">
-                    <i class="fas fa-shopping-cart"></i>
+            <div class="dropdown mr-4 d-none d-lg-flex">
+            
+              <!-- Toggle -->
+              <a href="/notifications" class="text-muted" role="button">
+                @if($notificationCount > 0)
+                  <span class="icon active">
+                    <i class="fe fe-bell"></i>
                   </span>
+                @else
+                  <span class="icon">
+                    <i class="fe fe-bell"></i>
+                  </span>
+                @endif
               </a>
-            </div> -->
+
+            </div>
             <div class="dropdown">
               <!-- Toggle -->
               <a href="/profile" class="avatar avatar-sm" role="button">
                 @if(Auth::user()->avatar)
-                 <img src="https://storage.googleapis.com/talentail-123456789/{{Auth::user()->avatar}}" alt="..." class="avatar-img rounded-circle">
+                 <img src="https://storage.googleapis.com/talentail-123456789/{{Auth::user()->avatar}}" alt="..." class="avatar-img" style="border-radius: 0.5rem;">
                 @else
-                <img src="https://api.adorable.io/avatars/150/{{Auth::user()->email}}.png" alt="..." class="avatar-img rounded-circle border border-4 border-body">
+                <img src="https://api.adorable.io/avatars/150/{{Auth::user()->email}}.png" alt="..." class="avatar-img border border-4 border-body" style="border-radius: 0.5rem;">
                 @endif
               </a>
 
