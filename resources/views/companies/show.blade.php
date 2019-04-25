@@ -191,7 +191,11 @@
               </figure>
               @endif -->
 
-              @if(count($cultureSubPerkDetail->cultureImages) > 0)
+              @if(count($cultureSubPerkDetail->cultureImages) == 1)
+                <figure class="figure" style="text-align: center; margin-bottom: 0rem;">
+                  <img src="https://storage.googleapis.com/talentail-123456789/{{$cultureSubPerkDetail->image}}" class="figure-img img-fluid rounded" style="width: 100%; border-radius: 5px; margin-bottom: 0rem; margin-top: 0.5rem;"/>
+                </figure>
+              @elseif(count($cultureSubPerkDetail->cultureImages) > 0)
                 <div class="row" style="padding-left: 9.5px; padding-right: 9.5px;">
                   @foreach($cultureSubPerkDetail->cultureImages as $cultureImage)
                   <div class="col-lg-4" style="height: 200px; padding: 2.5px;">
@@ -222,7 +226,7 @@
             
             <!-- Header -->
             <div class="mb-3">
-              <div class="row align-items-center">
+              <div class="row align-items-top">
                 <div class="col-auto">
                   
                   <!-- Avatar -->
@@ -255,6 +259,8 @@
                     @else
                       <span class="badge badge-light">Awaiting approval</span>
                     @endif
+                  @else
+                    <span class="badge badge-warning">Open to Ideas</span>
                   @endif      
                 </div>
               </div> <!-- / .row -->

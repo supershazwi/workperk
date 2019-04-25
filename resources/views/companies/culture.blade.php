@@ -88,7 +88,7 @@
       for (var i = 0; i < array.length; i++) {
         var simplemde = new SimpleMDE({ 
           element: $("#subPerk_" + array[i])[0],
-          // toolbar: false
+          toolbar: false
         });
 
       }
