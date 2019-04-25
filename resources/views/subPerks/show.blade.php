@@ -8,7 +8,7 @@
 </div>
 </div>
 
-<div class="py-5 bg-light" style="margin-top: 6rem;">
+<div class="py-5" style="margin-top: 6rem;">
   <div class="container">
     <p class="lead">Companies with <strong>{{$subPerk->title}} sub-perks</strong></p>
     <div class="row">

@@ -174,7 +174,7 @@ window.cookieconsent.initialise({
                     </div>
                     <div class="col-lg-2">
                         <a href="/about" style="font-size: .875rem;">About</a><br />
-                        <a href="/terms-and-conditions" style="font-size: .875rem;">Terms & Conditions</a><br />
+                        <a href="/terms-conditions" style="font-size: .875rem;">Terms & Conditions</a><br />
                         <a href="/privacy-policy" style="font-size: .875rem;">Privacy Policy</a><br />
                     </div>
                 </div>
