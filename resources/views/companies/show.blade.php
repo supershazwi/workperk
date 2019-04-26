@@ -70,7 +70,11 @@
           
           <!-- Pretitle -->
           <h5 class="header-pretitle">
-            {{$company->type}}
+            @if($company->location->state == $company->location->country)
+            {{$company->type}}, {{$company->location->state}}
+            @else
+            {{$company->type}}, {{$company->location->state}}, {{$company->location->country}}
+            @endif
           </h5>
 
           <!-- Title -->

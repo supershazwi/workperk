@@ -32,7 +32,11 @@
           <div class="card-body" style=" box-shadow: none !important;">
             <img src="https://storage.googleapis.com/talentail-123456789/{{$company->image}}" alt="" class="avatar-img rounded" style="width: 2.5rem; height: 2.5rem; margin-bottom: 0.25rem;">
             <a href="/companies/{{$company->slug}}"><p class="lead" style="margin-bottom: 0rem;">{{$company->name}}</p></a>
+            @if($company->location->state == $company->location->country)
+            <p style="margin-bottom: 0.5rem; font-size: 0.875rem;">{{$company->location->state}}</p>
+            @else
             <p style="margin-bottom: 0.5rem; font-size: 0.875rem;">{{$company->location->state}}, {{$company->location->country}}</p>
+            @endif
             @foreach($subPerks[$company->id] as $key=>$subPerk)
               @if($key < 3)
               <button class="btn btn-sm btn-warning" disabled style="margin-bottom: 0.25rem; font-size: 0.75rem;">{{$subPerk->title}}</button>
