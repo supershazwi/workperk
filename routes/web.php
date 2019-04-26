@@ -496,14 +496,18 @@ Route::post('/companies/{companySlug}/shoutout', function(Request $request) {
 
     $company = Company::where('slug', $routeParameters['companySlug'])->first();
 
-    $validator = Validator::make($request->all(), [
-        'content' => 'required'
-    ]);
+    $errorsArray = array();
 
-    if($validator->fails()) {
-        return redirect('/companies/'.$routeParameters['companySlug'].'/shoutout/')
-                    ->withErrors($validator)
-                    ->withInput();
+    if(request('content') == null) {
+        array_push($errorsArray, "Please provide a shoutout.");
+    }
+
+    if($request->input('subPerk') == null) {
+        array_push($errorsArray, "Select a specific cultural value to give a shoutout about.");
+    }
+
+    if(count($errorsArray) > 0) {
+        return redirect('/companies/'.$company->slug.'/shoutout')->with('errorsArray', $errorsArray)->withInput();
     }
 
     $shoutout = new Shoutout;
@@ -511,6 +515,7 @@ Route::post('/companies/{companySlug}/shoutout', function(Request $request) {
     $shoutout->content = $request->input('content');
     $shoutout->company_id = $company->id;
     $shoutout->user_id = Auth::id();
+    $shoutout->sub_perk_id = $request->input('subPerk');
     $shoutout->approved = 0;
 
     $shoutout->save();

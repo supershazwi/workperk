@@ -19,4 +19,8 @@ class SubPerk extends Model
     public function companySubPerkDetail() {
         return $this->hasOne(CompanySubPerkDetail::class);
     }
+
+    public function shoutouts() {
+        return $this->hasMany(Shoutout::class);
+    }
 }

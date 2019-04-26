@@ -48,140 +48,17 @@
     <div class="row justify-content-center text-center">
       <div class="col-md-10 col-lg-8 col-xl-6">
         
-        <!-- Title -->
-        <!-- <h1 class="display-3 text-center text-white">
-          Plans & Pricing
-        </h1> -->
-
         <h1 class="display-3 text-center text-white">
           Register to create your profile for free today
         </h1>
 
         <a href="/register" class="btn btn-primary mr-auto" style="margin-top: 1.5rem;">Register an account</a>
-        
-        <!-- Text -->
-        <!-- <p class="lead text-center text-muted">
-          We have plans and prices that fit your business perfectly. Make showcasing your culture a priority today.
-        </p> -->
 
       </div>
     </div> <!-- / .row -->
   </div>
 </div>
 @endif
-
-<!-- CONTENT -->
-<!-- <div class="container-fluid">
-  <div class="row mt--7">
-    <div class="col-12 col-lg-4 offset-lg-2">
-      
-      <div class="card" style=" box-shadow: none !important;">
-        <div class="card-body" style=" box-shadow: none !important;">
-          
-          <h6 class="text-uppercase text-center text-muted my-4">
-            Basic plan
-          </h6>
-          
-          <div class="row no-gutters align-items-center justify-content-center">
-            <div class="col-auto">
-              <div class="h2 mb-0">$</div>
-            </div>
-            <div class="col-auto">
-              <div class="display-2 mb-0">0</div>
-            </div>
-          </div> 
-          
-          <div class="h6 text-uppercase text-center text-muted">
-            per month
-          </div>
-
-          <div class="text-center mb-5">
-            <small style="color: transparent !important;">.</small>
-          </div>
-
-          <div class="mb-3">
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item d-flex align-items-center justify-content-between px-0">
-                <small>Basic Profile</small> <i class="fe fe-check-circle text-success"></i>
-              </li>
-              <li class="list-group-item d-flex align-items-center justify-content-between px-0">
-                <small>Perks & Benefits Listing</small> <i class="fe fe-check-circle text-success"></i>
-              </li>
-              <li class="list-group-item d-flex align-items-center justify-content-between px-0">
-                <small>24/7 Support</small> <i class="fe fe-check-circle text-success"></i>
-              </li>
-            </ul>
-          </div>
-
-          <a href="#!" class="btn btn-block btn-light">
-            Select Basic
-          </a>
-
-        </div>
-      </div>
-
-    </div>
-    <div class="col-12 col-lg-4">
-      
-      <div class="card" style=" box-shadow: none !important;">
-        <div class="card-body" style=" box-shadow: none !important;">
-          
-          <h6 class="text-uppercase text-center text-muted my-4">
-            Premium plan
-          </h6>
-          
-          Price
-          <div class="row no-gutters align-items-center justify-content-center">
-            <div class="col-auto">
-              <div class="h2 mb-0">$</div>
-            </div>
-            <div class="col-auto">
-              <div class="display-2 mb-0">300</div>
-            </div>
-          </div> 
-          
-          <div class="h6 text-uppercase text-center text-muted">
-            per month
-          </div>
-
-          <div class="text-center mb-5">
-            <small>Save $600 if billed annually</small>
-          </div>
-
-          <div class="mb-3">
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item d-flex align-items-center justify-content-between px-0">
-                <small>Premium Profile</small> <i class="fe fe-check-circle text-success"></i>
-              </li>
-              <li class="list-group-item d-flex align-items-center justify-content-between px-0">
-                <small>Culture Write-up</small> <i class="fe fe-check-circle text-success"></i>
-              </li>
-              <li class="list-group-item d-flex align-items-center justify-content-between px-0">
-                <small>Perks & Benefits Listing</small> <i class="fe fe-check-circle text-success"></i>
-              </li>
-              <li class="list-group-item d-flex align-items-center justify-content-between px-0">
-                <small>Unlimited Job Postings</small> <i class="fe fe-check-circle text-success"></i>
-              </li>
-              <li class="list-group-item d-flex align-items-center justify-content-between px-0">
-                <small>Auto-update of Premium Features</small> <i class="fe fe-check-circle text-success"></i>
-              </li>
-              <li class="list-group-item d-flex align-items-center justify-content-between px-0">
-                <small>24/7 Support</small> <i class="fe fe-check-circle text-success"></i>
-              </li>
-            </ul>
-          </div>
-
-          <a href="#!" class="btn btn-block btn-primary">
-            Select Premium
-          </a>
-
-        </div>
-      </div>
-
-    </div>
-  </div>
-</div>
- -->
 @endsection
 
 @section ('footer')   

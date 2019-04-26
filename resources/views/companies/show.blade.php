@@ -47,11 +47,15 @@
           
           <!-- Avatar -->
           <div class="avatar avatar-xxl header-avatar-top">
+            @if($company->cover)
             <img src="https://storage.googleapis.com/talentail-123456789/{{$company->image}}" style="border-radius: 0.5rem !important;" alt="..." class="avatar-img rounded-circle border border-4 border-body">
+            @else
+            <img src="https://storage.googleapis.com/talentail-123456789/{{$company->image}}" style="border-radius: 0.5rem !important;" alt="..." class="avatar-img rounded-circle border border-body">
+            @endif
           </div>
-          @if($company->premium)
+          <!-- @if($company->premium)
           <span class="badge badge-secondary" style="display: block;">Premium</span>
-          @endif
+          @endif -->
 
         </div>
         @if($company->premium)
@@ -172,6 +176,7 @@
       </div>
       <div class="card" style="box-shadow: none !important;">
         <div class="card-body" style="box-shadow: none !important; padding-bottom: 0.5rem;">
+          @if(count($cultureSubPerkDetails) > 0)
           @foreach($cultureSubPerkDetails as $cultureSubPerkDetail)
             @if($cultureSubPerkDetail->subPerk->perk_id == 15)
             @if($loop->last)
@@ -213,14 +218,26 @@
             </div>
             @endif
           @endforeach
+          @else
+          <div style="margin-bottom: 1rem !important;" class="text-center">
+            <div class="row">
+              <div class="col-lg-6 offset-lg-3">
+                <span class="fe fe-alert-octagon mr-4" style="font-size: 2.5rem !important;"></span>
+                <p style="margin-bottom: 0rem;">Are you from {{$company->name}}? We'd be a ton grateful if you register with us, claim this page and complete the profile.</p>
+              </div>
+            </div>
+          </div>
+          @endif
         </div>
       </div>  
 
       <div class="header-body" style="padding-top: 0rem; padding-bottom: 0rem; border-bottom: 0px;">
+        @if(count($company->shoutouts) > 0)
         <h5 class="header-pretitle">
           SHOUTOUTS
         </h5>
-        @foreach($company->shoutouts as $shoutout)
+        @endif
+        @foreach($company->shoutouts->sortByDesc('created_at') as $shoutout)
         <div class="card" style="box-shadow: none !important;">
           <div class="card-body">
             
@@ -260,7 +277,7 @@
                       <span class="badge badge-light">Awaiting approval</span>
                     @endif
                   @else
-                    <span class="badge badge-warning">Open to Ideas</span>
+                    <span class="badge badge-warning">{{$shoutout->subPerk->title}}</span>
                   @endif      
                 </div>
               </div> <!-- / .row -->
@@ -282,7 +299,12 @@
         </h5>
         <div class="card" style="box-shadow: none !important;">
           <div class="card-body" style="box-shadow: none !important;">
+            @if(empty($cultureSubPerkDetails))
+            <btn class="btn btn-block btn-primary disabled">I'll do it!</btn>
+            <small class="form-text text-muted" style="margin-bottom: 0rem; margin-top: 0.5rem;">You can only give a shoutout once the company's culture is populated.</small>
+            @else
             <a href="/companies/{{$company->slug}}/shoutout" class="btn btn-block btn-primary">I'll do it!</a>
+            @endif
           </div>
         </div>
       </div>

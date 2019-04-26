@@ -13,4 +13,9 @@ class Shoutout extends Model
     public function company() {
     	return $this->belongsTo(Company::class);
     }
+
+
+    public function subPerk() {
+    	return $this->belongsTo(SubPerk::class);
+    }
 }

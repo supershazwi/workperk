@@ -71,17 +71,38 @@
 	</div>
   </div>
 		<div class="container">
-			@if ($errors->has('content'))
-			  <div class="alert alert-danger text-center" id="shoutoutAlert">
-			      You did not provide a shoutout.
-			  </div>
+			@if (session('errorsArray'))
+			    <div class="alert alert-danger text-center" id="shoutoutAlert">
+			            @foreach (session('errorsArray') as $error)
+			                <p style="margin-bottom: 0rem;">{{ $error }}</p>
+			            @endforeach
+			    </div>
 			@endif
-			<p style="font-size: 1.25rem;">What is special about the culture here?</p>
 			<div class="row">
 				<div class="col-lg-8">
 					<form method="POST" action="/companies/{{$company->slug}}/shoutout" style="margin-bottom: 1.5rem;">
 					  @csrf
-				          <textarea class="form-control" rows="5" placeholder="" id="shoutout" name="content"></textarea>
+					<p style="font-size: 1.25rem;">Select specific cultural value</p>
+					
+					<select class="js-example-basic-single" name="subPerk" style="width: 100%;">
+						@if(old('subPerk'))
+						<option>Select culture</option>
+						@else
+						<option selected>Select culture</option>
+						@endif
+
+						@foreach($company->companySubPerkDetails as $companySubPerkDetail)
+						@if($companySubPerkDetail->subPerk->perk_id == 15)
+							@if(old('subPerk') == $companySubPerkDetail->subPerk->id)
+							<option value="{{$companySubPerkDetail->subPerk->id}}" selected>{{$companySubPerkDetail->subPerk->title}}</option>
+							@else
+							<option value="{{$companySubPerkDetail->subPerk->id}}">{{$companySubPerkDetail->subPerk->title}}</option>
+							@endif
+						@endif
+						@endforeach
+					</select>
+					<p style="font-size: 1.25rem; margin-top: 1.5rem;">What is special about the culture here?</p>
+			          <textarea class="form-control" rows="5" placeholder="" id="shoutout" name="content"></textarea>
 					  <button type="submit" class="btn btn-primary">Submit Shoutout</button> <a href="/companies/{{$company->slug}}" class="btn btn-light" style="margin-left: 0.5rem;">Cancel</a>
 					</form>
 				</div>
@@ -124,8 +145,15 @@
   	console.log('ok');
     var simplemde = new SimpleMDE({ 
       element: $("#shoutout")[0],
-      toolbar: ["unordered-list", "ordered-list"]
+      toolbar: false
     });
+  });
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script> 
+<script type="text/javascript">
+  $(document).ready(function() {
+      $('.js-example-basic-single').select2();
   });
 </script>
 @endsection
