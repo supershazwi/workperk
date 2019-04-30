@@ -92,6 +92,10 @@
         <label for="staticEmail" class="col-sm-2 col-form-label">Industry</label>
         <div class="col-sm-10">
           <select class="js-example-basic-single" name="type" style="width: 100%;">
+            @if($company->type != null)
+              <option selected>{{$company->type}}</option>
+            @endif
+
             <option>Select Industry</option>
             <option>Accounting</option>
             <option>Airlines/Aviation</option>
