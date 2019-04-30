@@ -33,9 +33,9 @@
             <img src="https://storage.googleapis.com/talentail-123456789/{{$company->image}}" alt="" class="avatar-img rounded" style="width: 2.5rem; height: 2.5rem; margin-bottom: 0.25rem;">
             <a href="/companies/{{$company->slug}}"><p class="lead" style="margin-bottom: 0rem;">{{$company->name}}</p></a>
             @if($company->location->state == $company->location->country)
-            <p style="margin-bottom: 0.5rem; font-size: 0.875rem;">{{$company->location->state}}</p>
+            <p style="margin-bottom: 1rem; margin-top: 0.5rem; font-size: 0.875rem;">{{$company->type}}, {{$company->location->state}}</p>
             @else
-            <p style="margin-bottom: 0.5rem; font-size: 0.875rem;">{{$company->location->state}}, {{$company->location->country}}</p>
+            <p style="margin-bottom: 1rem; margin-top: 0.5rem; font-size: 0.875rem;">{{$company->type}}, {{$company->location->state}}, {{$company->location->country}}</p>
             @endif
             @foreach($subPerks[$company->id] as $key=>$subPerk)
               @if($key < 3)
