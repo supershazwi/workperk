@@ -337,6 +337,9 @@
 
 </script>
 
+@endsection
+
+@section ('footer')   
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script> 
 <script type="text/javascript">
   $(document).ready(function() {
@@ -344,8 +347,4 @@
       $('.js-example-basic-single2').select2();
   });
 </script>
-
-@endsection
-
-@section ('footer')   
 @endsection
