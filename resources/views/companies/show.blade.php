@@ -180,7 +180,16 @@
       </div>
       <div class="card" style="box-shadow: none !important;">
         <div class="card-body" style="box-shadow: none !important; padding-bottom: 0.5rem;">
-          @if(count($cultureSubPerkDetails) > 0)
+          @if(count($cultureSubPerkDetails) == 0 || $showCulturePerks == false)
+          <div style="margin-bottom: 1rem !important;" class="text-center">
+            <div class="row">
+              <div class="col-lg-6 offset-lg-3">
+                <span class="fe fe-alert-octagon mr-4" style="font-size: 2.5rem !important;"></span>
+                <p style="margin-bottom: 0rem;">Are you from {{$company->name}}? We'd be a ton grateful if you register with us, claim this page and complete the profile.</p>
+              </div>
+            </div>
+          </div>
+          @else
           @foreach($cultureSubPerkDetails as $cultureSubPerkDetail)
             @if($cultureSubPerkDetail->subPerk->perk_id == 15)
             @if($loop->last)
@@ -222,15 +231,6 @@
             </div>
             @endif
           @endforeach
-          @else
-          <div style="margin-bottom: 1rem !important;" class="text-center">
-            <div class="row">
-              <div class="col-lg-6 offset-lg-3">
-                <span class="fe fe-alert-octagon mr-4" style="font-size: 2.5rem !important;"></span>
-                <p style="margin-bottom: 0rem;">Are you from {{$company->name}}? We'd be a ton grateful if you register with us, claim this page and complete the profile.</p>
-              </div>
-            </div>
-          </div>
           @endif
         </div>
       </div>  

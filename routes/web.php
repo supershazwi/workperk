@@ -898,10 +898,16 @@ Route::get('/companies/{companySlug}', function() {
 
     $cultureSubPerkDetails = array();
 
+    $showCulturePerks = true;
+
 	foreach($companySubPerkDetails as $companySubPerkDetail) {
 		array_push($perkIdsFromSubPerkDetails, $companySubPerkDetail->subPerk->perk->id);
         if($companySubPerkDetail->subPerk->perk_id == 15) {
             array_push($cultureSubPerkDetails, $companySubPerkDetail);
+
+            if($companySubPerkDetail->comment == null) {
+                $showCulturePerks = false;
+            }
         }
 	}
 
@@ -925,7 +931,8 @@ Route::get('/companies/{companySlug}', function() {
 		'companySubPerkDetails' => $companySubPerkDetails,
 		'filledPerks' => $filledPerks,
 		'unfilledPerks' => $unfilledPerks,
-        'cultureSubPerkDetails' => $cultureSubPerkDetails
+        'cultureSubPerkDetails' => $cultureSubPerkDetails,
+        'showCulturePerks' => $showCulturePerks
 	]);
 });
 
