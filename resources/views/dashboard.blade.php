@@ -4,7 +4,7 @@
 
 <div class="py-5">
   <div class="container">
-    <h2><a href="/profile">Profile</a> <a href="/claim" style="margin-left: 1rem;">Claim Company</a> <a href="/companies/add" style="margin-left: 1rem;">Create Company</a> <a href="/jobs/add-job" style="margin-left: 1rem;">Create Job</a> <span style="text-decoration: underline; margin-left: 1rem;">Dashboard</span>
+    <h2><a href="/profile">Profile</a> <a href="/claim" style="margin-left: 1rem;">Claim Company</a> <a href="/companies/add-company" style="margin-left: 1rem;">Create Company</a> <a href="/jobs/add-job" style="margin-left: 1rem;">Create Job</a> <span style="text-decoration: underline; margin-left: 1rem;">Dashboard</span>
     </h2>
     <br/>
     <table class="table bg-white">
