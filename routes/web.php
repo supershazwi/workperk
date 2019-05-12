@@ -149,9 +149,9 @@ Route::get('/jobs/{jobId}', function() {
 
     $job = Job::find($routeParameters['jobId']);
 
-    if($job == null || $job->user_id != Auth::id()) {
-        return redirect('/');
-    }
+    // if($job == null || $job->user_id != Auth::id()) {
+    //     return redirect('/');
+    // }
 
     $company = $job->company;
     $locations = Location::select('country')->groupBy('country')->get();
