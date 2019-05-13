@@ -65,8 +65,14 @@ class LoginController extends Controller
             if($request->input('password') == null && $request->input('email') == null) {
                 return back()->with('warning', 'Please provide a valid email address and password.')->withInput();
             } elseif($request->input('password') == null) {
+                if($user->provider != null) {
+                    return back()->with('warning', 'The user registered an account via ' . $provider . '.')->withInput();
+                }
                 return back()->with('warning', 'Please provide a valid password.')->withInput();
             } else {
+                if($user->provider != null) {
+                    return back()->with('warning', 'The user registered an account via ' . $provider . '.')->withInput();
+                }
                 return back()->with('warning', 'The email and password do not match.')->withInput();
             }
         }
@@ -98,8 +104,6 @@ class LoginController extends Controller
                 return redirect('/login')->with('warning', 'User is already registered with a password. Login via email and password instead.');
             }
         }
-
-        dd("here");
 
         $authUser = $this->findOrCreateUser($user, $provider);
         Auth::login($authUser, true);
