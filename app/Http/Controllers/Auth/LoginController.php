@@ -110,14 +110,13 @@ class LoginController extends Controller
             return $authUser;
         }
 
-        $newUser = new User;
-        $newUser->name = $user->name;
-        $newUser->email = $user->email;
-        $newUser->avatar = $user->avatar;
-        $newUser->verified = 1;
-        $newUser->provider = $provider;
-        $newUser->provider_id = $user->id;
-
-        return $newUser->save();
+        return User::create([
+            'name'     => $user->name,
+            'email'    => $user->email,
+            'avatar'   => $user->avatar,
+            'provider' => $provider,
+            'provider_id' => $user->id,
+            'verified' => 1
+        ]);
     }
 }
