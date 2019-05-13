@@ -105,6 +105,11 @@ class LoginController extends Controller
      */
     public function findOrCreateUser($user, $provider)
     {
+        $authUser = User::where('email', $user->email)->first();
+        if ($authUser) {
+            return redirect('/login')->with('warning', 'User is already registered with a password. Login via email and password instead.');
+        }
+
         $authUser = User::where('provider_id', $user->id)->first();
         if ($authUser) {
             return $authUser;
