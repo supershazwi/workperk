@@ -25,8 +25,11 @@ use App\User;
 use App\VerifyUser;
 use App\Mail\VerifyMail;
 
-// SHOUTOUTS //
+// LOGIN // 
+Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider');
+Route::get('{provider}/callback', 'Auth\LoginController@handleProviderCallback');
 
+// SHOUTOUTS //
 
 Route::post('/shoutouts/approve', function(Request $request) {
     $shoutout = Shoutout::find($request->input('shoutout_id'));

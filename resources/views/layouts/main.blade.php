@@ -116,7 +116,7 @@ window.cookieconsent.initialise({
           </div>
         @else
           <a class="btn btn-primary mr-auto" href="/login">
-              Employer Login
+              Login
           </a>
         @endif
     </div>

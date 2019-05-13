@@ -50,4 +50,10 @@ return [
         'redirect' => '/',
     ],
 
+    'linkedin' => [
+        'client_id' => env('LINKEDIN_CLIENT_ID'),         // Your LinkedIn Client ID
+        'client_secret' => env('LINKEDIN_CLIENT_SECRET'), // Your LinkedIn Client Secret
+        'redirect' => env('LINKEDIN_CALLBACK_URL'),       // Your LinkedIn Callback URL
+    ],
+
 ];

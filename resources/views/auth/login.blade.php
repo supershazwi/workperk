@@ -16,6 +16,7 @@
   <!-- Theme CSS -->
   <!-- build:css /css/theme.min.css -->
   <link rel="stylesheet" href="/css/theme.css" id="stylesheetLight">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
   <!-- endbuild -->
 
   <script>var colorScheme = 'light';</script>
@@ -116,11 +117,21 @@
             </button>
 
             <!-- Link -->
-            <div class="text-center">
+            <div class="text-center mb-3">
               <small class="text-muted text-center">
                 Don't have an account yet? <a href="/register">Register</a>.
               </small>
             </div>
+
+            <div class="text-center mb-3">
+              <p class="text-center">
+                or
+              </p>
+            </div>
+
+            <a href="{{ url('/login/linkedin') }}" class="btn btn-lg btn-block btn-primary mb-3" style="background: #0077B5; border-color: #0077B5;">
+                <i class="fab fa-linkedin-in"></i> {{ __('Log in with LinkedIn') }}
+            </a>
             
           </form>
 
