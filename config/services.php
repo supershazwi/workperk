@@ -51,9 +51,9 @@ return [
     ],
 
     'linkedin' => [
-        'client_id' => env('LINKEDIN_CLIENT_ID'),         // Your LinkedIn Client ID
-        'client_secret' => env('LINKEDIN_CLIENT_SECRET'), // Your LinkedIn Client Secret
-        'redirect' => env('LINKEDIN_CALLBACK_URL'),       // Your LinkedIn Callback URL
+        'client_id' => '81sqh8nlpb0ynw',         // Your LinkedIn Client ID
+        'client_secret' => 'mQZQADVTpjNmrzKW', // Your LinkedIn Client Secret
+        'redirect' => 'https://workperk.io/linkedin/callback',       // Your LinkedIn Callback URL
     ],
 
 ];
