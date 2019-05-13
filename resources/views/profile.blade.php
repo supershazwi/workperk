@@ -49,6 +49,12 @@
       </div>
     </div>
     <div class="form-group row" style="margin-bottom: 0rem;">
+      <label for="staticName" class="col-sm-2 col-form-label">Name</label>
+      <div class="col-sm-10">
+        <input type="text" readonly class="form-control-plaintext" id="staticName" value="{{Auth::user()->name}}"> <a href="/profile/edit-name">Edit Name</a>
+      </div>
+    </div>
+    <div class="form-group row" style="margin-bottom: 0rem;">
       <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
       <div class="col-sm-10">
         <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{Auth::user()->email}}">

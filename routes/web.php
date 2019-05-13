@@ -1615,6 +1615,35 @@ Route::get('/profile/edit-password', function () {
     ]);
 })->middleware('auth');
 
+Route::post('/profile/edit-name', function (Request $request) {
+    $user = Auth::user();
+
+    $validator = Validator::make($request->all(), [
+        'name' => 'required'
+    ]);
+
+    if($validator->fails()) {
+        return redirect('/profile/edit-name')
+                    ->withErrors($validator)
+                    ->withInput();
+    } else {
+
+        $user->name = $request->input("name");
+        $user->save();
+        
+        return redirect('/profile/edit-name')->with('success', 'Name updated.');
+    }
+})->middleware('auth');
+
+Route::get('/profile/edit-name', function () {
+    $locations = Location::select('country')->groupBy('country')->get();
+
+    return view('editName', [
+        'notificationCount' => Notification::where('recipient_id', Auth::id())->where('read', 0)->count(),
+        'locations' => $locations
+    ]);
+})->middleware('auth');
+
 Route::post('/profile', function (Request $request) {
     $locations = Location::select('country')->groupBy('country')->get();
 
