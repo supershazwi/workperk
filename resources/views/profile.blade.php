@@ -34,7 +34,9 @@
       <label for="staticEmail" class="col-sm-2 col-form-label">Avatar</label>
       <div class="col-sm-10">
         <div>
-          @if(Auth::user()->avatar)
+          @if(Auth::user()->provider != null)
+          <img src="{{Auth::user()->avatar}}" alt="..." class="avatar-img" style="border-radius: 0.5rem; width: 96px; height: 96px;">
+          @elseif(Auth::user()->avatar)
            <img src="https://storage.googleapis.com/talentail-123456789/{{Auth::user()->avatar}}" alt="..." class="avatar-img" style="border-radius: 0.5rem; width: 96px; height: 96px;">
           @else
           <img src="https://api.adorable.io/avatars/150/{{Auth::user()->email}}.png" alt="..." class="avatar-img" style="border-radius: 0.5rem; width: 96px; height: 96px;">

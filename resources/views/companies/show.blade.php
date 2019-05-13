@@ -252,7 +252,9 @@
                   
                   <!-- Avatar -->
                   <a href="#!" class="avatar" id="{{$shoutout->id}}">
-                    @if($shoutout->user->avatar)
+                    @if($shoutout->user->provider != null)
+                    <img src="{{$shoutout->user->avatar}}" alt="..." class="avatar-img" style="border-radius: 0.5rem;">
+                    @elseif($shoutout->user->avatar)
                      <img src="https://storage.googleapis.com/talentail-123456789/{{$shoutout->user->avatar}}" alt="..." class="avatar-img" style="border-radius: 0.5rem;">
                     @else
                     <img src="https://api.adorable.io/avatars/150/{{$shoutout->user->email}}.png" alt="..." class="avatar-img" style="border-radius: 0.5rem;">

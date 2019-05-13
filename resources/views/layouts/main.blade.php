@@ -105,7 +105,9 @@ window.cookieconsent.initialise({
             <div class="dropdown">
               <!-- Toggle -->
               <a href="/profile" class="avatar avatar-sm" role="button">
-                @if(Auth::user()->avatar)
+                @if(Auth::user()->provider != null)
+                <img src="{{Auth::user()->avatar}}" alt="..." class="avatar-img" style="border-radius: 0.5rem;">
+                @elseif(Auth::user()->avatar)
                  <img src="https://storage.googleapis.com/talentail-123456789/{{Auth::user()->avatar}}" alt="..." class="avatar-img" style="border-radius: 0.5rem;">
                 @else
                 <img src="https://api.adorable.io/avatars/150/{{Auth::user()->email}}.png" alt="..." class="avatar-img border border-4 border-body" style="border-radius: 0.5rem;">
