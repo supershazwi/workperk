@@ -109,6 +109,9 @@ class LoginController extends Controller
         if ($authUser) {
             return $authUser;
         }
+
+        dd($user);
+
         return User::create([
             'name'     => $user->name,
             'email'    => $user->email,
