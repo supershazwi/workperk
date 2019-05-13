@@ -15,7 +15,7 @@ class EditUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
-            $table->string('password')->nullable();
+            $table->string('password')->nullable()->change();
         });
     }
 
