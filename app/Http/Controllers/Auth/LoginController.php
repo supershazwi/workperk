@@ -128,7 +128,7 @@ class LoginController extends Controller
             'name'     => $user->name,
             'email'    => $user->email,
             'avatar'   => $user->avatar,
-            'provider' => $provider,
+            'provider' => 'LinkedIn',
             'provider_id' => $user->id,
             'verified' => 1
         ]);

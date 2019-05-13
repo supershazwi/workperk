@@ -132,14 +132,14 @@
             <a href="{{ url('/login/linkedin') }}" class="btn btn-lg btn-block btn-primary mb-3" style="background: #0077B5; border-color: #0077B5;">
                 <i class="fab fa-linkedin"></i> {{ __('Log in with LinkedIn') }}
             </a>
-
+<!-- 
             <a href="{{ url('/login/google') }}" class="btn btn-lg btn-block btn-white mb-3" style="background: white; border-color: #283e59;">
                 <i class="fab fa-google"></i> {{ __('Log in with Google') }}
             </a>
 
             <a href="{{ url('/login/facebook') }}" class="btn btn-lg btn-block btn-primary mb-3" style="background: #3b5998; border-color: #3b5998;">
                 <i class="fab fa-facebook-square"></i> {{ __('Log in with Facebook') }}
-            </a>
+            </a> -->
             
           </form>
 
