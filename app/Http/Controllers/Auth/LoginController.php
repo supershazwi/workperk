@@ -93,6 +93,7 @@ class LoginController extends Controller
         $user = Socialite::driver($provider)->user();
 
         if(User::where('email', $user->email)->first()) {
+            $user = User::where('email', $user->email)->first();
             if($user->provider == null) {
                 return redirect('/login')->with('warning', 'User is already registered with a password. Login via email and password instead.');
             }
