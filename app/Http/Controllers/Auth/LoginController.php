@@ -66,12 +66,12 @@ class LoginController extends Controller
                 return back()->with('warning', 'Please provide a valid email address and password.')->withInput();
             } elseif($request->input('password') == null) {
                 if($user->provider != null) {
-                    return back()->with('warning', 'The user registered an account via ' . $provider . '.')->withInput();
+                    return back()->with('warning', 'The user registered an account via ' . $user->provider . '.')->withInput();
                 }
                 return back()->with('warning', 'Please provide a valid password.')->withInput();
             } else {
                 if($user->provider != null) {
-                    return back()->with('warning', 'The user registered an account via ' . $provider . '.')->withInput();
+                    return back()->with('warning', 'The user registered an account via ' . $user->provider . '.')->withInput();
                 }
                 return back()->with('warning', 'The email and password do not match.')->withInput();
             }
