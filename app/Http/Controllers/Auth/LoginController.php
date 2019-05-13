@@ -91,10 +91,10 @@ class LoginController extends Controller
     public function handleProviderCallback($provider)
     {
         $authUser = User::where('email', $user->email)->first();
-        if ($authUser) {
+        if ($authUser->provider == null) {
             return redirect('/login')->with('warning', 'User is already registered with a password. Login via email and password instead.');
         }
-        
+
         $user = Socialite::driver($provider)->user();
         $authUser = $this->findOrCreateUser($user, $provider);
         Auth::login($authUser, true);
