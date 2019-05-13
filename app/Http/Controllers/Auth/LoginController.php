@@ -96,6 +96,8 @@ class LoginController extends Controller
             return redirect('/login')->with('warning', 'User is already registered with a password. Login via email and password instead.');
         }
 
+        dd("here");
+
         $authUser = $this->findOrCreateUser($user, $provider);
         Auth::login($authUser, true);
         return redirect($this->redirectTo);
