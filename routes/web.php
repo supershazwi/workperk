@@ -1559,18 +1559,18 @@ Route::get('/dashboard', function() {
             'notificationCount' => Notification::where('recipient_id', Auth::id())->where('read', 0)->count(),
 			'perks' => $perks,
 			'companies' => $companies,
-    		'locations' => $locations
+            'locations' => $locations
 		]);
 	} else {
         $perks = Perk::all();
-        $companies = Company::where('user_id', Auth::id())->get();
         $locations = Location::select('country')->groupBy('country')->get();
+        $company = Company::find(Auth::user()->company_id);
 
 		return view('companyDashboard', [
             'notificationCount' => Notification::where('recipient_id', Auth::id())->where('read', 0)->count(),
             'perks' => $perks,
-            'companies' => $companies,
-            'locations' => $locations
+            'locations' => $locations,
+            'company' => $company
         ]);
 	}
 })->middleware('auth');
