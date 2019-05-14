@@ -16,7 +16,6 @@ class DropUserIdFromCompaniesTable extends Migration
         Schema::table('companies', function (Blueprint $table) {
             //
             $table->dropColumn('user_id');
-            $table->dropColumn('company_id');
         });
     }
 
@@ -30,7 +29,6 @@ class DropUserIdFromCompaniesTable extends Migration
         Schema::table('companies', function (Blueprint $table) {
             //
             $table->integer('user_id');
-            $table->integer('company_id');
         });
     }
 }
