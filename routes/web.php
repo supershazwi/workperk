@@ -138,12 +138,13 @@ Route::get('/jobs/add-job', function() {
     // check if a company is created already
     $locations = Location::all();
 
-    $companies = Company::where('user_id', Auth::id())->get();
+
+    $company = Company::find(Auth::user()->company_id);
 
     return view('jobs.add', [
         'notificationCount' => Notification::where('recipient_id', Auth::id())->where('read', 0)->count(),
         'locations' => $locations,
-        'companies' => $companies
+        'company' => $company
     ]);
 
 })->middleware('auth');
@@ -555,9 +556,9 @@ Route::post('/companies/{companyId}/unclaim', function() {
 
     $company = Company::find($routeParameters['companyId']);
 
-    $company->user_id = null;
-
-    $company->save();
+    $user = Auth::user();
+    $user->company_id = 0;
+    $user->save();
 
     return redirect('/claim')->with('claimed', 'You have unclaimed ' . $company->name . '.');
 });
@@ -567,9 +568,9 @@ Route::post('/companies/{companyId}/claim', function() {
 
     $company = Company::find($routeParameters['companyId']);
 
-    $company->user_id = Auth::id();
-
-    $company->save();
+    $user = Auth::user();
+    $user->company_id = $routeParameters['companyId'];
+    $user->save();
 
     return redirect('/claim')->with('claimed', 'You have claimed ' . $company->name . '. Please go to the dashboard to view it.');
 });
@@ -1014,9 +1015,14 @@ Route::post('/companies/add-company', function(Request $request) {
     }
 
     $company->value = 0;
-    $company->user_id = Auth::id();
 
     $company->save();
+
+    $user = Auth::user();
+
+    $user->company_id = $company->id;
+
+    $user->save();
 
     return redirect('/companies/'.$company->id.'/edit');
     
@@ -1671,10 +1677,15 @@ Route::get('/claim', function () {
     $companies = Company::orderBy('value', 'desc')->get();
     $locations = Location::select('country')->groupBy('country')->get();
 
+    $company_id = Auth::user()->company_id;
+
+    $company = Company::find($company_id);
+
     return view('claim', [
         'notificationCount' => Notification::where('recipient_id', Auth::id())->where('read', 0)->count(),
         'companies' => $companies,
-        'locations' => $locations
+        'locations' => $locations,
+        'company' => $company
     ]);
 });
 

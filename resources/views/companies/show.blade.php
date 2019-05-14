@@ -216,7 +216,7 @@
               @elseif(count($cultureSubPerkDetail->cultureImages) > 0)
                 <div class="row" style="padding-left: 9.5px; padding-right: 9.5px;">
                   @foreach($cultureSubPerkDetail->cultureImages as $cultureImage)
-                  <div class="col-lg-4" style="height: 200px; padding: 2.5px;">
+                  <div class="col-lg-3" style="height: 190px; padding: 2.5px;">
                     
                     <a href="https://storage.googleapis.com/talentail-123456789/{{$cultureImage->url}}" class="thumbnail gallery">
                       <img src="https://storage.googleapis.com/talentail-123456789/{{$cultureImage->url}}" style="border: 1px solid #ddd;margin-top: 0rem; width: 100%; object-fit: cover; height: 100%;" alt="...">
@@ -316,7 +316,7 @@
       </div>
       <div class="header-body" style="padding-top: 0rem; padding-bottom: 0rem; border-bottom: 0px;">
         <h5 class="header-pretitle">
-          PERKS VALUE <span style="color: #16a085;">~${{number_format($company->value)}}</span>
+          PERKS <!-- VALUE <span style="color: #16a085;">~${{number_format($company->value)}}</span> -->
         </h5>
       </div>
       <div class="card" style="box-shadow: none !important;">

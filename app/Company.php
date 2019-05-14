@@ -31,4 +31,8 @@ class Company extends Model
     public function shoutouts() {
         return $this->hasMany(Shoutout::class);
     }
+
+    public function users() {
+        return $this->hasMany(User::class);
+    }
 }

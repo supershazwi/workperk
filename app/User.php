@@ -45,6 +45,11 @@ class User extends Authenticatable
         return $this->hasOne('App\VerifyUser');
     }
 
+    public function company()
+    {
+        return $this->hasOne('App\Company');
+    }
+
     public function likes() {
         return $this->hasMany(Like::class);
     }

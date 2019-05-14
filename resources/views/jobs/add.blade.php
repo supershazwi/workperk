@@ -6,7 +6,7 @@
 <div class="py-5">
   	<div class="container">
 	    <h2><a href="/profile">Profile</a> 
-	      <a href="/claim" style="margin-left: 1rem;">Claim Company</a> <a href="/companies/add-company" style="margin-left: 1rem;">Create Company</a> <span style="text-decoration: underline; margin-left: 1rem;">Create Job</span> <a href="/dashboard" style="margin-left: 1rem;">Dashboard</a>
+	      @if(Auth::user()->company_id == 0)<a href="/claim" style="margin-left: 1rem;">Claim Company</a>@endif <a href="/companies/add-company" style="margin-left: 1rem;">Create Company</a> <span style="text-decoration: underline; margin-left: 1rem;">Create Job</span> <a href="/dashboard" style="margin-left: 1rem;">Dashboard</a>
 	    </h2>
 	    <br/>
 	    @if (session('errorsArray'))
@@ -18,7 +18,7 @@
 	            </ul>
 	        </div>
 	    @endif
-	    @if (count($companies) == 0)
+	    @if ($company == null)
 	    <div class="form-group row">
 	      <div class="col-sm-12">
 	        <div class="alert alert-warning" style="text-align: center;">
@@ -108,15 +108,11 @@
 	        			  <label style="font-size: 1.25rem;">
 	        			    Company
 	        			  </label>
-	    						@if (count($companies) == 0)
+	    						@if ($company == null)
 	    							<p>Please claim a company or create a company.</p>
 	    						@else
-					                <select class="form-control" data-toggle="select" name="company">
-				                  		<option value="">Select company</option>
-		    							@foreach($companies as $company)
-				                  			<option value="{{$company->id}}">{{$company->name}}</option>
-		    							@endforeach
-					                </select>
+	    							<input type="text" class="form-control" value="{{$company->name}}" disabled />
+	    							<input type="hidden" name="company" value="{{$company->id}}" />
 	    						@endif
 	        			</div>
 	        		</div>  	
