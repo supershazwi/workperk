@@ -130,7 +130,8 @@ class LoginController extends Controller
             'avatar'   => $user->avatar,
             'provider' => 'LinkedIn',
             'provider_id' => $user->id,
-            'verified' => 1
+            'verified' => 1,
+            'company_id' => 0
         ]);
     }
 }
