@@ -17,8 +17,17 @@
     @if (session('verified'))
     <div class="form-group row" id="successAlert">
       <div class="col-sm-12">
-        <div class="alert alert-success" style="text-align: center;">
+        <div class="alert alert-primary" style="text-align: center;">
           <p class="alert-heading" style="margin-bottom: 0;">{{session('verified')}}</p>
+        </div>
+      </div>
+    </div>
+    @endif
+    @if (session('status'))
+    <div class="form-group row" id="successAlert">
+      <div class="col-sm-12">
+        <div class="alert alert-primary" style="text-align: center;">
+          <p class="alert-heading" style="margin-bottom: 0;">{{session('status')}}</p>
         </div>
       </div>
     </div>
