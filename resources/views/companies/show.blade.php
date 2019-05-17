@@ -132,7 +132,7 @@
     </h5>
   </div>
   <div class="row">
-    @foreach($company->jobs->sortByAsc('title') as $key=>$job)
+    @foreach($company->jobs->sortBy('title') as $key=>$job)
     @if($key < 4)
       @if($job->visible)
       <div class="col-lg-3">
