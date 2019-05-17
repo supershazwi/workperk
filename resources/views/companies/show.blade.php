@@ -193,7 +193,7 @@
           @foreach($cultureSubPerkDetails as $cultureSubPerkDetail)
             @if($cultureSubPerkDetail->subPerk->perk_id == 15)
             @if($loop->last)
-            <div style="margin-bottom: 1rem !important;">
+            <div style="margin-bottom: 1.5rem !important;">
             @else
             <div style="margin-bottom: 1rem;">
             @endif
