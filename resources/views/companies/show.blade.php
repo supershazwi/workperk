@@ -198,16 +198,9 @@
             <div style="margin-bottom: 1rem;">
             @endif
               <span style="font-size: 1.25rem; color: #dca419; font-weight: bold;">{{$cultureSubPerkDetail->subPerk->title}}</span>
-              <!-- <h1 style="color: #dca419;">{{$cultureSubPerkDetail->subPerk->title}}</h1> -->
-              <!-- <p style="margin-top: 0.5rem; margin-bottom: 0rem;">{{$cultureSubPerkDetail->comment}}</p> -->
               <div style="margin-top: 0.5rem; margin-bottom: 0rem;">
                 @parsedown($cultureSubPerkDetail->comment)
               </div>
-              <!-- @if($cultureSubPerkDetail->image)
-              <figure class="figure" style="text-align: center; margin-bottom: 0rem;">
-                <img src="https://storage.googleapis.com/talentail-123456789/{{$cultureSubPerkDetail->image}}" class="figure-img img-fluid rounded" style="width: 100%; border-radius: 5px; margin-bottom: 0rem; margin-top: 0.5rem;"/>
-              </figure>
-              @endif -->
 
               @if(count($cultureSubPerkDetail->cultureImages) == 1)
                 <figure class="figure" style="text-align: center; margin-bottom: 0rem;">
@@ -223,10 +216,37 @@
                     </a>
                   </div>
                   @endforeach
-                  <!-- <a href="https://player.vimeo.com/video/33110953" data-featherlight="iframe" data-featherlight-iframe-frameborder="0" data-featherlight-iframe-allow="autoplay; encrypted-media" data-featherlight-iframe-allowfullscreen="true" data-featherlight-iframe-style="display:block;border:none;height:85vh;width:85vw;">
-                      <img src="https://storage.googleapis.com/talentail-123456789/{{$cultureImage->url}}" style="border: 1px solid #ddd;margin-top: 0rem; width: 100%; object-fit: cover; height: 100%;" alt="...">
-                    </a> -->
                 </div>
+              @endif
+
+              @if(count($cultureSubPerkDetail->links) > 0)
+              <div class="row">
+                @foreach($cultureSubPerkDetail->links as $link)
+                  <div class="col-lg-6">
+                    <div class="card" style="box-shadow: none !important; margin-bottom: 0rem;">
+                      <a href="{{$link->link}}">
+                        <img src="https://storage.googleapis.com/talentail-123456789/{{$link->url}}" alt="..." class="card-img-top" style="height: 190px; object-fit: cover;">
+                      </a>
+                      <div class="card-body" style="box-shadow: none !important;">
+                        <div class="row align-items-center">
+                          <div class="col">
+
+                            <h4 class="card-title mb-2 name">
+                              <a href="https://storage.googleapis.com/talentail-123456789/{{$link->url}}">{{$link->title}}</a>
+                            </h4>
+
+                            <p class="card-text small text-muted">
+                              {{$link->source}}
+                            </p>
+
+                          </div>
+                        </div> <!-- / .row -->
+
+                      </div> <!-- / .card-body -->
+                    </div>
+                  </div>
+                @endforeach
+              </div>
               @endif
             </div>
             @endif

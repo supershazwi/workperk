@@ -67,6 +67,11 @@
 
               <p style="margin-bottom: 0rem;">Attach Image(s)</p>
               <input type="file" id="image_{{$companySubPerkDetail->subPerk->id}}" name="image_{{$companySubPerkDetail->subPerk->id}}[]" style="margin-top: 1rem;" multiple>
+
+              <p style="margin-bottom: 1rem; margin-top: 1rem;">Links</p>
+              <div id="links_{{$companySubPerkDetail->subPerk->id}}">
+              </div>
+              <button onclick="addLink(this.value)" value="{{$companySubPerkDetail->subPerk->id}}" class="btn btn-primary btn-sm">Add Link</button>
             </div>
           </div>
         @endif
@@ -93,5 +98,12 @@
 
       }
   });
+
+  function addLink(value) {
+    event.preventDefault();
+    newCounter = document.getElementsByClassName("counter-"+value).length + 1;
+
+    document.getElementById("links_"+value).innerHTML += "<div class='form-group'><label for='title' class='counter-" + value + "'>Title</label><input type='text' class='form-control' name='title_" + value + "_" + newCounter + "' placeholder='Enter title'></div><div class='form-group'><label for='source'>Source</label><input type='text' class='form-control' name='source_" + value + "_" + newCounter + "' placeholder='Enter source'></div><div class='form-group'><label for='link'>Link</label><input type='text' class='form-control' name='link_" + value + "_" + newCounter + "' placeholder='Enter link'></div><div class='form-group'><p style='margin-bottom: 0rem;'>Attach Image</p><input type='file' name='image_" + value + "_" + newCounter + "' style='margin-top: 1rem;'></div>"
+  }
 </script>
 @endsection

@@ -16,6 +16,7 @@ use App\CompanySubPerkDetail;
 use App\CultureImage;
 use App\Job;
 use App\Like;
+use App\Link;
 use App\Location;
 use App\Notification;
 use App\Perk;
@@ -1090,17 +1091,15 @@ Route::post('/companies/{companyId}/save-culture', function(Request $request) {
     $cultureSubPerks = SubPerk::where('perk_id', 15)->get();
 
     foreach($cultureSubPerks as $subPerk) {
-        if($request->input('subPerk_'.$subPerk->id)) {
-            $companySubPerkDetail = CompanySubPerkDetail::where("company_id", $routeParameters['companyId'])->where('sub_perk_id', $subPerk->id)->first();
+        $companySubPerkDetail = CompanySubPerkDetail::where("company_id", $routeParameters['companyId'])->where('sub_perk_id', $subPerk->id)->first();
 
+        if($request->input('subPerk_'.$subPerk->id)) {
             $companySubPerkDetail->comment = $request->input('subPerk_'.$subPerk->id);
 
             $companySubPerkDetail->save();
         }
 
         if(request('image_'.$subPerk->id)) {
-            $companySubPerkDetail = CompanySubPerkDetail::where("company_id", $routeParameters['companyId'])->where('sub_perk_id', $subPerk->id)->first();
-
             $images = request('image_'.$subPerk->id);
             foreach($images as $image) {
                 $cultureImage = new CultureImage;
@@ -1113,6 +1112,22 @@ Route::post('/companies/{companyId}/save-culture', function(Request $request) {
                 $cultureImage->save();
             }
         
+        }
+
+        $fileCounter = 1;
+
+        while(request('title_'.$subPerk->id.'_'.$fileCounter) != null) {
+            $link = new Link;
+
+            $link->title = request('title_'.$subPerk->id.'_'.$fileCounter);
+            $link->source = request('source_'.$subPerk->id.'_'.$fileCounter);
+            $link->link = request('link_'.$subPerk->id.'_'.$fileCounter);
+            $link->url = Storage::disk('gcs')->put('/avatars', request('image_'.$subPerk->id.'_'.$fileCounter, 'public'));
+            $link->company_sub_perk_detail_id = $companySubPerkDetail->id;
+
+            $link->save();
+
+            $fileCounter++;
         }
     }
 
