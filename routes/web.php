@@ -141,11 +141,13 @@ Route::get('/jobs/add-job', function() {
 
 
     $company = Company::find(Auth::user()->company_id);
+    $companies = Company::all();
 
     return view('jobs.add', [
         'notificationCount' => Notification::where('recipient_id', Auth::id())->where('read', 0)->count(),
         'locations' => $locations,
-        'company' => $company
+        'company' => $company,
+        'companies' => $companies
     ]);
 
 })->middleware('auth');

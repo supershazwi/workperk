@@ -108,12 +108,21 @@
 	        			  <label style="font-size: 1.25rem;">
 	        			    Company
 	        			  </label>
-	    						@if ($company == null)
-	    							<p>Please claim a company or create a company.</p>
-	    						@else
-	    							<input type="text" class="form-control" value="{{$company->name}}" disabled />
-	    							<input type="hidden" name="company" value="{{$company->id}}" />
-	    						@endif
+	        			  	@if(Auth::user()->email == "supershazwi@gmail.com")
+	        			  	<select class="form-control" data-toggle="select" name="company">
+		                  		<option value="">Select company</option>
+								@foreach($companies as $company)
+		                  			<option value="{{$company->id}}">{{$company->name}}</option>
+								@endforeach
+			                </select>
+	        			  	@else
+    						@if ($company == null)
+    							<p>Please claim a company or create a company.</p>
+    						@else
+    							<input type="text" class="form-control" value="{{$company->name}}" disabled />
+    							<input type="hidden" name="company" value="{{$company->id}}" />
+    						@endif
+    						@endif
 	        			</div>
 	        		</div>  	
          	 	</div>
