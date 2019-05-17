@@ -903,15 +903,15 @@ Route::get('/companies/{companySlug}', function() {
 
     $cultureSubPerkDetails = array();
 
-    $showCulturePerks = true;
+    $showCulturePerks = false;
 
 	foreach($companySubPerkDetails as $companySubPerkDetail) {
 		array_push($perkIdsFromSubPerkDetails, $companySubPerkDetail->subPerk->perk->id);
         if($companySubPerkDetail->subPerk->perk_id == 15) {
             array_push($cultureSubPerkDetails, $companySubPerkDetail);
 
-            if(count($companySubPerkDetail->links) == 0 || count($companySubPerkDetail->cultureImages) == 0 || $companySubPerkDetail->comment == null) {
-                $showCulturePerks = false;
+            if(count($companySubPerkDetail->links) != 0 || count($companySubPerkDetail->cultureImages) != 0 || $companySubPerkDetail->comment != null) {
+                $showCulturePerks = true;
             }
         }
 	}
