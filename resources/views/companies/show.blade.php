@@ -226,8 +226,8 @@
   @if(count($company->jobs) > 4)
   <div class="row" style="margin-bottom: 1.5rem;">
     <div class="col-lg-12">
-      <btn class="btn btn-block btn-light" onclick="showMore()" id="showMore">Show more job opportunities</btn>
-      <btn class="btn btn-block btn-light" onclick="showLess()" style="display: none;" id="showLess">Show less job opportunities</btn>
+      <btn class="btn btn-block btn-light" onclick="showMore()" id="showMore">Show more job opportunities ({{count($company->jobs)}})</btn>
+      <btn class="btn btn-block btn-light" onclick="showLess()" style="display: none;" id="showLess">Show less job opportunities ({{count($company->jobs)}})</btn>
     </div>
   </div>
   @endif
