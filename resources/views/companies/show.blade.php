@@ -134,48 +134,91 @@
   <div class="row">
     @foreach($company->jobs as $key=>$job)
     @if($key < 4)
-    @if($job->visible)
-    <div class="col-lg-3">
-      <div class="card" style="box-shadow: none !important;">
-        <div class="card-body text-center" style="box-shadow: none !important;">
-          
-          @if($job->link)
-          <a href="{{$job->link}}">
-          @else
-          <a href="/jobs/{{$job->id}}">
-          @endif
-            <h3 class="card-title">{{$job->title}}</h3>
-          </a>
-          <p class="card-text" style="margin-bottom: 0.25rem;">
-            {{$job->location->state}}, {{$job->location->country}}
-          </p>
-          <p class="card-text" style="margin-bottom: 0rem;">
-            {{$job->type}}
-          </p>
+      @if($job->visible)
+      <div class="col-lg-3">
+        <div class="card" style="box-shadow: none !important;">
+          <div class="card-body text-center" style="box-shadow: none !important;">
+            
+            @if($job->link)
+            <a href="{{$job->link}}">
+            @else
+            <a href="/jobs/{{$job->id}}">
+            @endif
+              <h3 class="card-title">{{$job->title}}</h3>
+            </a>
+            <p class="card-text" style="margin-bottom: 0.25rem;">
+              {{$job->location->state}}, {{$job->location->country}}
+            </p>
+            <p class="card-text" style="margin-bottom: 0rem;">
+              {{$job->type}}
+            </p>
+          </div>
         </div>
       </div>
-    </div>
-    @elseif(!$job->visible && $job->company->user_id == Auth::id())
-    <div class="col-lg-3">
-      <div class="card" style="box-shadow: none !important;">
-        <div class="card-body text-center" style="box-shadow: none !important;">
-          @if($job->link)
-          <a href="{{$job->link}}">
-          @else
-          <a href="/jobs/{{$job->id}}">
-          @endif
-          <h3 class="card-title">{{$job->title}}</h3></a>
-          <span class="badge badge-danger" style="margin-bottom: 0.25rem;">Hidden</span>
-          <p class="card-text" style="margin-bottom: 0.25rem;">
-            {{$job->location->state}}, {{$job->location->country}}
-          </p>
-          <p class="card-text" style="margin-bottom: 0rem;">
-            {{$job->type}}
-          </p>
+      @elseif(!$job->visible && $job->company->user_id == Auth::id())
+      <div class="col-lg-3">
+        <div class="card" style="box-shadow: none !important;">
+          <div class="card-body text-center" style="box-shadow: none !important;">
+            @if($job->link)
+            <a href="{{$job->link}}">
+            @else
+            <a href="/jobs/{{$job->id}}">
+            @endif
+            <h3 class="card-title">{{$job->title}}</h3></a>
+            <span class="badge badge-danger" style="margin-bottom: 0.25rem;">Hidden</span>
+            <p class="card-text" style="margin-bottom: 0.25rem;">
+              {{$job->location->state}}, {{$job->location->country}}
+            </p>
+            <p class="card-text" style="margin-bottom: 0rem;">
+              {{$job->type}}
+            </p>
+          </div>
         </div>
       </div>
-    </div>
-    @endif
+      @endif
+    @else
+      @if($job->visible)
+      <div class="col-lg-3 hide" style="display: none;">
+        <div class="card" style="box-shadow: none !important;">
+          <div class="card-body text-center" style="box-shadow: none !important;">
+            
+            @if($job->link)
+            <a href="{{$job->link}}">
+            @else
+            <a href="/jobs/{{$job->id}}">
+            @endif
+              <h3 class="card-title">{{$job->title}}</h3>
+            </a>
+            <p class="card-text" style="margin-bottom: 0.25rem;">
+              {{$job->location->state}}, {{$job->location->country}}
+            </p>
+            <p class="card-text" style="margin-bottom: 0rem;">
+              {{$job->type}}
+            </p>
+          </div>
+        </div>
+      </div>
+      @elseif(!$job->visible && $job->company->user_id == Auth::id())
+      <div class="col-lg-3 hide" style="display: none;">
+        <div class="card" style="box-shadow: none !important;">
+          <div class="card-body text-center" style="box-shadow: none !important;">
+            @if($job->link)
+            <a href="{{$job->link}}">
+            @else
+            <a href="/jobs/{{$job->id}}">
+            @endif
+            <h3 class="card-title">{{$job->title}}</h3></a>
+            <span class="badge badge-danger" style="margin-bottom: 0.25rem;">Hidden</span>
+            <p class="card-text" style="margin-bottom: 0.25rem;">
+              {{$job->location->state}}, {{$job->location->country}}
+            </p>
+            <p class="card-text" style="margin-bottom: 0rem;">
+              {{$job->type}}
+            </p>
+          </div>
+        </div>
+      </div>
+      @endif
     @endif
     @endforeach
   </div>
@@ -183,7 +226,8 @@
   @if(count($company->jobs) > 4)
   <div class="row" style="margin-bottom: 1.5rem;">
     <div class="col-lg-12">
-      <btn class="btn btn-block btn-light">Show more job opportunities</btn>
+      <btn class="btn btn-block btn-light" onclick="showMore()" id="showMore">Show more job opportunities</btn>
+      <btn class="btn btn-block btn-light" onclick="showLess()" style="display: none;" id="showLess">Show less job opportunities</btn>
     </div>
   </div>
   @endif
@@ -215,9 +259,9 @@
           @foreach($cultureSubPerkDetails as $cultureSubPerkDetail)
             @if($cultureSubPerkDetail->subPerk->perk_id == 15)
             @if($loop->last)
-            <div style="margin-bottom: 1.5rem !important;">
+            <div style="margin-bottom: 0.5rem !important;">
             @else
-            <div style="margin-bottom: 1rem;">
+            <div style="margin-bottom: 0rem;">
             @endif
               <span style="font-size: 1.25rem; color: #dca419; font-weight: bold;">{{$cultureSubPerkDetail->subPerk->title}}</span>
               <div style="margin-top: 0.5rem; margin-bottom: 0rem;">
@@ -245,7 +289,7 @@
               <div class="row">
                 @foreach($cultureSubPerkDetail->links as $link)
                   <div class="col-lg-6">
-                    <div class="card" style="box-shadow: none !important; margin-bottom: 0rem;">
+                    <div class="card" style="box-shadow: none !important; margin-bottom: 1.5rem;">
                       @if($link->url != null)
                       <a href="{{$link->link}}">
                         <img src="https://storage.googleapis.com/talentail-123456789/{{$link->url}}" alt="..." class="card-img-top" style="height: 190px; object-fit: cover;">
@@ -675,6 +719,29 @@
           closeSpeed:   300
         });
       })
+
+      function showMore() {
+        event.preventDefault();
+        document.getElementById("showMore").style.display = "none";
+        document.getElementById("showLess").style.display = "block";
+        let elements = document.getElementsByClassName("hide");
+
+        for (var i = elements.length - 1; i >= 0; i--) {
+          elements[i].style.display = "block";
+        }
+      }
+
+      function showLess() {
+        event.preventDefault();
+        document.getElementById("showLess").style.display = "none";
+        document.getElementById("showMore").style.display = "block";
+
+        let elements = document.getElementsByClassName("hide");
+
+        for (var i = elements.length - 1; i >= 0; i--) {
+          elements[i].style.display = "none";
+        }
+      }
 </script>
 
 @endsection
