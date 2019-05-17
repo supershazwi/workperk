@@ -1,3 +1,8 @@
+iframe {
+  height: 190px !important;
+  width: auto !important;
+}
+
 .optional {
   color: #ff9f43 !important;
   font-weight: bold;

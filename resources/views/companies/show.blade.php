@@ -224,15 +224,19 @@
                 @foreach($cultureSubPerkDetail->links as $link)
                   <div class="col-lg-6">
                     <div class="card" style="box-shadow: none !important; margin-bottom: 0rem;">
+                      @if($link->url != null)
                       <a href="{{$link->link}}">
                         <img src="https://storage.googleapis.com/talentail-123456789/{{$link->url}}" alt="..." class="card-img-top" style="height: 190px; object-fit: cover;">
                       </a>
+                      @else
+                        @parsedown($link->iframe)
+                      @endif
                       <div class="card-body" style="box-shadow: none !important;">
                         <div class="row align-items-center">
                           <div class="col">
 
                             <h4 class="card-title mb-2 name">
-                              <a href="https://storage.googleapis.com/talentail-123456789/{{$link->url}}">{{$link->title}}</a>
+                              <a href="{{$link->link}}">{{$link->title}}</a>
                             </h4>
 
                             <p class="card-text small text-muted">
