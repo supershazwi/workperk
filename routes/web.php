@@ -910,7 +910,7 @@ Route::get('/companies/{companySlug}', function() {
         if($companySubPerkDetail->subPerk->perk_id == 15) {
             array_push($cultureSubPerkDetails, $companySubPerkDetail);
 
-            if($companySubPerkDetail->comment == null) {
+            if(count($companySubPerkDetail->links) == 0 || count($companySubPerkDetail->cultureImages) == 0 || $companySubPerkDetail->comment == null) {
                 $showCulturePerks = false;
             }
         }
