@@ -137,7 +137,14 @@
     <div class="col-lg-3">
       <div class="card" style="box-shadow: none !important;">
         <div class="card-body text-center" style="box-shadow: none !important;">
-          <a href="/jobs/{{$job->id}}"><h3 class="card-title">{{$job->title}}</h3></a>
+          
+          @if($job->link)
+          <a href="{{$job->link}}">
+          @else
+          <a href="/jobs/{{$job->id}}">
+          @endif
+            <h3 class="card-title">{{$job->title}}</h3>
+          </a>
           <p class="card-text" style="margin-bottom: 0.25rem;">
             {{$job->location->state}}, {{$job->location->country}}
           </p>
@@ -151,7 +158,12 @@
     <div class="col-lg-3">
       <div class="card" style="box-shadow: none !important;">
         <div class="card-body text-center" style="box-shadow: none !important;">
-          <a href="/jobs/{{$job->id}}"><h3 class="card-title">{{$job->title}}</h3></a>
+          @if($job->link)
+          <a href="{{$job->link}}">
+          @else
+          <a href="/jobs/{{$job->id}}">
+          @endif
+          <h3 class="card-title">{{$job->title}}</h3></a>
           <span class="badge badge-danger" style="margin-bottom: 0.25rem;">Hidden</span>
           <p class="card-text" style="margin-bottom: 0.25rem;">
             {{$job->location->state}}, {{$job->location->country}}

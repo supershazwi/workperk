@@ -70,45 +70,80 @@ Route::post('/jobs/add-job', function(Request $request) {
 
     $errorsArray = array();
 
-    if($request->input('title') == null || $request->input('level') == null || $request->input('location') == null || $request->input('company') == null || $request->input('visibility') == null || $request->input('job_description') == null || $request->input('job_progression') == null || $request->input('type') == null) {
+    if($request->input('selection') == null) {
+        array_push($errorsArray, "Select whether this job is posted externally or in-house.");
+    } else {
+        if($request->input('selection') == 'inhouse') {
+            if($request->input('title') == null || $request->input('level') == null || $request->input('location') == null || $request->input('company') == null || $request->input('visibility') == null || $request->input('job_description') == null || $request->input('job_progression') == null || $request->input('type') == null || $request->input('interview_process') == null) {
 
-        if($request->input('title') == null) {
-            array_push($errorsArray, "The title field is required.");
-        }
+                if($request->input('title') == null) {
+                    array_push($errorsArray, "The title field is required.");
+                }
 
-        if($request->input('level') == null) {
-            array_push($errorsArray, "The level field is required.");
-        }
+                if($request->input('level') == null) {
+                    array_push($errorsArray, "The level field is required.");
+                }
 
-        if($request->input('location') == null) {
-            array_push($errorsArray, "The location field is required.");
-        }
+                if($request->input('location') == null) {
+                    array_push($errorsArray, "The location field is required.");
+                }
 
-        if($request->input('visibility') == null) {
-            array_push($errorsArray, "The visibility field is required.");
-        }
+                if($request->input('visibility') == null) {
+                    array_push($errorsArray, "The visibility field is required.");
+                }
 
-        if($request->input('company') == null) {
-            array_push($errorsArray, "The company field is required.");
-        }
+                if($request->input('company') == null) {
+                    array_push($errorsArray, "The company field is required.");
+                }
 
-        if($request->input('job_description') == null) {
-            array_push($errorsArray, "The job description field is required.");
-        }
+                if($request->input('job_description') == null) {
+                    array_push($errorsArray, "The job description field is required.");
+                }
 
-        if($request->input('job_progression') == null) {
-            array_push($errorsArray, "The job progression field is required.");
-        }
+                if($request->input('job_progression') == null) {
+                    array_push($errorsArray, "The job progression field is required.");
+                }
 
-        if($request->input('interview_process') == null) {
-            array_push($errorsArray, "The interview process field is required.");
-        }
+                if($request->input('interview_process') == null) {
+                    array_push($errorsArray, "The interview process field is required.");
+                }
 
-        if($request->input('type') == null) {
-            array_push($errorsArray, "The type field is required.");
+                if($request->input('type') == null) {
+                    array_push($errorsArray, "The type field is required.");
+                }
+            }
+        } else {
+            if($request->input('title') == null || $request->input('level') == null || $request->input('location') == null || $request->input('company') == null || $request->input('visibility') == null || $request->input('type') == null || $request->input('link') == null) {
+                if($request->input('title') == null) {
+                    array_push($errorsArray, "The title field is required.");
+                }
+
+                if($request->input('level') == null) {
+                    array_push($errorsArray, "The level field is required.");
+                }
+
+                if($request->input('location') == null) {
+                    array_push($errorsArray, "The location field is required.");
+                }
+
+                if($request->input('visibility') == null) {
+                    array_push($errorsArray, "The visibility field is required.");
+                }
+
+                if($request->input('company') == null) {
+                    array_push($errorsArray, "The company field is required.");
+                }
+
+                if($request->input('type') == null) {
+                    array_push($errorsArray, "The type field is required.");
+                }
+
+                if($request->input('link') == null) {
+                    array_push($errorsArray, "The link field is required.");
+                }
+            }
         }
     }
-    
 
     if(count($errorsArray) > 0) {
         return redirect('/jobs/add-job')->with('errorsArray', $errorsArray)->withInput();
@@ -117,17 +152,27 @@ Route::post('/jobs/add-job', function(Request $request) {
     $job = new Job;
 
     $job->title = $request->input('title');
+    $job->type = $request->input('type');
+    $job->location_id = $request->input('location');
     $company = Company::find($request->input('company'));
     $job->slug = strtolower($company->name) . '-' . str_slug($request->input('title'), '-');
     $job->level = $request->input('level');
-    $job->type = $request->input('type');
     $job->visible = $request->input('visibility');
-    $job->location_id = $request->input('location');
     $job->company_id = $request->input('company');
     $job->user_id = Auth::id();
-    $job->description = $request->input('job_description');
-    $job->interview_process = $request->input('interview_process');
-    $job->progression = $request->input('job_progression');
+
+
+    if($request->input('selection') == 'inhouse') {
+        $job->description = $request->input('job_description');
+        $job->interview_process = $request->input('interview_process');
+        $job->progression = $request->input('job_progression');
+        $job->link = null;
+    } else {
+        $job->description = "";
+        $job->interview_process = "";
+        $job->progression = "";
+        $job->link = $request->input('link');
+    }
 
     $job->save();
 

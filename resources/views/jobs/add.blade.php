@@ -57,22 +57,6 @@
 	        		<div class="col-lg-4">
 	        			<div class="form-group">
 	        			  <label style="font-size: 1.25rem;">
-	        			    Level
-	        			  </label>
-			                <select class="form-control" data-toggle="select" name="level">
-			                  <option value="">Select level</option>
-			                  <option value="Associate">Associate</option>
-			                  <option value="Junior">Junior</option>
-			                  <option value="Mid">Mid</option>
-			                  <option value="Senior">Senior</option>
-			                </select>
-	        			</div>
-	        		</div>  	
-         	 	</div>
-        		<div class="row">
-	        		<div class="col-lg-4">
-	        			<div class="form-group">
-	        			  <label style="font-size: 1.25rem;">
 	        			    Location
 	        			  </label>
 			                <select class="form-control" data-toggle="select" name="location">
@@ -88,6 +72,23 @@
 		        			    <option value="{{$location->id}}">{{$location->state}}, {{$location->country}}</option>
 		        			    @endif
 		        			    @endforeach
+			                </select>
+	        			</div>
+	        		</div>  	
+         	 	</div>
+
+         	 	<div class="row">
+	        		<div class="col-lg-4">
+	        			<div class="form-group">
+	        			  <label style="font-size: 1.25rem;">
+	        			    Level
+	        			  </label>
+			                <select class="form-control" data-toggle="select" name="level">
+			                  <option value="">Select level</option>
+			                  <option value="Associate">Associate</option>
+			                  <option value="Junior">Junior</option>
+			                  <option value="Mid">Mid</option>
+			                  <option value="Senior">Senior</option>
 			                </select>
 	        			</div>
 	        		</div>  
@@ -126,15 +127,41 @@
 	        			</div>
 	        		</div>  	
          	 	</div>
-	          	<p style="font-size: 1.25rem; margin-bottom: 0.5rem; ">Job Description</p>
-	          	<textarea class="form-control" name="job_description" id="jobDescription" rows="5" placeholder="Elaborate on the job description." style="margin-bottom: 1.375rem;">{{old('job_description')}}</textarea>
-	        	
-	        	<p style="font-size: 1.25rem; margin-bottom: 0.5rem; ">Job Progression</p>
-	          	<textarea class="form-control" name="job_progression" id="jobProgression" rows="5" placeholder="Elaborate on the job progression. What's in store for an employee in this position in terms of promotions, opportunities, etc.">{{old('job_progression')}}</textarea>
 
-	          	<p style="font-size: 1.25rem; margin-bottom: 0.5rem; ">Interview Process</p>
-	          	<textarea class="form-control" name="interview_process" id="interviewProcess" rows="5" placeholder="Elaborate on the interview process for this job opportunity.">{{old('interview_process')}}</textarea>
+         	 	<div class="row" id="buttonSelection">
+         	 		<div class="col-lg-6">
+         	 			<button id="inhouseButton" class="btn btn-primary btn-block" onclick="inhouse()">In-house</button>
+         	 		</div>
+         	 		<div class="col-lg-6">
+         	 			<button id="externalButton" class="btn btn-secondary btn-block" onclick="external()">External</button>
+         	 		</div>
+         	 	</div>
 
+         	 	<input type="hidden" name="selection" class="form-control" id="selection" value="{{ old('selection') }}">
+
+         	 	<div id="external" style="display:none;">
+	        		<div class="row">
+		        		<div class="col-lg-12">
+		        			<div class="form-group">
+		        			  <label style="font-size: 1.25rem;">
+		        			    Link
+		        			  </label>
+		        			  <input type="text" name="link" class="form-control" id="link" placeholder="Enter job link" value="{{ old('link') }}" autofocus>
+		        			</div>
+		        		</div> 
+		        	</div>
+         	 	</div>
+
+         	 	<div id="inhouse" style="display:none;">
+		          	<p style="font-size: 1.25rem; margin-bottom: 0.5rem; ">Job Description</p>
+		          	<textarea class="form-control" name="job_description" id="jobDescription" rows="5" placeholder="Elaborate on the job description." style="margin-bottom: 1.375rem;">{{old('job_description')}}</textarea>
+		        	
+		        	<p style="font-size: 1.25rem; margin-bottom: 0.5rem; ">Job Progression</p>
+		          	<textarea class="form-control" name="job_progression" id="jobProgression" rows="5" placeholder="Elaborate on the job progression. What's in store for an employee in this position in terms of promotions, opportunities, etc.">{{old('job_progression')}}</textarea>
+
+		          	<p style="font-size: 1.25rem; margin-bottom: 0.5rem; ">Interview Process</p>
+		          	<textarea class="form-control" name="interview_process" id="interviewProcess" rows="5" placeholder="Elaborate on the interview process for this job opportunity.">{{old('interview_process')}}</textarea>
+	          	</div>
 	        </div>
 	      </div>
     	  <button type="submit" class="btn btn-primary">Create Job</button>
@@ -162,5 +189,19 @@
         toolbar: ["unordered-list", "ordered-list"]
       });
   });
+
+  function inhouse() {
+  	event.preventDefault();
+  	document.getElementById("buttonSelection").style.display = "none";
+  	document.getElementById("inhouse").style.display = "block";
+  	document.getElementById("selection").value = "inhouse";
+  }
+
+  function external() {
+  	event.preventDefault();
+  	document.getElementById("buttonSelection").style.display = "none";
+  	document.getElementById("external").style.display = "block";
+  	document.getElementById("selection").value = "external";
+  }
 </script>  
 @endsection
