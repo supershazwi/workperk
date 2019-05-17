@@ -132,7 +132,8 @@
     </h5>
   </div>
   <div class="row">
-    @foreach($company->jobs as $job)
+    @foreach($company->jobs as $key=>$job)
+    @if($key < 4)
     @if($job->visible)
     <div class="col-lg-3">
       <div class="card" style="box-shadow: none !important;">
@@ -175,8 +176,17 @@
       </div>
     </div>
     @endif
+    @endif
     @endforeach
   </div>
+
+  @if(count($company->jobs) > 4)
+  <div class="row" style="margin-bottom: 1.5rem;">
+    <div class="col-lg-12">
+      <btn class="btn btn-block btn-light">Show more job opportunities</btn>
+    </div>
+  </div>
+  @endif
 </div>
 @endif
 
