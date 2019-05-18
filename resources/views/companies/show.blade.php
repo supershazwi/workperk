@@ -269,11 +269,11 @@
               </div>
 
               @if(count($cultureSubPerkDetail->cultureImages) == 1)
-                <figure class="figure" style="text-align: center; margin-bottom: 0rem;">
+                <figure class="figure" style="text-align: center; margin-bottom: 0rem; margin-bottom: 1rem;">
                   <img src="https://storage.googleapis.com/talentail-123456789/{{$cultureSubPerkDetail->image}}" class="figure-img img-fluid rounded" style="width: 100%; border-radius: 5px; margin-bottom: 0rem; margin-top: 0.5rem;"/>
                 </figure>
               @elseif(count($cultureSubPerkDetail->cultureImages) > 0)
-                <div class="row" style="padding-left: 9.5px; padding-right: 9.5px;">
+                <div class="row" style="padding-left: 9.5px; padding-right: 9.5px; margin-bottom: 1rem;">
                   @foreach($cultureSubPerkDetail->cultureImages as $cultureImage)
                   <div class="col-lg-3" style="height: 190px; padding: 2.5px;">
                     
