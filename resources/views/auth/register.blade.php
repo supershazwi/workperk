@@ -37,7 +37,7 @@
             Well this didn't age well!
           </h1>
           
-          <p class="text-center">I've decided to put a stop on pursuing Talentail as I have not managed to turn this into a self-sustaining creature.</p>
+          <p class="text-center">I've decided to put a stop on pursuing WorkPerk as I have not managed to turn this into a self-sustaining creature.</p>
           
           <p class="text-center">You can find me on <a href="https://www.linkedin.com/in/shazwi/">LinkedIn</a> & <a href="https://twitter.com/supershazwi">Twitter</a>.</p>
 
